@@ -21,7 +21,7 @@ namespace SNOW_Solution.Models
 
         public string Password { get; set; }
 
-        //public Country MyCountry { get; set; } test
+        //public Country MyCountry { get; set; } 
 
         //public City Mycity { get; set; }
     }
