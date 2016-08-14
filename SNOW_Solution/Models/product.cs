@@ -17,21 +17,21 @@ namespace SNOW_Solution.Models
 
         public decimal MarketPrice { get; set; }
 
-        public Category MyCategory { get; set; }
+        //public Category MyCategory { get; set; }
 
-        public Brand MyBrand { get; set; }
+        //public Brand MyBrand { get; set; }
 
-        public Inventory MyInventory { get; set; }
+        //public Inventory MyInventory { get; set; }
 
-        public List<KeyWord> AllKeyWords { get; set; }
+        //public List<KeyWord> AllKeyWords { get; set; }
 
-        public List<Promotion> AllPromotions { get; set; }
+        //public List<Promotion> AllPromotions { get; set; }
 
-        public List<Image> AllImages { get; set; }
+        //public List<Image> AllImages { get; set; }
 
-        public List<Store> AllStores { get; set; }
+        //public List<Store> AllStores { get; set; }
 
-        public List<OrderDetail> AllOrderDetails { get; set; }
+        //public List<OrderDetail> AllOrderDetails { get; set; }
 
     }
 }
