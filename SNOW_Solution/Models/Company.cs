@@ -19,7 +19,7 @@ namespace SNOW_Solution.Models
 
         public List<AdminUser> AllUsers { get; set; }
 
-        //public List<product> AllProducts { get; set; }
+        public List<Product> AllProducts { get; set; }
 
         public List<Customer> AllCustomers { get; set; }
 
