@@ -7,7 +7,7 @@ namespace SNOW_Solution.Models
 {
     public class AdminUser : Contact
     {
-        public int UserId { get; set; }
+        public int AdminUserId { get; set; }
 
         public string UserName { get; set; }
 
