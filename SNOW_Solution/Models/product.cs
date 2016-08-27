@@ -17,6 +17,8 @@ namespace SNOW_Solution.Models
 
         public decimal MarketPrice { get; set; }
 
+        public Company MyCompany { get; set; }
+
         //public Category MyCategory { get; set; }
 
         //public Brand MyBrand { get; set; }

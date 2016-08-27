@@ -15,6 +15,8 @@ namespace SNOW_Solution.Models
 
         public DateTime LastLogin { get; set; }
 
+        public Company MyCompany { get; set; }
+
         //public Role MyRole { get; set; }
 
         //public Store MyStore { get; set; }
