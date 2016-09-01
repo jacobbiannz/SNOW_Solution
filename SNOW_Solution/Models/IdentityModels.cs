@@ -3,12 +3,21 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 
 namespace SNOW_Solution.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public int AdminUserId { get; set; }
+
+     //   public DateTime CreateTime { get; set; }
+
+      //  public DateTime LastLogin { get; set; }
+
+        public Company MyCompany { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -18,16 +27,28 @@ namespace SNOW_Solution.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class CompanyDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        public CompanyDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+        #region
+        public DbSet<Company> Companys { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Product> Products { get; set; }
+        #endregion
 
-        public static ApplicationDbContext Create()
+        static CompanyDbContext()
         {
-            return new ApplicationDbContext();
+            // Set the database intializer which is run once during application start
+            // This seeds the database with admin user credentials and admin role
+            Database.SetInitializer<CompanyDbContext>(new ApplicationDbInitializer());
+        }
+
+        public static CompanyDbContext Create()
+        {
+            return new CompanyDbContext();
         }
     }
 }

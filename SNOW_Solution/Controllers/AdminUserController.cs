@@ -11,13 +11,13 @@ namespace SNOW_Solution.Controllers
 {
     public class AdminUserController : Controller
     {
-        CompanyDbContext context = new CompanyDbContext();
-            
+        readonly CompanyDbContext context = new CompanyDbContext();
+
 
         // GET: AdminUser
         public ActionResult Index()
         {
-            return View(context.AdminUsers.ToList());
+            return View(context.Users.ToList());
         }
     }
 }
