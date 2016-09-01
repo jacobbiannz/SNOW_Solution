@@ -42,7 +42,7 @@ namespace SNOW_Solution
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<CompanyDbContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
@@ -104,6 +104,32 @@ namespace SNOW_Solution
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+        }
+    }
+
+    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<CompanyDbContext>
+    {
+        protected override void Seed(CompanyDbContext context)
+        {
+            InitializeIdentityForEF(context);
+            base.Seed(context);
+        }
+
+        //Create User=snowAdmin with password=123456       
+        public static void InitializeIdentityForEF(CompanyDbContext db)
+        {
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            
+            const string name = "snowAdmin";
+            const string password = "123456";
+
+            var adminUser = userManager.FindByName(name);
+            if (adminUser == null)
+            {
+                adminUser = new ApplicationUser { UserName = name, Email = name };
+                var result = userManager.Create(adminUser, password);
+                result = userManager.SetLockoutEnabled(adminUser.Id, false);
+            }
         }
     }
 }

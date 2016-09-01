@@ -18,7 +18,7 @@ namespace SNOW_Solution.Models
 
         //public List<Permission> AllPermissions { get; set; }
 
-        public List<AdminUser> AllUsers { get; set; }
+        public List<ApplicationUser> AllUsers { get; set; }
 
         public List<Product> AllProducts { get; set; }
 
