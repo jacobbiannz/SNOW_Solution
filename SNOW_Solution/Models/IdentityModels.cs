@@ -42,7 +42,7 @@ namespace SNOW_Solution.Models
         static CompanyDbContext()
         {
             // Set the database intializer which is run once during application start
-            // This seeds the database with admin user credentials and admin role
+            // This seeds the database with admin user credentials and admin role 
             Database.SetInitializer<CompanyDbContext>(new ApplicationDbInitializer());
         }
 
@@ -50,5 +50,7 @@ namespace SNOW_Solution.Models
         {
             return new CompanyDbContext();
         }
+
+        //public System.Data.Entity.DbSet<SNOW_Solution.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
