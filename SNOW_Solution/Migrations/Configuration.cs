@@ -19,11 +19,20 @@ namespace SNOW_Solution.Migrations
 
         protected override void Seed(CompanyDbContext context)
         {
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
-            var user = new ApplicationUser { UserName = "snowAdmin" };
-            userManager.Create(user, "123456"); 
+            var user = new ApplicationUser { UserName = "snowAdmin@gmail.com" };
+            var guest = new ApplicationUser { UserName = "guest@gmail.com" };
 
+            userManager.Create(user, "123456");
+            userManager.Create(guest, "abcdef");
+            roleManager.Create(new IdentityRole { Name = Role.adminRole });
+            userManager.AddToRole(user.Id, Role.adminRole);
+
+            roleManager.Create(new IdentityRole { Name = Role.customRole });
+            userManager.AddToRole(guest.Id, Role.customRole);
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
