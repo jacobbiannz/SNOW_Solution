@@ -28,11 +28,11 @@ namespace SNOW_Solution.Migrations
 
             userManager.Create(user, "123456");
             userManager.Create(guest, "abcdef");
-            roleManager.Create(new IdentityRole { Name = Role.adminRole });
-            userManager.AddToRole(user.Id, Role.adminRole);
+            roleManager.Create(new IdentityRole { Name = "Admin" });
+            userManager.AddToRole(user.Id, "Admin");
 
-            roleManager.Create(new IdentityRole { Name = Role.customRole });
-            userManager.AddToRole(guest.Id, Role.customRole);
+            roleManager.Create(new IdentityRole { Name = "Customer" });
+            userManager.AddToRole(guest.Id, "Customer");
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

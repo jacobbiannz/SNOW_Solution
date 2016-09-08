@@ -12,9 +12,11 @@ using System.Web.Mvc;
 namespace SNOW_Solution.Controllers
 {
     [Authorize(Roles = "Admin")]
-    [RequireHttps]
     public class AdminUserController : Controller
     {
+        public AdminUserController()
+        {
+        }
         public AdminUserController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
