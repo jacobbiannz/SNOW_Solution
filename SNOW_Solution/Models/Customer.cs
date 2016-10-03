@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace SNOW_Solution.Models
 {
@@ -9,9 +10,11 @@ namespace SNOW_Solution.Models
     {
         public int CustomerID { get; set; }
 
+        [Required]
         public DateTime CreateTime { get; set; }
 
-      //  public Company MyCompany { get; set; }
+        [Required]
+        public Company MyCompany { get; set; }
 
         //public List<Order> AllOrders { get; set; }
 
