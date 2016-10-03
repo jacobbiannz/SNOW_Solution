@@ -10,6 +10,8 @@ namespace SNOW_Solution.Models
     {
         public int CompanyId { get; set; }
 
+        [Required]
+        [MaxLength(100)]
         public string Name { get; set; }
 
         //public List<Store> AllStores { get; set; }
