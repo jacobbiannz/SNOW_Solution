@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SNOW_Solution.Models
 {
-    public class Customer : Contact
+    public class Customer
     {
         public int CustomerID { get; set; }
 

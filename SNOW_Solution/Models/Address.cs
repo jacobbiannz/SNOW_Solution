@@ -3,18 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public abstract class Contact
+    public abstract class Address
     {
-        [MaxLength(50)]
-        public string NameFirst{ get; set; }
-
-        [Required]
-        [MaxLength(50)]
-        public string NameLast { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string PhoneNumber { get; set; }
@@ -29,8 +23,12 @@ namespace SNOW_Solution.Models
         [MaxLength(100)]
         public string AddressLine2 { get; set; }
 
-        //public Country MyCountry { get; set; } 
-         
-        //public City Mycity { get; set; }
+        [MaxLength(15)]
+        public int PostCode { get; set; }
+
+        [Required]
+        [ForeignKey("MyCity")]
+        public int CityId { get; set; }
+        public City MyCity { get; set; }
     }
 }
