@@ -10,6 +10,7 @@ using SNOW_Solution.Models;
 
 namespace SNOW_Solution.Controllers
 {
+    /*
     [Authorize]
     public class ManageController : Controller
     {
@@ -386,4 +387,5 @@ namespace SNOW_Solution.Controllers
 
 #endregion
     }
+    */
 }
