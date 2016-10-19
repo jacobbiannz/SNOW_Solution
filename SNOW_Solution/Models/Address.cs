@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public abstract class Contact
+    [ComplexType]
+    public class Address
     {
-        [MaxLength(50)]
-        public string NameFirst{ get; set; }
-
-        [Required]
-        [MaxLength(50)]
-        public string NameLast { get; set; }
+        public int AddressId { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -21,6 +18,7 @@ namespace SNOW_Solution.Models
 
         [Required]
         [MaxLength(100)]
+        [EmailAddress]
         public string Email { get; set; }
         
         [MaxLength(100)]
@@ -29,8 +27,11 @@ namespace SNOW_Solution.Models
         [MaxLength(100)]
         public string AddressLine2 { get; set; }
 
-        //public Country MyCountry { get; set; } 
-         
-        //public City Mycity { get; set; }
+        [Range(0,15)]
+        public int PostCode { get; set; }
+
+        [ForeignKey("MyCity")]
+        public int CityId { get; set; }
+        public City MyCity { get; set; }
     }
 }
