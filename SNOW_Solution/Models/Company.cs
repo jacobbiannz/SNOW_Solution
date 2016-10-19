@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SNOW_Solution.Models
 {
-    public class Company : Contact
+    public class Company
     {
         public int CompanyId { get; set; }
 
@@ -14,30 +14,28 @@ namespace SNOW_Solution.Models
         [MaxLength(100)]
         public string Name { get; set; }
 
-        //public List<Store> AllStores { get; set; }
+        //alluser(bo)
+        //allrole(bo)
+        //allCustomer(bo)
+        //allPermission(bo)
+        public Address MyAddress { get; set; }
 
-        //public List<Role> AllRoles { get; set; }
+        public ICollection<Store> AllStores { get; set; }
 
-        //public List<Permission> AllPermissions { get; set; }
+        public ICollection<Product> AllProducts { get; set; }
 
-        public List<ApplicationUser> AllUsers { get; set; }
+        public ICollection<KeyWord> AllKeyWords { get; set; }
 
-        public List<Product> AllProducts { get; set; }
+        public ICollection<Promotion> AllPromotions { get; set; }
 
-        public List<Customer> AllCustomers { get; set; }
+        public ICollection<Brand> AllBrands { get; set; }
 
-        //public List<KeyWord> AllKeyWords { get; set; }
+        public ICollection<Category> AllCategories{ get; set; }
 
-       // public List<Promotion> AllPromotions { get; set; }
+        public ICollection<OrderStatus> AllOrderStatus { get; set; }
 
-        //public List<Brand> AllBrands { get; set; }
+        public ICollection<PaymentType> AllPaymentTypes { get; set; }
 
-        //public List<Category> AllCategories{ get; set; }
-
-        //public List<OrderStatus> AllOrderStatus { get; set; }
-
-        //public List<PaymentType> AllPaymentTypes { get; set; }
-
-        //public List<SizeType> AllSizeTypes { get; set; }
+        public ICollection<SizeType> AllSizeTypes { get; set; }
     }
 }
