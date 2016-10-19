@@ -7,7 +7,6 @@ using System.Web;
 namespace SNOW_Solution.Models
 {
     public class Company
-
     {
         public int CompanyId { get; set; }
 
@@ -24,7 +23,6 @@ namespace SNOW_Solution.Models
         public ICollection<Store> AllStores { get; set; }
 
         public ICollection<Product> AllProducts { get; set; }
-
 
         public ICollection<KeyWord> AllKeyWords { get; set; }
 

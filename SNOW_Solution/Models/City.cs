@@ -15,12 +15,10 @@ namespace SNOW_Solution.Models
         [MaxLength(100)]
         public string Name { get; set; }
 
-        [Required]
         [ForeignKey("MyRegion")]
         public int RegionId { get; set; }
         public Region MyRegion { get; set; }
 
-        [Required]
         [ForeignKey("MyCountry")]
         public int CountryId { get; set; }
         public Country MyCountry { get; set; }

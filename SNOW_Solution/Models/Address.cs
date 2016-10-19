@@ -7,14 +7,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public abstract class Address
+    [ComplexType]
+    public class Address
     {
+        public int AddressId { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string PhoneNumber { get; set; }
 
         [Required]
         [MaxLength(100)]
+        [EmailAddress]
         public string Email { get; set; }
         
         [MaxLength(100)]
@@ -23,10 +27,9 @@ namespace SNOW_Solution.Models
         [MaxLength(100)]
         public string AddressLine2 { get; set; }
 
-        [MaxLength(15)]
+        [Range(0,15)]
         public int PostCode { get; set; }
 
-        [Required]
         [ForeignKey("MyCity")]
         public int CityId { get; set; }
         public City MyCity { get; set; }

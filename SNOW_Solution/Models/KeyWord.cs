@@ -9,13 +9,12 @@ namespace SNOW_Solution.Models
 {
     public class KeyWord
     {
-        public int PaymentTypeId { get; set; }
+        public int KeywordId { get; set; }
 
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
 
-        [Required]
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
         public Company MyCompany { get; set; }

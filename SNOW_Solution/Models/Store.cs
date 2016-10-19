@@ -16,15 +16,15 @@ namespace SNOW_Solution.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
-
         public Address MyAddress { get; set; }
 
-        [Required]
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
         public Company MyCompany { get; set; }
      
         public ICollection<Product> AllProducts { get; set; }
+        
+        
         //alluser(bo)
 
     }

@@ -15,7 +15,6 @@ namespace SNOW_Solution.Models
         [Required]
         public int Quantity { get; set; }
 
-
         [Required]
         [ForeignKey("MyOrder")]
         public int OrderId { get; set; }

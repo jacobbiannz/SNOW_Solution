@@ -19,5 +19,7 @@ namespace SNOW_Solution.Models
         [ForeignKey("MyCountry")]
         public int CountryId { get; set; }
         public Country MyCountry { get; set; }
+
+        public ICollection<City> AllCities { get; set; }
     }
 }

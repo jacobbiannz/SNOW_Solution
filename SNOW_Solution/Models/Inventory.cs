@@ -15,6 +15,8 @@ namespace SNOW_Solution.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
+        public int Quantity { get; set; }
+
         [Required]
         [ForeignKey("MyProduct")]
         public int ProductId { get; set; }

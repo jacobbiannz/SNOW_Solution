@@ -9,7 +9,7 @@ namespace SNOW_Solution.Models
 {
     public class Image
     {
-        public int CategoryId { get; set; }
+        public int ImageId { get; set; }
 
         [Required]
         [MaxLength(50)]

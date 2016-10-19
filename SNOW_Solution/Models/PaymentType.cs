@@ -18,7 +18,6 @@ namespace SNOW_Solution.Models
         [MaxLength(500)]
         public string Description { get; set; }
 
-        [Required]
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
         public Company MyCompany { get; set; }

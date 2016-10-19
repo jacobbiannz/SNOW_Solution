@@ -17,7 +17,7 @@ namespace SNOW_Solution.Models
         public Order MyOrder { get; set; }
 
         [Required]
-        [ForeignKey("MyOrder")]
+        [ForeignKey("MyPaymentType")]
         public int PaymentTypeId { get; set; }
         public PaymentType MyPaymentType { get; set; }
     }

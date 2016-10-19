@@ -23,6 +23,6 @@ namespace SNOW_Solution.Models
 
         public ICollection<Receipt> AllReceipts { get; set; }
         public ICollection<OrderDetail> AllOrderDetails { get; set; }
-        public ICollection<Promotion> AllPromotion { get; set; }
+        public ICollection<Promotion> AllPromotions { get; set; }
     }
 }

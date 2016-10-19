@@ -26,25 +26,19 @@ namespace SNOW_Solution.Models
 
         public int ClickCount { get; set; }
 
-        [Required]
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
         public Company MyCompany { get; set; }
 
-        [Required]
         [ForeignKey("MyCategory")]
         public int CategoryId { get; set; }
         public Category MyCategory { get; set; }
 
-        [Required]
         [ForeignKey("MyBrand")]
         public int BrandId { get; set; }
         public Brand MyBrand { get; set; }
 
-        [Required]
-        [ForeignKey("MyInventory")]
-        public int InventoryId { get; set; }
-        public Inventory MyInventory { get; set; }
+        public ICollection<Inventory> AllInventories { get; set; }
 
         public ICollection<KeyWord> AllKeyWords { get; set; }
 

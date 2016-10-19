@@ -18,19 +18,20 @@ namespace SNOW_Solution.Models
         [MaxLength(500)]
         public string Description { get; set; }
 
+        [Required]
         public decimal Rate { get; set; }
 
+        [Required]
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
 
-        [Required]
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
         public Company MyCompany { get; set; }
 
         public ICollection<Product> AllProducts { get; set; }
 
-        public ICollection<Order> AllOrder { get; set; }
+        public ICollection<Order> AllOrders { get; set; }
     }
 }

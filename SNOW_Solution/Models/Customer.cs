@@ -13,7 +13,6 @@ namespace SNOW_Solution.Models
         [Required]
         public DateTime CreateTime { get; set; }
 
-        [Required]
         public Company MyCompany { get; set; }
 
         //public List<Order> AllOrders { get; set; }
