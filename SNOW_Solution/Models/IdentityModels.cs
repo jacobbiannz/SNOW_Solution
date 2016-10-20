@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
@@ -16,7 +17,7 @@ namespace SNOW_Solution.Models
 
         //  public DateTime LastLogin { get; set; }
 
-        [ForeignKey("MyCompany")]
+      //  [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
         public Company MyCompany { get; set; }
 
@@ -58,11 +59,15 @@ namespace SNOW_Solution.Models
         {
             modelBuilder.Entity<Brand>()
                 .HasMany(d=>d.AllProducts)
-                .WithOptional(l=>l.MyBrand).WillCascadeOnDelete(false);
+                .WithRequired(l=>l.MyBrand).WillCascadeOnDelete(true);
 
+            modelBuilder.Entity<Company>()
+               .HasMany(d => d.AllSizeTypes)
+               .WithRequired(l => l.MyCompany).WillCascadeOnDelete(true);
 
+            modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
+            modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
         }
-
-        //public System.Data.Entity.DbSet<SNOW_Solution.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
