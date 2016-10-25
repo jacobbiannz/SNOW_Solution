@@ -24,8 +24,6 @@ namespace SNOW_Solution.Models
 
         public ICollection<Product> AllProducts { get; set; }
 
-        public ICollection<KeyWord> AllKeyWords { get; set; }
-
         public ICollection<Promotion> AllPromotions { get; set; }
 
         public ICollection<Brand> AllBrands { get; set; }

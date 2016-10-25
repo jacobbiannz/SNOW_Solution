@@ -38,15 +38,15 @@ namespace SNOW_Solution.Models
         public int BrandId { get; set; }
         public Brand MyBrand { get; set; }
 
-        public ICollection<Inventory> AllInventories { get; set; }
+        [ForeignKey("MyStore")]
+        public int StoreId { get; set; }
+        public Store MyStore { get; set; }
 
-        public ICollection<KeyWord> AllKeyWords { get; set; }
+        public ICollection<Inventory> AllInventories { get; set; }
 
         public ICollection<Promotion> AllPromotions { get; set; }
 
         public ICollection<Image> AllImages { get; set; }
-
-        public ICollection<Store> AllStores { get; set; }
 
         public ICollection<OrderDetail> AllOrderDetails { get; set; }
 

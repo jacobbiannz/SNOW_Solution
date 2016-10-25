@@ -21,5 +21,7 @@ namespace SNOW_Solution.Models
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
         public Company MyCompany { get; set; }
+
+        public ICollection<Order> AllOrders { get; set; }
     }
 }

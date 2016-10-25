@@ -233,7 +233,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Inventory.cs" />
-    <Compile Include="Models\KeyWord.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
@@ -242,7 +241,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Promotion.cs" />
     <Compile Include="Models\Receipt.cs" />
-    <Compile Include="Models\Region.cs" />
+    <Compile Include="Models\RegionState.cs" />
     <Compile Include="Models\Size.cs" />
     <Compile Include="Models\SizeType.cs" />
     <Compile Include="Models\Store.cs" />

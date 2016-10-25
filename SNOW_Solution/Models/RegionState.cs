@@ -7,18 +7,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public class KeyWord
+    public class RegionState
     {
-        public int KeywordId { get; set; }
+        public int RegionStateId { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Name { get; set; }
 
-        [ForeignKey("MyCompany")]
-        public int CompanyId { get; set; }
-        public Company MyCompany { get; set; }
+        [ForeignKey("MyCountry")]
+        public int CountryId { get; set; }
+        public Country MyCountry { get; set; }
 
-        public ICollection<Product> AllProducts { get; set; }
+        public ICollection<City> AllCities { get; set; }
     }
 }

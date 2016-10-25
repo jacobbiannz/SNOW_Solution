@@ -7,7 +7,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    [ComplexType]
     public class Address
     {
         public int AddressId { get; set; }

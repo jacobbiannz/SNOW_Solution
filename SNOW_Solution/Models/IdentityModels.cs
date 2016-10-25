@@ -57,13 +57,64 @@ namespace SNOW_Solution.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<RegionState>()
+                .HasMany(d => d.AllCities)
+                .WithRequired(l => l.MyRegionState)
+                .WillCascadeOnDelete(false);
+
+            //store - all user
+            //customrer - all order
+
+
             modelBuilder.Entity<Brand>()
                 .HasMany(d=>d.AllProducts)
-                .WithRequired(l=>l.MyBrand).WillCascadeOnDelete(true);
+                .WithRequired(l=>l.MyBrand).WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Store>()
+                .HasMany(d => d.AllProducts)
+                .WithRequired(l => l.MyStore).WillCascadeOnDelete(false);
+
+
+            modelBuilder.Entity<Size>()
+                .HasMany(d => d.AllInventories)
+                .WithRequired(l => l.MySize).WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Size>()
+                .HasMany(d => d.AllOrderDetails)
+                .WithRequired(l => l.MySize).WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<OrderStatus>()
+                .HasMany(d => d.AllOrders)
+                .WithRequired(l => l.MyOrderStatus).WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Category>()
+                .HasMany(d => d.AllProducts)
+                .WithRequired(l => l.MyCategory).WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Promotion>()
+                .HasMany(d => d.AllProducts)
+                .WithMany(l => l.AllPromotions)
+                .Map(dl => {
+                    dl.MapLeftKey("PromotionId");
+                    dl.MapRightKey("ProductionId");
+                });
+
+            modelBuilder.Entity<Promotion>()
+                .HasMany(d => d.AllOrders)
+                .WithMany(l => l.AllPromotions)
+                .Map(dl => {
+                    dl.MapLeftKey("PromotionId");
+                    dl.MapRightKey("OrderId");
+                });
 
             modelBuilder.Entity<Company>()
-               .HasMany(d => d.AllSizeTypes)
-               .WithRequired(l => l.MyCompany).WillCascadeOnDelete(true);
+                .HasMany(d => d.AllProducts)
+                .WithRequired(l => l.MyCompany).WillCascadeOnDelete(false);
+
+
+
+
+
 
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
