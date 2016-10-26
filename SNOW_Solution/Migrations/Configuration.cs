@@ -23,8 +23,9 @@ namespace SNOW_Solution.Migrations
             var roleManager = new RoleManager<IdentityRole>(roleStore);
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
-            var user = new ApplicationUser { UserName = "snowAdmin@gmail.com" };
-            var guest = new ApplicationUser { UserName = "guest@gmail.com" };
+            var subscriber = new Subscriber();
+            var user = new ApplicationUser { UserName = "snowAdmin@gmail.com", MySubscriber = subscriber };
+            var guest = new ApplicationUser { UserName = "guest@gmail.com", MySubscriber = subscriber };
 
             userManager.Create(user, "123456");
             userManager.Create(guest, "abcdef");
