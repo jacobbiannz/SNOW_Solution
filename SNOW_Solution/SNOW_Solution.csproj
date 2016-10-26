@@ -212,17 +212,20 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminUserController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\Default\AccountController.cs" />
+    <Compile Include="Controllers\Default\AdminUserController.cs" />
+    <Compile Include="Controllers\Default\HomeController.cs" />
+    <Compile Include="Controllers\Default\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\Default\RolesAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\Default\AccountViewModels.cs" />
+    <Compile Include="Models\Default\AdminViewModel.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\City.cs" />
@@ -230,10 +233,10 @@
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Default\IdentityModels.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Inventory.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Default\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\OrderStatus.cs" />
@@ -245,6 +248,7 @@
     <Compile Include="Models\Size.cs" />
     <Compile Include="Models\SizeType.cs" />
     <Compile Include="Models\Store.cs" />
+    <Compile Include="Models\Subscriber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Repository\IGenericRepository.cs" />
@@ -309,9 +313,16 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\AdminUser\Index.cshtml" />
     <Content Include="unity.config" />
+    <Content Include="Views\RolesAdmin\Create.cshtml" />
+    <Content Include="Views\RolesAdmin\Delete.cshtml" />
+    <Content Include="Views\RolesAdmin\Details.cshtml" />
+    <Content Include="Views\RolesAdmin\Edit.cshtml" />
+    <Content Include="Views\RolesAdmin\Index.cshtml" />
+    <Content Include="Views\Country\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Image\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
