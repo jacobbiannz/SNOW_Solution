@@ -151,7 +151,7 @@ namespace SNOW_Solution
     {
         protected override void Seed(CompanyDbContext context)
         {
-            InitializeIdentityForEF(context);
+          //  InitializeIdentityForEF(context);
             base.Seed(context);
         }
 

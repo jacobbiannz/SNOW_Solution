@@ -18,9 +18,11 @@ namespace SNOW_Solution.Models
         [MaxLength(500)]
         public string Description { get; set; }
 
-        [Required]
         [ForeignKey("MySizeType")]
         public int SizeTypeId { get; set; }
         public SizeType MySizeType { get; set; }
+
+        public ICollection<Inventory> AllInventories { get; set; }
+        public ICollection<OrderDetail> AllOrderDetails { get; set; }
     }
 }
