@@ -20,7 +20,7 @@ namespace SNOW_Solution.Models
         public Subscriber MySubscriber { get; set; }
         //  [ForeignKey("MyCompany")]
         // public int CompanyId { get; set; }
-        // public Company MyCompany { get; set; }
+        public Company MyCompany { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
