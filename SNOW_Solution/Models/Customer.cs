@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SNOW_Solution.Models
 {
-    public class Customer
+    public class Customer : AuditableEntity<Customer>
     {
         public int CustomerID { get; set; }
 

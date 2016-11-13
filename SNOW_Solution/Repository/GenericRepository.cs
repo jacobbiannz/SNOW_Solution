@@ -7,10 +7,10 @@ using System.Web;
 
 namespace SNOW_Solution.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public abstract class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
-        private CompanyDbContext db = null;
-        private DbSet<T> table = null;
+        protected CompanyDbContext db = null;
+        protected DbSet<T> table = null;
 
         public GenericRepository()
         {
@@ -24,34 +24,34 @@ namespace SNOW_Solution.Repository
             table = db.Set<T>();
         }
 
-        public IEnumerable<T> SelectAll()
+        public virtual IEnumerable<T> SelectAll()
         {
             return table.ToList();
         }
 
-        public T SelectByID(object id)
+        public virtual T SelectByID(object id)
         {
             return table.Find(id);
         }
 
-        public void Insert(T obj)
+        public virtual void Insert(T obj)
         {
             table.Add(obj);
         }
 
-        public void Update(T obj)
+        public virtual void Update(T obj)
         {
             table.Attach(obj);
             db.Entry(obj).State = EntityState.Modified;
         }
 
-        public void Delete(object id)
+        public virtual void Delete(object id)
         {
             T existing = table.Find(id);
             table.Remove(existing);
         }
 
-        public void Save()
+        public virtual void Save()
         {
             db.SaveChanges();
         }

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public class Address
+    public class Address : AuditableEntity<Address>
     {
         public int AddressId { get; set; }
 
