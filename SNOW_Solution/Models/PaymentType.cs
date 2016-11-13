@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public class PaymentType
+    public class PaymentType : AuditableEntity<PaymentType>
     {
         public int PaymentTypeId { get; set; }
 
