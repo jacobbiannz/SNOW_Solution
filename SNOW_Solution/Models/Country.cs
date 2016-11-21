@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public class Country
+    public class Country : AuditableEntity<Country>
     {
         public int CountryId { get; set; }
 

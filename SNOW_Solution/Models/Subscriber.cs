@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SNOW_Solution.Models
 {
-    public class Subscriber
+    public class Subscriber : AuditableEntity<Subscriber>
     {
         public int id { get; set; }
         public ICollection<Company> AllCompanies { get; set; }

@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace NUnit.Tests.GenericRepositoryTest
 {
-    public class TestGenericRepository<T> : IGenericRepository<T> where T : class
+    public class TestGenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         public void Delete(object id)
         {
