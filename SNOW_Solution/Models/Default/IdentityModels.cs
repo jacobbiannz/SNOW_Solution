@@ -5,6 +5,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading;
 
 namespace SNOW_Solution.Models
 {
@@ -20,7 +22,7 @@ namespace SNOW_Solution.Models
         public Subscriber MySubscriber { get; set; }
         //  [ForeignKey("MyCompany")]
         // public int CompanyId { get; set; }
-        // public Company MyCompany { get; set; }
+        public Company MyCompany { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -55,7 +57,38 @@ namespace SNOW_Solution.Models
             return new CompanyDbContext();
         }
 
+        public override int SaveChanges()
+        {
+            var modifiedEntries = ChangeTracker.Entries()
+                .Where(x => x.Entity is IAuditableEntity
+                    && (x.State == System.Data.Entity.EntityState.Added || x.State == System.Data.Entity.EntityState.Modified));
 
+            foreach (var entry in modifiedEntries)
+            {
+                IAuditableEntity entity = entry.Entity as IAuditableEntity;
+                if (entity != null)
+                {
+                    string identityName = Thread.CurrentPrincipal.Identity.Name;
+                    DateTime now = DateTime.UtcNow;
+
+                    if (entry.State == System.Data.Entity.EntityState.Added)
+                    {
+                        entity.CreatedBy = identityName;
+                        entity.CreatedDate = now;
+                    }
+                    else
+                    {
+                        base.Entry(entity).Property(x => x.CreatedBy).IsModified = false;
+                        base.Entry(entity).Property(x => x.CreatedDate).IsModified = false;
+                    }
+
+                    entity.UpdatedBy = identityName;
+                    entity.UpdatedDate = now;
+                }
+            }
+
+            return base.SaveChanges();
+        }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RegionState>()
@@ -123,5 +156,11 @@ namespace SNOW_Solution.Models
         }
 
         public System.Data.Entity.DbSet<SNOW_Solution.Models.RoleViewModel> RoleViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<SNOW_Solution.Models.Brand> Brands { get; set; }
+
+        public System.Data.Entity.DbSet<SNOW_Solution.Models.Category> Categories { get; set; }
+
+        public System.Data.Entity.DbSet<SNOW_Solution.Models.Store> Stores { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public class Inventory
+    public class Inventory : AuditableEntity<Inventory>
     {
         public int InventoryId { get; set; }
 

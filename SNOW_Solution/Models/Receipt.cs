@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public class Receipt
+    public class Receipt : AuditableEntity<Receipt>
     {
         public int ReceiptId { get; set; }
 

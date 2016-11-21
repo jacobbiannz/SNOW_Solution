@@ -10,14 +10,9 @@ namespace SNOW_Solution.Controllers
 {
     public class ProductController : Controller
     {
-        IGenericRepository<Product> repository = null;
+        readonly IProductRepository repository;
 
-        public ProductController()
-        {
-            repository = new GenericRepository<Product>();
-        }
-
-        public ProductController(IGenericRepository<Product> repository)
+        public ProductController(IProductRepository repository)
         {
             this.repository = repository;
         }
@@ -65,5 +60,6 @@ namespace SNOW_Solution.Controllers
             repository.Save();
             return View();
         }
+
     }
 }
