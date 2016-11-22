@@ -9,8 +9,6 @@ namespace SNOW_Solution.Models
 {
     public class PaymentType : AuditableEntity<PaymentType>
     {
-        public int PaymentTypeId { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

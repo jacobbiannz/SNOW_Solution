@@ -9,8 +9,6 @@ namespace SNOW_Solution.Models
 {
     public class Country : AuditableEntity<Country>
     {
-        public int CountryId { get; set; }
-
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }

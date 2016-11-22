@@ -10,8 +10,6 @@ namespace SNOW_Solution.Models
 {
     public class OrderDetail : AuditableEntity<OrderDetail>
     {
-        public int OrderDetailId { get; set; }
-
         [Required]
         public int Quantity { get; set; }
 

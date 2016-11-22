@@ -20,5 +20,6 @@ namespace SNOW_Solution
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             UnityConfig.RegisterComponents();
         }
+
     }
 }

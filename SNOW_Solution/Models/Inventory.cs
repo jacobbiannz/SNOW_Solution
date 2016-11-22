@@ -9,8 +9,6 @@ namespace SNOW_Solution.Models
 {
     public class Inventory : AuditableEntity<Inventory>
     {
-        public int InventoryId { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

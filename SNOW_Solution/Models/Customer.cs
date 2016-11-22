@@ -8,8 +8,6 @@ namespace SNOW_Solution.Models
 {
     public class Customer : AuditableEntity<Customer>
     {
-        public int CustomerID { get; set; }
-
         [Required]
         public DateTime CreateTime { get; set; }
 

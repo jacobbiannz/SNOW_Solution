@@ -9,8 +9,6 @@ namespace SNOW_Solution.Models
 {
     public class Address : AuditableEntity<Address>
     {
-        public int AddressId { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string PhoneNumber { get; set; }
