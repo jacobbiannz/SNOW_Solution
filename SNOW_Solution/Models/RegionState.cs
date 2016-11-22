@@ -9,8 +9,6 @@ namespace SNOW_Solution.Models
 {
     public class RegionState : AuditableEntity<RegionState>
     {
-        public int RegionStateId { get; set; }
-
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }

@@ -9,8 +9,6 @@ namespace SNOW_Solution.Models
 {
     public class Image : AuditableEntity<Image>
     {
-        public int ImageId { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

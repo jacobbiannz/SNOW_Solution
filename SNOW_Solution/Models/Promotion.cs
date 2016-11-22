@@ -9,8 +9,6 @@ namespace SNOW_Solution.Models
 {
     public class Promotion : AuditableEntity<Promotion>
     {
-        public int PromotionId { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

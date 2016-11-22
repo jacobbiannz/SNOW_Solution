@@ -7,6 +7,6 @@ namespace SNOW_Solution.Models
 {
     public interface IEntity<T>
     {
-        T Id { get; set; }
+       int Id { get; set; }
     }
 }

@@ -10,8 +10,6 @@ namespace SNOW_Solution.Models
 {
     public class Product : AuditableEntity<Product>
     {
-        public int ProductId { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
