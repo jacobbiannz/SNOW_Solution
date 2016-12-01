@@ -7,10 +7,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public class Size
+    public class Size : AuditableEntity<Size>
     {
-        public int SizeId { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

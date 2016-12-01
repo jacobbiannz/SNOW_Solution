@@ -4,13 +4,12 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SNOW_Solution.Models;
 
 namespace SNOW_Solution.Models
 {
-    public class Product
+    public class Product : AuditableEntity<Product>
     {
-        public int ProductId { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

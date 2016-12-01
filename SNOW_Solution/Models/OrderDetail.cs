@@ -8,10 +8,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public class OrderDetail
+    public class OrderDetail : AuditableEntity<OrderDetail>
     {
-        public int OrderDetailId { get; set; }
-
         [Required]
         public int Quantity { get; set; }
 

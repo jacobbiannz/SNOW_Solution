@@ -6,10 +6,8 @@ using System.Web;
 
 namespace SNOW_Solution.Models
 {
-    public class Company
+    public class Company : AuditableEntity<Company>
     {
-        public int CompanyId { get; set; }
-
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }

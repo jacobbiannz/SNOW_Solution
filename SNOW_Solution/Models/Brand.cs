@@ -7,10 +7,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public class Brand
+    public class Brand : AuditableEntity<Brand>
     {
-        public int BrandId { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

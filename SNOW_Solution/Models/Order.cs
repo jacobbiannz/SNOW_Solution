@@ -7,10 +7,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SNOW_Solution.Models
 {
-    public class Order
+    public class Order : AuditableEntity<Order>
     {
-        public int OrderId { get; set; }
-
         [Required]
         public DateTime Date { get; set; }
 
