@@ -10,7 +10,7 @@ namespace SNOW_Solution.Models
     public class Country : AuditableEntity<Country>
     {
         [Required]
-        [MaxLength(100)]
+        [MaxLength(100)] 
         public string Name { get; set; }
 
         public decimal Tax { get; set; }
