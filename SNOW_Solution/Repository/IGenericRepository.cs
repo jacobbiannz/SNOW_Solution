@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace SNOW_Solution.Repository
 {
-    public interface IGenericRepository<T> where T : BaseEntity
+    public interface IGenericRepository<T> where T: BaseEntity
     {
-        IEnumerable<T> SelectAll();
-        T SelectByID(object id);
-        void Insert(T obj);
-        void Update(T obj);
+        IEnumerable<BaseEntity> SelectAll();
+        BaseEntity SelectByID(object id);
+        void Insert(BaseEntity obj);
+        void Update(BaseEntity obj);
         void Delete(object id);
         void Save();
     }
