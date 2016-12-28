@@ -55,5 +55,25 @@ namespace SNOW_Solution.Repository
         {
             db.SaveChanges();
         }
+
+        IEnumerable<BaseEntity> IGenericRepository<T>.SelectAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        BaseEntity IGenericRepository<T>.SelectByID(object id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(BaseEntity obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(BaseEntity obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

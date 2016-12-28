@@ -15,8 +15,10 @@ namespace SNOW_Solution.Models
 
         public decimal Tax { get; set; }
 
-        public ICollection<RegionState> AllRegionSatates { get; set; }
+        public virtual ICollection<RegionState> AllRegionSatates { get; set; }
 
-        public ICollection<City> AllCities { get; set; }
+        public virtual ICollection<City> AllCities { get; set; }
+
+        public string Code { get; set; }
     }
 }

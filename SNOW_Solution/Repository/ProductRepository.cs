@@ -24,5 +24,14 @@ namespace SNOW_Solution.Repository
             return table.ToList();
         }
 
+        IEnumerable<BaseEntity> IGenericRepository<Product>.SelectAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        BaseEntity IGenericRepository<Product>.SelectByID(object id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -16,14 +16,14 @@ namespace SNOW_Solution.Models
        
         [ForeignKey("MyOrder")]
         public int OrderId { get; set; }
-        public Order MyOrder { get; set; }
+        public virtual Order MyOrder { get; set; }
 
         [ForeignKey("MyProduct")]
         public int ProductId{ get; set; }
-        public Product MyProduct { get; set; }
+        public virtual Product MyProduct { get; set; }
 
         [ForeignKey("MySize")]
         public int SizeId { get; set; }
-        public Size MySize { get; set; }
+        public virtual Size MySize { get; set; }
     }
 }

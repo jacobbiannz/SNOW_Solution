@@ -27,19 +27,20 @@ namespace SNOW_Solution.Models
 
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
-        public Company MyCompany { get; set; }
+        public virtual Company MyCompany { get; set; }
 
         [ForeignKey("MyCategory")]
         public int CategoryId { get; set; }
-        public Category MyCategory { get; set; }
+        public virtual Category MyCategory { get; set; }
 
         [ForeignKey("MyBrand")]
         public int BrandId { get; set; }
-        public Brand MyBrand { get; set; }
+
+        public virtual Brand MyBrand { get; set; }
 
         [ForeignKey("MyStore")]
         public int StoreId { get; set; }
-        public Store MyStore { get; set; }
+        public virtual Store MyStore { get; set; }
 
         public ICollection<Inventory> AllInventories { get; set; }
 

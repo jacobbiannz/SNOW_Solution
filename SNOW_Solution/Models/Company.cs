@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -12,21 +13,20 @@ namespace SNOW_Solution.Models
         [MaxLength(100)]
         public string Name { get; set; }
 
-        //alluser(bo)
-        //allrole(bo)
-        //allCustomer(bo)
-        //allPermission(bo)
+       
+        [ForeignKey("MyAddress")]
+        public int AddressId { get; set; }
         public Address MyAddress { get; set; }
-
         public ICollection<Store> AllStores { get; set; }
 
-        public ICollection<Product> AllProducts { get; set; }
+        public virtual ICollection<Product> AllProducts { get; set; }
+
+        public virtual ICollection<Category> AllCategories { get; set; }
 
         public ICollection<Promotion> AllPromotions { get; set; }
 
-        public ICollection<Brand> AllBrands { get; set; }
-
-        public ICollection<Category> AllCategories{ get; set; }
+       
+        public virtual ICollection<Brand> AllBrands { get; set; }
 
         public ICollection<OrderStatus> AllOrderStatus { get; set; }
 

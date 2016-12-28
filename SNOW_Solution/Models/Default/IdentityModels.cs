@@ -7,6 +7,8 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading;
+using SNOW_Solution.Configuration;
+using System.Data.Entity.Validation;
 
 namespace SNOW_Solution.Models
 {
@@ -43,6 +45,19 @@ namespace SNOW_Solution.Models
         public DbSet<Company> Companys { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
+
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<Address> Addresses { get; set; }
+
+        public DbSet<Store> Stores { get; set; }
+
+        public DbSet<RegionState> RegionalStates { get; set; }
         #endregion
 
         static CompanyDbContext()
@@ -65,7 +80,7 @@ namespace SNOW_Solution.Models
 
             foreach (var entry in modifiedEntries)
             {
-                IAuditableEntity entity = entry.Entity as IAuditableEntity;
+                var entity = entry.Entity as IAuditableEntity;
                 if (entity != null)
                 {
                     string identityName = Thread.CurrentPrincipal.Identity.Name;
@@ -78,8 +93,8 @@ namespace SNOW_Solution.Models
                     }
                     else
                     {
-                        base.Entry(entity).Property(x => x.CreatedBy).IsModified = false;
-                        base.Entry(entity).Property(x => x.CreatedDate).IsModified = false;
+                        Entry(entity).Property(x => x.CreatedBy).IsModified = false;
+                        Entry(entity).Property(x => x.CreatedDate).IsModified = false;
                     }
 
                     entity.UpdatedBy = identityName;
@@ -91,76 +106,80 @@ namespace SNOW_Solution.Models
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<RegionState>()
-                .HasMany(d => d.AllCities)
-                .WithRequired(l => l.MyRegionState)
-                .WillCascadeOnDelete(false);
 
             //store - all user
             //customrer - all order
+            try
+            {
 
-
-            modelBuilder.Entity<Brand>()
-                .HasMany(d=>d.AllProducts)
-                .WithRequired(l=>l.MyBrand).WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Store>()
-                .HasMany(d => d.AllProducts)
-                .WithRequired(l => l.MyStore).WillCascadeOnDelete(false);
-
-
-            modelBuilder.Entity<Size>()
-                .HasMany(d => d.AllInventories)
-                .WithRequired(l => l.MySize).WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Size>()
-                .HasMany(d => d.AllOrderDetails)
-                .WithRequired(l => l.MySize).WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<OrderStatus>()
-                .HasMany(d => d.AllOrders)
-                .WithRequired(l => l.MyOrderStatus).WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Category>()
-                .HasMany(d => d.AllProducts)
-                .WithRequired(l => l.MyCategory).WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Promotion>()
-                .HasMany(d => d.AllProducts)
-                .WithMany(l => l.AllPromotions)
-                .Map(dl => {
-                    dl.MapLeftKey("PromotionId");
-                    dl.MapRightKey("ProductionId");
-                });
-
-            modelBuilder.Entity<Promotion>()
-                .HasMany(d => d.AllOrders)
-                .WithMany(l => l.AllPromotions)
-                .Map(dl => {
-                    dl.MapLeftKey("PromotionId");
-                    dl.MapRightKey("OrderId");
-                });
-
-            modelBuilder.Entity<Company>()
-                .HasMany(d => d.AllProducts)
-                .WithRequired(l => l.MyCompany).WillCascadeOnDelete(false);
+           
+                modelBuilder.Configurations.Add(new CountryConfiguration());
+                modelBuilder.Configurations.Add(new RegionalStateConfiguration());
+                modelBuilder.Configurations.Add(new CityConfiguration());
+                modelBuilder.Configurations.Add(new AddressConfiguration());
+                modelBuilder.Configurations.Add(new Companyfiguration());
+                modelBuilder.Configurations.Add(new StoreConfiguration());
+                modelBuilder.Configurations.Add(new CategoryConfiguration());
+                modelBuilder.Configurations.Add(new BrandConfiguration());
+                modelBuilder.Configurations.Add(new ProductConfiguration());
+           
 
 
 
+                modelBuilder.Entity<Size>()
+                    .HasMany(d => d.AllInventories)
+                    .WithRequired(l => l.MySize).WillCascadeOnDelete(false);
 
+           
 
+                modelBuilder.Entity<OrderStatus>()
+                    .HasMany(d => d.AllOrders)
+                    .WithRequired(l => l.MyOrderStatus).WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
-            modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
-            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+        
+
+                modelBuilder.Entity<Promotion>()
+                    .HasMany(d => d.AllProducts)
+                    .WithMany(l => l.AllPromotions)
+                    .Map(dl => {
+                        dl.MapLeftKey("PromotionId");
+                        dl.MapRightKey("ProductionId");
+                    });
+
+                modelBuilder.Entity<Promotion>()
+                    .HasMany(d => d.AllOrders)
+                    .WithMany(l => l.AllPromotions)
+                    .Map(dl => {
+                        dl.MapLeftKey("PromotionId");
+                        dl.MapRightKey("OrderId");
+                    });
+
+          
+
+                modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
+                modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+                modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
         }
 
-        public System.Data.Entity.DbSet<SNOW_Solution.Models.RoleViewModel> RoleViewModels { get; set; }
+        public DbSet<RoleViewModel> RoleViewModels { get; set; }
 
-        public System.Data.Entity.DbSet<SNOW_Solution.Models.Brand> Brands { get; set; }
-
-        public System.Data.Entity.DbSet<SNOW_Solution.Models.Category> Categories { get; set; }
-
-        public System.Data.Entity.DbSet<SNOW_Solution.Models.Store> Stores { get; set; }
+       
+      
     }
 }
