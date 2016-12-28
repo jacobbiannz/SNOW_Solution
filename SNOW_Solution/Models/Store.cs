@@ -14,6 +14,7 @@ namespace SNOW_Solution.Models
         public string Name { get; set; }
 
         [ForeignKey("MyCompany")]
+
         public int? CompanyId { get; set; }
         public virtual Company MyCompany { get; set; }
 
@@ -22,6 +23,7 @@ namespace SNOW_Solution.Models
         public virtual Address MyAddress { get; set; }
       
         public virtual ICollection<Product> AllProducts { get; set; }
+
         
         
         //alluser(bo)

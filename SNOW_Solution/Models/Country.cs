@@ -17,7 +17,9 @@ namespace SNOW_Solution.Models
 
         public virtual ICollection<RegionState> AllRegionSatates { get; set; }
 
+
         public virtual ICollection<City> AllCities { get; set; }
+
 
         public string Code { get; set; }
     }

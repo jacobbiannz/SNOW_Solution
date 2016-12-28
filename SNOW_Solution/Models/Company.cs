@@ -13,7 +13,7 @@ namespace SNOW_Solution.Models
         [MaxLength(100)]
         public string Name { get; set; }
 
-       
+
         [ForeignKey("MyAddress")]
         public int AddressId { get; set; }
         public Address MyAddress { get; set; }
@@ -23,7 +23,9 @@ namespace SNOW_Solution.Models
 
         public virtual ICollection<Category> AllCategories { get; set; }
 
+
         public ICollection<Promotion> AllPromotions { get; set; }
+
 
        
         public virtual ICollection<Brand> AllBrands { get; set; }

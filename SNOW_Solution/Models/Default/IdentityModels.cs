@@ -10,6 +10,7 @@ using System.Threading;
 using SNOW_Solution.Configuration;
 using System.Data.Entity.Validation;
 
+
 namespace SNOW_Solution.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -58,6 +59,7 @@ namespace SNOW_Solution.Models
         public DbSet<Store> Stores { get; set; }
 
         public DbSet<RegionState> RegionalStates { get; set; }
+
         #endregion
 
         static CompanyDbContext()
@@ -107,10 +109,12 @@ namespace SNOW_Solution.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
+
             //store - all user
             //customrer - all order
             try
             {
+
 
            
                 modelBuilder.Configurations.Add(new CountryConfiguration());
@@ -123,7 +127,6 @@ namespace SNOW_Solution.Models
                 modelBuilder.Configurations.Add(new BrandConfiguration());
                 modelBuilder.Configurations.Add(new ProductConfiguration());
            
-
 
 
                 modelBuilder.Entity<Size>()
@@ -160,6 +163,7 @@ namespace SNOW_Solution.Models
                 modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
                 modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
 
+
             }
             catch (DbEntityValidationException e)
             {
@@ -177,9 +181,9 @@ namespace SNOW_Solution.Models
             }
         }
 
+
         public DbSet<RoleViewModel> RoleViewModels { get; set; }
 
-       
       
     }
 }
