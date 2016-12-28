@@ -14,14 +14,16 @@ namespace SNOW_Solution.Models
         public string Name { get; set; }
 
         [ForeignKey("MyCompany")]
-        public int CompanyId { get; set; }
+
+        public int? CompanyId { get; set; }
         public virtual Company MyCompany { get; set; }
 
         [ForeignKey("MyAddress")]
-        public int AddressId { get; set; }
+        public int? AddressId { get; set; }
         public virtual Address MyAddress { get; set; }
       
-        public ICollection<Product> AllProducts { get; set; }
+        public virtual ICollection<Product> AllProducts { get; set; }
+
         
         
         //alluser(bo)

@@ -13,7 +13,7 @@ namespace SNOW_Solution.Configuration
         {
             ToTable("Companies");
             Property(c => c.Name).IsRequired().HasMaxLength(100);
-            Property(c => c.AddressId).IsRequired();
+            Property(c => c.AddressId);
             
         }
     }

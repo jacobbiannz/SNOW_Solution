@@ -13,7 +13,7 @@ namespace SNOW_Solution.Configuration
         {
             ToTable("Cities");
             Property(c => c.Name).IsRequired();
-            Property(c => c.CountryId).IsRequired();
+            Property(c => c.CountryId);
         }
     }
 }
