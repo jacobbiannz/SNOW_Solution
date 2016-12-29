@@ -17,7 +17,7 @@ namespace SNOW_Solution.Models
         public string Description { get; set; }
 
         [ForeignKey("MySizeType")]
-        public int SizeTypeId { get; set; }
+        public int? SizeTypeId { get; set; }
         public SizeType MySizeType { get; set; }
 
         public ICollection<Inventory> AllInventories { get; set; }
