@@ -10,7 +10,6 @@ using System.Threading;
 using SNOW_Solution.Configuration;
 using System.Data.Entity.Validation;
 
-
 namespace SNOW_Solution.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -59,7 +58,6 @@ namespace SNOW_Solution.Models
         public DbSet<Store> Stores { get; set; }
 
         public DbSet<RegionState> RegionalStates { get; set; }
-
         #endregion
 
         static CompanyDbContext()
@@ -109,12 +107,10 @@ namespace SNOW_Solution.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
-
             //store - all user
             //customrer - all order
             try
             {
-
 
            
                 modelBuilder.Configurations.Add(new CountryConfiguration());
@@ -126,20 +122,62 @@ namespace SNOW_Solution.Models
                 modelBuilder.Configurations.Add(new CategoryConfiguration());
                 modelBuilder.Configurations.Add(new BrandConfiguration());
                 modelBuilder.Configurations.Add(new ProductConfiguration());
-           
 
+
+                modelBuilder.Entity<Company>()
+                    .HasMany(c => c.AllCategories)
+                    .WithRequired(c => c.MyCompany).WillCascadeOnDelete(false);
+
+                modelBuilder.Entity<Company>()
+                    .HasMany(c => c.AllPaymentTypes)
+                    .WithRequired(p => p.MyCompany).WillCascadeOnDelete(false);
+
+
+                modelBuilder.Entity<Company>()
+                    .HasMany(c => c.AllPromotions)
+                    .WithRequired(p => p.MyCompany).WillCascadeOnDelete(false);
+
+                modelBuilder.Entity<Company>()
+                   .HasMany(c => c.AllSizeTypes)
+                   .WithRequired(s => s.MyCompany).WillCascadeOnDelete(false);
+
+
+                modelBuilder.Entity<Company>()
+                  .HasMany(c => c.AllStores)
+                  .WithRequired(s => s.MyCompany).WillCascadeOnDelete(false);
+
+                modelBuilder.Entity<Company>()
+                  .HasMany(c => c.AllBrands)
+                  .WithRequired(b => b.MyCompany).WillCascadeOnDelete(false);
+
+                modelBuilder.Entity<Country>()
+                  .HasMany(c => c.AllCities)
+                  .WithRequired(c => c.MyCountry).WillCascadeOnDelete(false);
+
+                modelBuilder.Entity<Country>()
+                 .HasMany(c => c.AllRegionSatates)
+                 .WithRequired(r => r.MyCountry).WillCascadeOnDelete(false);
+
+
+                modelBuilder.Entity<SizeType>()
+                   .HasMany(s => s.AllSizes)
+                   .WithRequired(s => s.MySizeType).WillCascadeOnDelete(false);
 
                 modelBuilder.Entity<Size>()
                     .HasMany(d => d.AllInventories)
                     .WithRequired(l => l.MySize).WillCascadeOnDelete(false);
 
-           
+               
 
                 modelBuilder.Entity<OrderStatus>()
                     .HasMany(d => d.AllOrders)
                     .WithRequired(l => l.MyOrderStatus).WillCascadeOnDelete(false);
 
-        
+               
+
+                modelBuilder.Entity<Store>()
+                .HasOptional(s => s.MyAddress)
+                .WithOptionalDependent(st => st.MyStore);
 
                 modelBuilder.Entity<Promotion>()
                     .HasMany(d => d.AllProducts)
@@ -163,7 +201,6 @@ namespace SNOW_Solution.Models
                 modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
                 modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
 
-
             }
             catch (DbEntityValidationException e)
             {
@@ -181,9 +218,9 @@ namespace SNOW_Solution.Models
             }
         }
 
-
         public DbSet<RoleViewModel> RoleViewModels { get; set; }
 
+       
       
     }
 }
