@@ -30,5 +30,7 @@ namespace SNOW_Solution.Models
         [ForeignKey("MyCity")]
         public int CityId { get; set; }
         public virtual City MyCity { get; set; }
+
+        public Store MyStore { get; set; }
     }
 }

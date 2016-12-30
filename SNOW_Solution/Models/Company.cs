@@ -17,12 +17,17 @@ namespace SNOW_Solution.Models
         [ForeignKey("MyAddress")]
         public int AddressId { get; set; }
         public Address MyAddress { get; set; }
-        public ICollection<Store> AllStores { get; set; }
+        public virtual ICollection<Store> AllStores { get; set; }
 
         public virtual ICollection<Product> AllProducts { get; set; }
 
-        public virtual ICollection<Category> AllCategories { get; set; }
 
+        public virtual ICollection<Promotion> AllPromotions { get; set; }
+
+        [ForeignKey("AllBrands")]
+        public virtual ICollection<Brand> AllBrands { get; set; }
+
+        public virtual ICollection<Category> AllCategories{ get; set; }
 
         public ICollection<Promotion> AllPromotions { get; set; }
 
@@ -30,10 +35,10 @@ namespace SNOW_Solution.Models
        
         public virtual ICollection<Brand> AllBrands { get; set; }
 
-        public ICollection<OrderStatus> AllOrderStatus { get; set; }
+        public virtual ICollection<OrderStatus> AllOrderStatus { get; set; }
 
-        public ICollection<PaymentType> AllPaymentTypes { get; set; }
+        public virtual ICollection<PaymentType> AllPaymentTypes { get; set; }
 
-        public ICollection<SizeType> AllSizeTypes { get; set; }
+        public virtual ICollection<SizeType> AllSizeTypes { get; set; }
     }
 }

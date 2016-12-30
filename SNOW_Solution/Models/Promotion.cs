@@ -28,8 +28,8 @@ namespace SNOW_Solution.Models
         public int? CompanyId { get; set; }
         public Company MyCompany { get; set; }
 
-        public ICollection<Product> AllProducts { get; set; }
+        public virtual ICollection<Product> AllProducts { get; set; }
 
-        public ICollection<Order> AllOrders { get; set; }
+        public virtual ICollection<Order> AllOrders { get; set; }
     }
 }

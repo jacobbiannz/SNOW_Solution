@@ -112,7 +112,7 @@ namespace SNOW_Solution.Models
             try
             {
 
-           
+
                 modelBuilder.Configurations.Add(new CountryConfiguration());
                 modelBuilder.Configurations.Add(new RegionalStateConfiguration());
                 modelBuilder.Configurations.Add(new CityConfiguration());
@@ -167,17 +167,17 @@ namespace SNOW_Solution.Models
                     .HasMany(d => d.AllInventories)
                     .WithRequired(l => l.MySize).WillCascadeOnDelete(false);
 
-               
+
 
                 modelBuilder.Entity<OrderStatus>()
                     .HasMany(d => d.AllOrders)
                     .WithRequired(l => l.MyOrderStatus).WillCascadeOnDelete(false);
 
-               
+
 
                 modelBuilder.Entity<Store>()
                 .HasOptional(s => s.MyAddress)
-                .WithOptionalDependent(st => st.MyStore);
+                .WithOptionalDependent(a => a.MyStore);
 
                 modelBuilder.Entity<Promotion>()
                     .HasMany(d => d.AllProducts)
@@ -195,7 +195,7 @@ namespace SNOW_Solution.Models
                         dl.MapRightKey("OrderId");
                     });
 
-          
+
 
                 modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
                 modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
@@ -217,10 +217,6 @@ namespace SNOW_Solution.Models
                 throw;
             }
         }
-
         public DbSet<RoleViewModel> RoleViewModels { get; set; }
-
-       
-      
     }
 }

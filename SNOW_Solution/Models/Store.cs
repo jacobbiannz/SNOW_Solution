@@ -23,7 +23,6 @@ namespace SNOW_Solution.Models
         public virtual Address MyAddress { get; set; }
       
         public virtual ICollection<Product> AllProducts { get; set; }
-
         
         
         //alluser(bo)
