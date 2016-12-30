@@ -48,6 +48,7 @@ namespace SNOW_Solution.Models
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Brand> Brands { get; set; }
+
         public DbSet<Country> Countries { get; set; }
 
         public DbSet<City> Cities { get; set; }
@@ -106,9 +107,12 @@ namespace SNOW_Solution.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
-
+            //store - all user
+            //customrer - all order
             try
             {
+
+
                 modelBuilder.Configurations.Add(new CountryConfiguration());
                 modelBuilder.Configurations.Add(new RegionalStateConfiguration());
                 modelBuilder.Configurations.Add(new CityConfiguration());
@@ -213,7 +217,6 @@ namespace SNOW_Solution.Models
                 throw;
             }
         }
-
         public DbSet<RoleViewModel> RoleViewModels { get; set; }
     }
 }

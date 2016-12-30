@@ -14,11 +14,11 @@ namespace SNOW_Solution.Models
         public string Name { get; set; }
 
         [ForeignKey("MyRegionState")]
-        public int RegionStateId { get; set; }
+        public int? RegionStateId { get; set; }
         public RegionState MyRegionState { get; set; }
 
         [ForeignKey("MyCountry")]
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
         public Country MyCountry { get; set; }
     }
 }
