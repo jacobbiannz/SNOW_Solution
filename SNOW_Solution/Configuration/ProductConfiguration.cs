@@ -14,7 +14,6 @@ namespace SNOW_Solution.Configuration
             ToTable("Products");
             Property(p => p.Name).IsRequired().HasMaxLength(100);
             Property(p => p.Description).IsRequired();
-            Property(p => p.CategoryId).IsRequired();
         }
     }
 }

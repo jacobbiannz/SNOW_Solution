@@ -20,7 +20,7 @@ namespace SNOW_Solution.Models
         public int SizeTypeId { get; set; }
         public SizeType MySizeType { get; set; }
 
-        public ICollection<Inventory> AllInventories { get; set; }
-        public ICollection<OrderDetail> AllOrderDetails { get; set; }
+        public virtual ICollection<Inventory> AllInventories { get; set; }
+        public virtual ICollection<OrderDetail> AllOrderDetails { get; set; }
     }
 }

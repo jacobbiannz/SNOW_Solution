@@ -12,8 +12,10 @@ namespace SNOW_Solution.Configuration
         public AddressConfiguration()
         {
             ToTable("Addresses");
-            Property(a => a.CityId).IsRequired();
+            Property(a => a.CityId);
             Property(a => a.AddressLine1);
+            Property(a => a.PhoneNumber).IsRequired();
+            Property(a => a.Email).IsRequired();
         }
     }
 }

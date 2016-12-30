@@ -21,7 +21,7 @@ namespace SNOW_Solution.Models
         public int AddressId { get; set; }
         public virtual Address MyAddress { get; set; }
       
-        public ICollection<Product> AllProducts { get; set; }
+        public virtual ICollection<Product> AllProducts { get; set; }
         
         
         //alluser(bo)

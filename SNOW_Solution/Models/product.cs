@@ -42,13 +42,13 @@ namespace SNOW_Solution.Models
         public int StoreId { get; set; }
         public virtual Store MyStore { get; set; }
 
-        public ICollection<Inventory> AllInventories { get; set; }
+        public virtual ICollection<Inventory> AllInventories { get; set; }
 
-        public ICollection<Promotion> AllPromotions { get; set; }
+        public virtual ICollection<Promotion> AllPromotions { get; set; }
 
-        public ICollection<Image> AllImages { get; set; }
+        public virtual ICollection<Image> AllImages { get; set; }
 
-        public ICollection<OrderDetail> AllOrderDetails { get; set; }
+        public virtual ICollection<OrderDetail> AllOrderDetails { get; set; }
 
     }
 }

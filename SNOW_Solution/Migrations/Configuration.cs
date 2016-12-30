@@ -36,10 +36,155 @@ namespace SNOW_Solution.Migrations
             roleManager.Create(new IdentityRole { Name = "Customer" });
             userManager.AddToRole(guest.Id, "Customer");
 
-        //    GetCategories().ForEach(c => context.Categories.Add(c));
-          //  GetBrands().ForEach(b => context.Brands.Add(b));
-         //   GetCompanies().ForEach(c => context.Companys.Add(c));
-         //   GetProducts().ForEach(p => context.Products.Add(p));
+            var country = new Country
+            {
+                Name = "NewZealand",
+                Code = "64",
+                Id = 1
+            };
+
+            var regionalState = new RegionState
+            {
+                MyCountry = country,
+
+                Name = "Auckland",
+                Id = 1
+            };
+
+
+            var city = new City
+            {
+                Name = "Auckland",
+                MyCountry = country,
+                MyRegionState = regionalState,
+
+                Id = 1
+            };
+
+            var address = new Address
+            {
+                AddressLine1 = "queen st",
+                MyCity = city,
+                PhoneNumber = "02188888",
+                Email = "demo@hotmail.com",
+
+                Id = 1
+            };
+
+            var company = new Company
+            {
+                Name = "Snow",
+                MyAddress = address,
+
+                Id = 1
+            };
+
+            var store = new Store
+            {
+                Name = "Auckland Store",
+                MyAddress = address,
+                MyCompany = company,
+
+                Id = 1
+            };
+
+
+
+
+            var brand1 = new Brand
+            {
+                Name = "LV",
+                MyCompany = company,
+
+                Id = 1
+            };
+            var brand2 = new Brand
+            {
+                Name = "Prada",
+                MyCompany = company,
+
+                Id = 2
+            };
+            var brand3 = new Brand
+            {
+                Name = "Dior",
+                MyCompany = company,
+
+                Id = 3
+            };
+
+
+            var category1 = new Category
+            {
+                Name = "T-Shirt",
+                MyCompany = company,
+
+                Id = 1
+            };
+            var category2 = new Category
+            {
+                Name = "Shoes",
+                MyCompany = company,
+
+                Id = 2
+            };
+            var category3 = new Category
+            {
+                Name = "Polo",
+                MyCompany = company,
+
+                Id = 3
+            };
+
+            var product1 = new Product
+            {
+                Name = "Patterned Cotton Socks",
+                Description = "Patterned Cotton Socks",
+                MyCompany = company,
+                MyCategory = category1,
+                MyBrand = brand1,
+                MyStore = store,
+
+                Id = 1
+            };
+            var product2 = new Product
+            {
+                Name = "Embroidered Cotton-Twill Baseball Cap",
+                Description = "Embroidered Cotton-Twill Baseball Cap",
+                MyCompany = company,
+                MyCategory = category2,
+                MyBrand = brand2,
+                MyStore = store,
+
+                Id = 2
+            };
+            var product3 = new Product
+            {
+                Name = "GucciGhost Engraved Sterling Silver Cufflinks",
+                Description = "GucciGhost Engraved Sterling Silver Cufflinks",
+                MyCompany = company,
+                MyCategory = category3,
+                MyBrand = brand3,
+                MyStore = store,
+
+                Id = 3
+            };
+
+            context.Countries.Add(country);
+            context.RegionalStates.Add(regionalState);
+            context.Cities.Add(city);
+            context.Addresses.Add(address);
+            context.Companys.Add(company);
+            context.Stores.Add(store);
+            context.Brands.Add(brand1);
+            context.Brands.Add(brand2);
+            context.Brands.Add(brand3);
+            context.Categories.Add(category1);
+            context.Categories.Add(category2);
+            context.Categories.Add(category3);
+            context.Products.Add(product1);
+            context.Products.Add(product2);
+            context.Products.Add(product3);
 
 
             //  This method will be called after migrating to the latest version.
@@ -54,115 +199,6 @@ namespace SNOW_Solution.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-        }
-        static List<Category> GetCategories()
-        {
-            return new List<Category>
-            {
-                new Category {
-                    Name = "T-Shirt",
-                    CompanyId = 1
-                },
-                new Category {
-                    Name = "Shoes",
-                    CompanyId = 1
-                },
-                new Category {
-                    Name = "Polo",
-                    CompanyId = 1
-                }
-            };
-        }
-        static List<Brand> GetBrands()
-        {
-            return new List<Brand>
-            {
-                new Brand {
-                    Name = "LV",
-                     CompanyId = 1
-                },
-                new Brand {
-                    Name = "Prada",
-                     CompanyId = 1
-                },
-                new Brand {
-                    Name = "Dior",
-                     CompanyId = 1
-                }
-            };
-        }
-
-        static List<Company> GetCompanies()
-        {
-            return new List<Company>
-            {
-                new Company {
-                    Name = "Snow",
-                    AddressId = 1
-                }
-              
-            };
-        }
-
-        static List<Address> GetAddresses()
-        {
-            return new List<Address>
-            {
-                new Address {
-                    AddressLine1 = "queen st",
-                    CityId = 1
-                }
-
-            };
-        }
-
-        static List<City> GetCities()
-        {
-            return new List<City>
-            {
-                new City {
-                    Name = "Auckland",
-                    CountryId = 1
-                }
-
-            };
-        }
-
-        static List<Country> GetCountries()
-        {
-            return new List<Country>
-            {
-                new Country {
-                    Name = "NewZealand",
-                    Code = "64"
-                }
-
-            };
-        }
-
-        static List<Product> GetProducts()
-        {
-            return new List<Product>
-            {
-                new Product {
-                    Name = "Patterned Cotton Socks",
-                    Description = "Patterned Cotton Socks",
-                    CategoryId = 1,
-                    BrandId =1
-                },
-                new Product {
-                    Name = "Embroidered Cotton-Twill Baseball Cap",
-                    Description = "Patterned Cotton Socks",
-                    CategoryId = 1,
-                    BrandId =1
-                },
-                new Product {
-                    Name = "GucciGhost Engraved Sterling Silver Cufflinks",
-                    Description = "Patterned Cotton Socks",
-                    CategoryId = 1,
-                    BrandId =1
-                }
-            };
         }
     }
 }

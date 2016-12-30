@@ -19,8 +19,8 @@ namespace SNOW_Solution.Models
         public int OrderStatusId { get; set; }
         public OrderStatus MyOrderStatus { get; set; }
 
-        public ICollection<Receipt> AllReceipts { get; set; }
-        public ICollection<OrderDetail> AllOrderDetails { get; set; }
-        public ICollection<Promotion> AllPromotions { get; set; }
+        public virtual ICollection<Receipt> AllReceipts { get; set; }
+        public virtual ICollection<OrderDetail> AllOrderDetails { get; set; }
+        public virtual ICollection<Promotion> AllPromotions { get; set; }
     }
 }
