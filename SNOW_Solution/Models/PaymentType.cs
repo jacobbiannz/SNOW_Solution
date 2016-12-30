@@ -17,7 +17,7 @@ namespace SNOW_Solution.Models
         public string Description { get; set; }
 
         [ForeignKey("MyCompany")]
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
         public Company MyCompany { get; set; }
     }
 }
