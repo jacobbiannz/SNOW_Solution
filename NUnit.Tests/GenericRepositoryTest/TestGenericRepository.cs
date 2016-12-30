@@ -18,6 +18,11 @@ namespace NUnit.Tests.GenericRepositoryTest
             throw new NotImplementedException();
         }
 
+        public void Insert(BaseEntity obj)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Insert(T obj)
         {
             throw new NotImplementedException();
@@ -38,7 +43,22 @@ namespace NUnit.Tests.GenericRepositoryTest
             throw new NotImplementedException();
         }
 
+        public void Update(BaseEntity obj)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(T obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<BaseEntity> IGenericRepository<T>.SelectAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        BaseEntity IGenericRepository<T>.SelectByID(object id)
         {
             throw new NotImplementedException();
         }

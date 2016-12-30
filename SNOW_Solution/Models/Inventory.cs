@@ -18,8 +18,7 @@ namespace SNOW_Solution.Models
         [Required]
         [ForeignKey("MyProduct")]
         public int ProductId { get; set; }
-        public Product MyProduct { get; set; }
-
+        public virtual Product MyProduct { get; set; }
         [Required]
         [ForeignKey("MySize")]
         public int SizeId { get; set; }

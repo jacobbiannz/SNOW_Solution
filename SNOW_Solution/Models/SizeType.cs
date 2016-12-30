@@ -17,6 +17,6 @@ namespace SNOW_Solution.Models
         public int CompanyId { get; set; }
         public Company MyCompany { get; set; }
 
-        public ICollection<Size> AllSizes { get; set; }
+        public virtual ICollection<Size> AllSizes { get; set; }
     }
 }
