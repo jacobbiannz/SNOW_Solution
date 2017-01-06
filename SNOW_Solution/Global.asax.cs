@@ -1,5 +1,4 @@
-﻿using SNOW_Solution.App_Start;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -18,7 +17,7 @@ namespace SNOW_Solution
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            UnityConfig.RegisterComponents();
+            
         }
 
     }

@@ -29,20 +29,20 @@ namespace SNOW_Solution.Controllers
         //--------------------------------
         public ActionResult Index()
         {
-            var model = (List<RegionState>)regionStateRepository.SelectAll();
+            var model = (List<RegionState>)regionStateRepository.GetAll();
             return View(model);
         }
 
         public ActionResult Details(int id)
         {
-            var regionState = (RegionState)regionStateRepository.SelectByID(id);
+            var regionState = (RegionState)regionStateRepository.GetById(id);
             return View(regionState);
         }
 
         public ActionResult create()
         {
             var regionstateVM = new RegionStateVM();
-            regionstateVM.Countries = new SelectList((List<Country>)countryRepository.SelectAll(), "Id", "Name", regionstateVM.SelectedCountryId);
+            regionstateVM.Countries = new SelectList((List<Country>)countryRepository.GetAll(), "Id", "Name", regionstateVM.SelectedCountryId);
             return View(regionstateVM);
 
         }
@@ -54,12 +54,11 @@ namespace SNOW_Solution.Controllers
             {
                 RegionState regionState = new RegionState();
                 RegionStateUpdate(regionStateVM, regionState);
-                regionStateRepository.Insert(regionState);
-                regionStateRepository.Save();
+                regionStateRepository.Add(regionState);
                 return RedirectToAction("Index");
             }
 
-            regionStateVM.Countries = new SelectList((List<Country>)countryRepository.SelectAll(), "Id", "Name", regionStateVM.SelectedCountryId);
+            regionStateVM.Countries = new SelectList((List<Country>)countryRepository.GetAll(), "Id", "Name", regionStateVM.SelectedCountryId);
 
             return View(regionStateVM);
         }
@@ -67,7 +66,7 @@ namespace SNOW_Solution.Controllers
 
         public ActionResult Edit(int id)
         {
-            var regionState = (RegionState)regionStateRepository.SelectByID(id);
+            var regionState = (RegionState)regionStateRepository.GetById(id);
             return View(regionState);
         }
 
@@ -77,7 +76,6 @@ namespace SNOW_Solution.Controllers
             if (ModelState.IsValid)
             {
                 regionStateRepository.Update(regionState);
-                regionStateRepository.Save();
                 return RedirectToAction("Index");
             }
             return View(regionState);
@@ -85,16 +83,15 @@ namespace SNOW_Solution.Controllers
 
         public ActionResult Delete(int id)
         {
-            var regionState = (RegionState)regionStateRepository.SelectByID(id);
+            var regionState = (RegionState)regionStateRepository.GetById(id);
             return View(regionState);
         }
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            var regionState = (RegionState)regionStateRepository.SelectByID(id);
-            regionStateRepository.Delete(id);
-            regionStateRepository.Save();
+            var regionState = (RegionState)regionStateRepository.GetById(id);
+            regionStateRepository.Delete(regionState);
             return RedirectToAction("Index");
         }
     }

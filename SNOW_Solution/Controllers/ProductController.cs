@@ -19,7 +19,7 @@ namespace SNOW_Solution.Controllers
 
         public ActionResult Index()
         {
-            var model = (List<Product>)repository.SelectAll();
+            var model = (List<Product>)repository.GetAll();
             return View(model);
         }
 
@@ -30,34 +30,34 @@ namespace SNOW_Solution.Controllers
 
         public ActionResult Insert(Product obj)
         {
-            repository.Insert(obj);
-            repository.Save();
+            repository.Add(obj);
             return View();
         }
 
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
-            var existing = repository.SelectByID(id);
+            var existing = repository.GetById(id);
             return View(existing);
         }
 
         public ActionResult Update(Product obj)
         {
             repository.Update(obj);
-            repository.Save();
+            
             return View();
         }
 
-        public ActionResult ConfirmDelete(string id)
+        public ActionResult ConfirmDelete(int id)
         {
-            var existing = repository.SelectByID(id);
+            var existing = repository.GetById(id);
             return View(existing);
         }
 
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
-            repository.Delete(id);
-            repository.Save();
+            var product = repository.GetById(id);
+            repository.Delete(product);
+          
             return View();
         }
 

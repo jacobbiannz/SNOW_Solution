@@ -39,13 +39,13 @@ namespace SNOW_Solution.Controllers
         //-------------------------------------------------
         public ActionResult Index()
         {
-            var model = (List<Country>)countryRepository.SelectAll();
+            var model = (List<Country>)countryRepository.GetAll();
             return View(model);
         }
 
         public ActionResult Details(int id)
         {
-            var country = (Country)countryRepository.SelectByID(id);
+            var country = (Country)countryRepository.GetById(id);
             return View(country);
         }
 
@@ -61,8 +61,7 @@ namespace SNOW_Solution.Controllers
             {
                 Country country = new Country();
                 CountryUpdate(countryVM, country);
-                countryRepository.Insert(country);
-                countryRepository.Save();
+                countryRepository.Add(country);
                 return RedirectToAction("Index");
             }
             return View(countryVM);
@@ -72,7 +71,7 @@ namespace SNOW_Solution.Controllers
 
         public ActionResult Edit(int id)
         {
-            var country = (Country)countryRepository.SelectByID(id);
+            var country = (Country)countryRepository.GetById(id);
             if (country == null) return new HttpNotFoundResult();
             CountryVM countryVM = countryVMFromExist(country);
             return View(countryVM);
@@ -83,10 +82,9 @@ namespace SNOW_Solution.Controllers
         {
             if (ModelState.IsValid)
             {
-                var country = (Country)countryRepository.SelectByID(countryVM.Id);
+                var country = (Country)countryRepository.GetById(countryVM.Id);
                 CountryUpdate(countryVM, country);
                 countryRepository.Update(country);
-                countryRepository.Save();
                 return RedirectToAction("Index");
             }
             return View(countryVM);
@@ -94,16 +92,15 @@ namespace SNOW_Solution.Controllers
 
         public ActionResult Delete(int id)
         {
-            var country = (Country)countryRepository.SelectByID(id);
+            var country = (Country)countryRepository.GetById(id);
             return View(country);
         }
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            var country = (Country)countryRepository.SelectByID(id);
-            countryRepository.Delete(id);
-            countryRepository.Save();
+            var country = (Country)countryRepository.GetById(id);
+            countryRepository.Delete(country);
             return RedirectToAction("Index");
         }
     }

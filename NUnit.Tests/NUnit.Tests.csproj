@@ -87,8 +87,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GenericRepositoryTest\TestGenericRepository.cs" />
-    <Compile Include="GenericRepositoryTest\RepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +101,9 @@
       <Project>{2eea37d9-ec07-44b7-ad06-075535e7728a}</Project>
       <Name>SNOW_Solution</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GenericRepositoryTest\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

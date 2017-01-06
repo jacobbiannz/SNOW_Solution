@@ -1,45 +1,20 @@
-﻿using System.Data.Entity;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using SNOW_Solution.Configuration;
+using SNOW_Solution.Models;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
-
-
-namespace SNOW_Solution.Models
+namespace Snow.Data
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser
+    public class SnowEntities : DbContext
     {
-        
-        public int ApplicationUserId { get; set; }
-
-        //   public DateTime CreateTime { get; set; }
-
-        //  public DateTime LastLogin { get; set; }
-        public Subscriber MySubscriber { get; set; }
-        //  [ForeignKey("MyCompany")]
-        // public int CompanyId { get; set; }
-        public Company MyCompany { get; set; }
-
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
-        {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
-            return userIdentity;
-        }
-    }
-
-    public class CompanyDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public CompanyDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        public SnowEntities()
+            : base("DefaultConnection")
         {
         }
         #region
@@ -60,17 +35,6 @@ namespace SNOW_Solution.Models
         public DbSet<RegionState> RegionalStates { get; set; }
         #endregion
 
-        static CompanyDbContext()
-        {
-            // Set the database intializer which is run once during application start
-            // This seeds the database with admin user credentials and admin role 
-            Database.SetInitializer<CompanyDbContext>(new ApplicationDbInitializer());
-        }
-
-        public static CompanyDbContext Create()
-        {
-            return new CompanyDbContext();
-        }
 
         public override int SaveChanges()
         {
@@ -110,15 +74,15 @@ namespace SNOW_Solution.Models
 
             try
             {
-                modelBuilder.Configurations.Add(new Configuration.CountryConfiguration());
-                modelBuilder.Configurations.Add(new Configuration.RegionalStateConfiguration());
-                modelBuilder.Configurations.Add(new Configuration.CityConfiguration());
-                modelBuilder.Configurations.Add(new Configuration.AddressConfiguration());
-                modelBuilder.Configurations.Add(new Configuration.Companyfiguration());
-                modelBuilder.Configurations.Add(new Configuration.StoreConfiguration());
-                modelBuilder.Configurations.Add(new Configuration.CategoryConfiguration());
-                modelBuilder.Configurations.Add(new Configuration.BrandConfiguration());
-                modelBuilder.Configurations.Add(new Configuration.ProductConfiguration());
+                modelBuilder.Configurations.Add(new CountryConfiguration());
+                modelBuilder.Configurations.Add(new RegionalStateConfiguration());
+                modelBuilder.Configurations.Add(new CityConfiguration());
+                modelBuilder.Configurations.Add(new AddressConfiguration());
+                modelBuilder.Configurations.Add(new Companyfiguration());
+                modelBuilder.Configurations.Add(new StoreConfiguration());
+                modelBuilder.Configurations.Add(new CategoryConfiguration());
+                modelBuilder.Configurations.Add(new BrandConfiguration());
+                modelBuilder.Configurations.Add(new ProductConfiguration());
 
 
                 modelBuilder.Entity<Company>()
@@ -191,13 +155,6 @@ namespace SNOW_Solution.Models
                         dl.MapLeftKey("PromotionId");
                         dl.MapRightKey("OrderId");
                     });
-
-
-
-                modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
-                modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
-                modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
-
             }
             catch (DbEntityValidationException e)
             {
@@ -214,7 +171,5 @@ namespace SNOW_Solution.Models
                 throw;
             }
         }
-
-        public DbSet<RoleViewModel> RoleViewModels { get; set; }
     }
 }
