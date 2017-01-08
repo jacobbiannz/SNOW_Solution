@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using SNOW_Solution.Models;
+using Snow.Data;
 
 namespace SNOW_Solution
 {
@@ -42,7 +43,7 @@ namespace SNOW_Solution
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<CompanyDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<CompanyDBContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
@@ -147,16 +148,16 @@ namespace SNOW_Solution
         }
     }
 
-    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<CompanyDbContext>
+    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<CompanyDBContext>
     {
-        protected override void Seed(CompanyDbContext context)
+        protected override void Seed(CompanyDBContext context)
         {
           //  InitializeIdentityForEF(context);
             base.Seed(context);
         }
 
         //Create User=snowAdmin with password=123456       
-        public static void InitializeIdentityForEF(CompanyDbContext db)
+        public static void InitializeIdentityForEF(CompanyDBContext db)
         {
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             
@@ -182,7 +183,7 @@ namespace SNOW_Solution
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-            var manager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<CompanyDbContext>()));
+            var manager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<CompanyDBContext>()));
 
             return manager;
         }

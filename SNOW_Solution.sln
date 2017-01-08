@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SNOW_Solution", "SNOW_Solution\SNOW_Solution.csproj", "{2EEA37D9-EC07-44B7-AD06-075535E7728A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SNOW_Solution.Web", "SNOW_Solution\SNOW_Solution.Web.csproj", "{2EEA37D9-EC07-44B7-AD06-075535E7728A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5E892A5D-AB50-47AC-A8C1-F0046DE0E625} = {5E892A5D-AB50-47AC-A8C1-F0046DE0E625}
 		{EE674078-BD0A-4697-BFDC-9015EDFB982D} = {EE674078-BD0A-4697-BFDC-9015EDFB982D}

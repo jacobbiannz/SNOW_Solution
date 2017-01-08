@@ -8,11 +8,11 @@ namespace Snow.Data.Infrastructure
 {
     class DbFactory : Disposable, IDbFactory
     {
-        SnowEntities dbContext;
+        CompanyDBContext dbContext;
 
-        public SnowEntities Init()
+        public CompanyDBContext Init()
         {
-            return dbContext ?? (dbContext = new SnowEntities());
+            return dbContext ?? (dbContext = new CompanyDBContext());
         }
 
         protected override void DisposeCore()

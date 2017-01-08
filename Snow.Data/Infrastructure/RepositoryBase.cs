@@ -11,7 +11,7 @@ namespace Snow.Data.Infrastructure
     public abstract class RepositoryBase<T> where T : class
     {
         #region Properties
-        private SnowEntities dataContext;
+        private CompanyDBContext dataContext;
         private readonly IDbSet<T> dbSet;
 
         protected IDbFactory DbFactory
@@ -20,7 +20,7 @@ namespace Snow.Data.Infrastructure
             private set;
         }
 
-        protected SnowEntities DbContext
+        protected CompanyDBContext DbContext
         {
             get { return dataContext ?? (dataContext = DbFactory.Init()); }
         }

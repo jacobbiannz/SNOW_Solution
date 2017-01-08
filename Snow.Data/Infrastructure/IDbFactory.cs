@@ -9,6 +9,6 @@ namespace Snow.Data.Infrastructure
    public interface IDbFactory : IDisposable
     {
 
-        SnowEntities Init();
+        CompanyDBContext Init();
     }
 }

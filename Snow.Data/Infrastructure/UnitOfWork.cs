@@ -9,14 +9,14 @@ namespace Snow.Data.Infrastructure
     public class UnitOfWork : IUnitOfWork
     {
         private readonly IDbFactory dbFactory;
-        private SnowEntities dbContext;
+        private CompanyDBContext dbContext;
 
         public UnitOfWork(IDbFactory dbFactory)
         {
             this.dbFactory = dbFactory;
         }
 
-        public SnowEntities DbContext
+        public CompanyDBContext DbContext
         {
             get { return dbContext ?? (dbContext = dbFactory.Init()); }
         }

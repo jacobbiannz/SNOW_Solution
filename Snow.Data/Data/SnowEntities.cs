@@ -1,20 +1,46 @@
-﻿using SNOW_Solution.Configuration;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using SNOW_Solution;
+using SNOW_Solution.Configuration;
 using SNOW_Solution.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Snow.Data
 {
-    public class SnowEntities : DbContext
+    public class ApplicationUser : IdentityUser
     {
-        public SnowEntities()
-            : base("DefaultConnection")
+
+        public int ApplicationUserId { get; set; }
+
+        //   public DateTime CreateTime { get; set; }
+
+        //  public DateTime LastLogin { get; set; }
+        public Subscriber MySubscriber { get; set; }
+        //  [ForeignKey("MyCompany")]
+        // public int CompanyId { get; set; }
+        public Company MyCompany { get; set; }
+
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            // Add custom user claims here
+            return userIdentity;
+        }
+    }
+
+    public class CompanyDBContext :  IdentityDbContext<ApplicationUser>
+    {
+        public CompanyDBContext()
+            : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
         #region
@@ -68,6 +94,17 @@ namespace Snow.Data
 
             return base.SaveChanges();
         }
+        static CompanyDBContext()
+        {
+            // Set the database intializer which is run once during application start
+            // This seeds the database with admin user credentials and admin role 
+            Database.SetInitializer(new ApplicationDbInitializer());
+        }
+        public static CompanyDBContext Create()
+        {
+            return new CompanyDBContext();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
@@ -155,6 +192,10 @@ namespace Snow.Data
                         dl.MapLeftKey("PromotionId");
                         dl.MapRightKey("OrderId");
                     });
+
+                modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
+                modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+                modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
             }
             catch (DbEntityValidationException e)
             {

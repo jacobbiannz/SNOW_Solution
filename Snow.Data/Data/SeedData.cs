@@ -3,22 +3,18 @@ namespace SNOW_Solution.Migrations
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
+    using Snow.Data;
     using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    sealed class Configuration : DbMigrationsConfiguration<CompanyDbContext>
+    sealed class SeedData : DbMigrationsConfiguration<CompanyDBContext>
     {
-        public Configuration()
+        public SeedData()
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
             //   ContextKey = "SNOW_Solution.Models.CompanyDbContext";
         }
 
-        protected override void Seed(CompanyDbContext context)
+        protected override void Seed(CompanyDBContext context)
         {
             var roleStore = new RoleStore<IdentityRole>(context);
             var roleManager = new RoleManager<IdentityRole>(roleStore);
