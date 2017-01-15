@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Snow.Data.Infrastructure
 {
-    class DbFactory : Disposable, IDbFactory
+   public class DbFactory : Disposable, IDbFactory
     {
         CompanyDBContext dbContext;
 

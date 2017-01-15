@@ -1,5 +1,8 @@
-﻿using SNOW_Solution.Models;
+﻿using AutoMapper;
+using Snow.Service.Interface;
+using SNOW_Solution.Models;
 using SNOW_Solution.Repository;
+using SNOW_Solution.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +13,22 @@ namespace SNOW_Solution.Controllers
 {
     public class ProductController : Controller
     {
-        readonly IProductRepository repository;
-
-        public ProductController(IProductRepository repository)
+        private readonly IProductService productService;
+        
+        public ProductController(IProductService productService)
         {
-            this.repository = repository;
+            this.productService = productService;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string product =null)
         {
-            var model = (List<Product>)repository.GetAll();
-            return View(model);
+            IEnumerable<ProductVM> viewModelProducts;
+            IEnumerable<Product> Products;
+
+            Products = productService.GetProducts(product).ToList();
+
+            viewModelProducts = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductVM>>(Products);
+            return View(viewModelProducts);
         }
 
         public ActionResult New()
@@ -30,36 +38,30 @@ namespace SNOW_Solution.Controllers
 
         public ActionResult Insert(Product obj)
         {
-            repository.Add(obj);
+            productService.CreateProduct(obj);
             return View();
         }
 
         public ActionResult Edit(int id)
         {
-            var existing = repository.GetById(id);
+            var existing = productService.GetProduct(id);
             return View(existing);
         }
 
-        public ActionResult Update(Product obj)
+        public ActionResult Details(int id)
         {
-            repository.Update(obj);
-            
-            return View();
+            var existing = productService.GetProduct(id);
+            var viewModelProduct = Mapper.Map<Product,ProductVM>(existing);
+            return View(viewModelProduct);
         }
+
 
         public ActionResult ConfirmDelete(int id)
         {
-            var existing = repository.GetById(id);
+            var existing = productService.GetProduct(id);
             return View(existing);
         }
 
-        public ActionResult Delete(int id)
-        {
-            var product = repository.GetById(id);
-            repository.Delete(product);
-          
-            return View();
-        }
 
     }
 }

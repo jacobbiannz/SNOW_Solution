@@ -9,5 +9,6 @@ namespace SNOW_Solution.Repository
 {
     public interface IProductRepository : IRepository<Product>
     {
+        Product GetProductByName(string productName);
     }
 }

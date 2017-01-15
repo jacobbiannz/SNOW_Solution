@@ -25,6 +25,7 @@ namespace SNOW_Solution.Models
 
         public int ClickCount { get; set; }
 
+
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
         public virtual Company MyCompany { get; set; }

@@ -5,6 +5,9 @@ namespace SNOW_Solution.Migrations
     using Models;
     using Snow.Data;
     using System.Data.Entity.Migrations;
+    using System;
+    using System.IO;
+
     sealed class SeedData : DbMigrationsConfiguration<CompanyDBContext>
     {
         public SeedData()
@@ -140,7 +143,6 @@ namespace SNOW_Solution.Migrations
                 MyCategory = category1,
                 MyBrand = brand1,
                 MyStore = store,
-
                 Id = 1
             };
             var product2 = new Product
@@ -196,5 +198,6 @@ namespace SNOW_Solution.Migrations
             //    );
             //
         }
+
     }
 }
