@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using Snow.Data;
 using SNOW_Solution.Models;
 using System;
 using System.Collections.Generic;

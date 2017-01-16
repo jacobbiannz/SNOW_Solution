@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNet.Identity.Owin;
+using Snow.Data;
 using SNOW_Solution.Models;
 using System.Data.Entity;
 using System.Linq;

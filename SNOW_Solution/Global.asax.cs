@@ -18,7 +18,7 @@ namespace SNOW_Solution
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            UnityConfig.RegisterComponents();
+            Bootstrapper.Run();
         }
 
     }
