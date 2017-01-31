@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 
 namespace SNOW_Solution.Models
 {
@@ -25,5 +26,32 @@ namespace SNOW_Solution.Models
 
         //urs
         //thumb_url
+        [Display(Name = "Local file")]
+        [NotMapped]
+        public HttpPostedFileBase File
+        {
+            get
+            {
+                return null;
+            }
+
+            set
+            {
+                try
+                {
+                    var target = new MemoryStream();
+
+                    if (value.InputStream == null)
+                        return;
+
+                    value.InputStream.CopyTo(target);
+                    Photo = target.ToArray();
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+        }
     }
 }

@@ -61,6 +61,7 @@ namespace Snow.Data
         public DbSet<RegionState> RegionalStates { get; set; }
         #endregion
 
+        public DbSet<Image> Images { get; set; }
 
         public override int SaveChanges()
         {
