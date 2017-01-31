@@ -111,6 +111,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CountryRepository.cs" />
     <Compile Include="Repository\ICountryRepository.cs" />
+    <Compile Include="Repository\IImageRepository.cs" />
+    <Compile Include="Repository\ImageRepository.cs" />
     <Compile Include="Repository\IProductRepository.cs" />
     <Compile Include="Repository\IRegionStateRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
