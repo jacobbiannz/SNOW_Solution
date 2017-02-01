@@ -39,11 +39,34 @@ namespace SNOW_Solution.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(Product product)
+        public ActionResult Create(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-                _productService.CreateProduct(product);
+                if (productVM != null && productVM.Photos != null)
+                {
+                    var prod = Mapper.Map<ProductVM, Product>(productVM);
+                    prod.BrandId = 1;
+                    prod.CategoryId = 1;
+                    prod.CompanyId = 1;
+                    prod.StoreId = 1;
+                    
+                    _productService.CreateProduct(prod);
+                    foreach (var bin in productVM.Photos)
+                    {
+                        var image = new Image()
+                        {
+                            Photo = bin,
+                            Name = prod.Name
+                        };
+                        _imageService.CreateImage(image);
+                        _imageService.SaveImage();
+                        prod.AllImages.Add(image);
+                    }
+                    _productService.SaveProduct();
+                }
+
+                
             }
             return View();
         }

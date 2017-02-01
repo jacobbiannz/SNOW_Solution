@@ -15,8 +15,10 @@ namespace SNOW_Solution.ViewModels
         public decimal Price { get; set; }
 
         public int CategoryID { get; set; }
- 
-        public byte[] Photo { get; set; }
+
+        public string CategoryDescription { get; set; }
+
+        public List<byte[]> Photos { get; set; }
 
         public HttpPostedFileBase File
         {
@@ -35,7 +37,12 @@ namespace SNOW_Solution.ViewModels
                         return;
 
                     value.InputStream.CopyTo(target);
-                    Photo = target.ToArray();
+                    if (Photos ==null)
+                    {
+                        Photos = new List<byte[]>();
+                    }
+                    
+                    Photos.Add( target.ToArray());
                 }
                 catch (Exception ex)
                 {

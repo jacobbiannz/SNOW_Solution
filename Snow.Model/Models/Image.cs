@@ -23,35 +23,5 @@ namespace SNOW_Solution.Models
         [ForeignKey("MyProduct")]
         public int ProductId { get; set; }
         public virtual Product MyProduct { get; set; }
-
-        //urs
-        //thumb_url
-        [Display(Name = "Local file")]
-        [NotMapped]
-        public HttpPostedFileBase File
-        {
-            get
-            {
-                return null;
-            }
-
-            set
-            {
-                try
-                {
-                    var target = new MemoryStream();
-
-                    if (value.InputStream == null)
-                        return;
-
-                    value.InputStream.CopyTo(target);
-                    Photo = target.ToArray();
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
-            }
-        }
     }
 }

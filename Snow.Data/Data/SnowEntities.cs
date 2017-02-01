@@ -59,10 +59,10 @@ namespace Snow.Data
         public DbSet<Store> Stores { get; set; }
 
         public DbSet<RegionState> RegionalStates { get; set; }
-        #endregion
-
+       
         public DbSet<Image> Images { get; set; }
 
+        #endregion
         public override int SaveChanges()
         {
             var modifiedEntries = ChangeTracker.Entries()
