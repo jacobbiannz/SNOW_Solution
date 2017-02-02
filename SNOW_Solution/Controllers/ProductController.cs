@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
 using Snow.Service.Interface;
 using SNOW_Solution.Models;
-using SNOW_Solution.Repository;
-using SNOW_Solution.ViewModels;
-using System;
+using SNOW_Solution.Web.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SNOW_Solution.Controllers
@@ -16,22 +12,41 @@ namespace SNOW_Solution.Controllers
     {
         private readonly IProductService _productService;
         private readonly IImageService _imageService;
+        private readonly IDefaultService _defaultService;
 
-        public ProductController(IProductService productService, IImageService imageService)
+        public ProductController(IProductService productService, IImageService imageService, IDefaultService defaultService)
         {
             _productService = productService;
             _imageService = imageService;
+            _defaultService = defaultService;
         }
 
-        public ActionResult Index(string product =null)
+        public ActionResult Index(ProductVM product =null)
         {
-            IEnumerable<ProductVM> viewModelProducts;
-            IEnumerable<Product> Products;
+            
+            IEnumerable<Product> _Products;
+            IEnumerable<Brand> _Brands;
+            IEnumerable<Category> _Categories;
+            IEnumerable<Store> _Stores;
+            IEnumerable<Company> _Companies;
+            _Products = _productService.GetProducts(product.Name).ToList();
+            _Brands = _defaultService.GetBrands(product.BrandId).ToList();
+            _Categories = _defaultService.GetCategories(product.CategoryId).ToList();
+            _Stores = _defaultService.GetStores(product.StoreId).ToList();
+            _Companies = _defaultService.GetCompanies(product.CategoryId).ToList();
 
-            Products = _productService.GetProducts(product).ToList();
 
-            viewModelProducts = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductVM>>(Products);
-            return View(viewModelProducts);
+            var subscriberVM = new SubScriberVM
+            {
+                Products = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductVM>>(_Products),
+                Categories = Mapper.Map<IEnumerable<Category>, IEnumerable<CategoryVM>>(_Categories),
+                Stores = Mapper.Map<IEnumerable<Store>, IEnumerable<StoreVM>>(_Stores),
+                Brands = Mapper.Map<IEnumerable<Brand>, IEnumerable<BrandVM>>(_Brands),
+                Companies = Mapper.Map<IEnumerable<Company>, IEnumerable<CompanyVM>>(_Companies),
+            };
+
+            
+            return View(subscriberVM);
         }
 
 

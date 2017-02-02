@@ -19,7 +19,7 @@ namespace Snow.Service
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Brand> GetBrands(int brandId)
+        public IEnumerable<Brand> GetBrands(int brandId=0)
         {
             if (string.IsNullOrEmpty(brandId.ToString()))
                 return _subscriberRepository.GetBrands();
@@ -27,7 +27,7 @@ namespace Snow.Service
                 return _subscriberRepository.GetBrands().Where(c => c.Id == brandId);
         }
 
-        public IEnumerable<Category> GetCategories(int categoryId)
+        public IEnumerable<Category> GetCategories(int categoryId=0)
         {
             if (string.IsNullOrEmpty(categoryId.ToString()))
                 return _subscriberRepository.GetCategories();
@@ -35,7 +35,7 @@ namespace Snow.Service
                 return _subscriberRepository.GetCategories().Where(c => c.Id == categoryId);
         }
 
-        public IEnumerable<Company> GetCompanies(int companyId)
+        public IEnumerable<Company> GetCompanies(int companyId=0)
         {
             if (string.IsNullOrEmpty(companyId.ToString()))
                 return _subscriberRepository.GetCompanies();
@@ -43,7 +43,7 @@ namespace Snow.Service
                 return _subscriberRepository.GetCompanies().Where(c => c.Id == companyId);
         }
 
-        public IEnumerable<Store> GetStores(int storeId)
+        public IEnumerable<Store> GetStores(int storeId=0)
         {
             if (string.IsNullOrEmpty(storeId.ToString()))
                 return _subscriberRepository.GetStores();
