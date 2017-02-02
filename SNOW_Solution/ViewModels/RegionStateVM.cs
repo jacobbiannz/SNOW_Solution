@@ -5,7 +5,7 @@ using System.Web;
 using SNOW_Solution.Models;
 using System.Web.Mvc;
 
-namespace SNOW_Solution.Web.ViewModels
+namespace SNOW_Solution.ViewModels
 {
     public class RegionStateVM
     {

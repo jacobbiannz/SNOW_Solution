@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultService.cs" />
-    <Compile Include="Interface\IDefaultService.cs" />
     <Compile Include="Interface\IImageService.cs" />
     <Compile Include="Interface\IProductService.cs" />
     <Compile Include="ImageService.cs" />
