@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SNOW_Solution.Models
+namespace SNOW_Solution.Web.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SNOW_Solution.Web.ViewModels.ProductVM>
+﻿@model SNOW_Solution.Web.ViewModels.SubScriberVM
 
 @{
     ViewBag.Title = "Index";
@@ -18,19 +18,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ProductID)
+            @Html.DisplayNameFor("Product ID")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor("Product Name")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor("Product Description")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor("Price")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryID)
+            @Html.DisplayNameFor("Category")
         </th>
         <th></th>
     </tr>

@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using Snow.Data;
 using SNOW_Solution.Models;
+using SNOW_Solution.Web.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;

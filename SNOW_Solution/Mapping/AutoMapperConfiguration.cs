@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using SNOW_Solution.Models;
-using SNOW_Solution.ViewModels;
 using SNOW_Solution.Web.ViewModels;
 using System;
 using System.Collections.Generic;

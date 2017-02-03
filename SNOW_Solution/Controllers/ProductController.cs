@@ -23,12 +23,12 @@ namespace SNOW_Solution.Controllers
 
         public ActionResult Index(ProductVM product =null)
         {
-            
-            IEnumerable<Product> _Products;
-            IEnumerable<Brand> _Brands;
-            IEnumerable<Category> _Categories;
-            IEnumerable<Store> _Stores;
-            IEnumerable<Company> _Companies;
+
+            ICollection<Product> _Products;
+            ICollection<Brand> _Brands;
+            ICollection<Category> _Categories;
+            ICollection<Store> _Stores;
+            ICollection<Company> _Companies;
             _Products = _productService.GetProducts(product.Name).ToList();
             _Brands = _defaultService.GetBrands(product.BrandId).ToList();
             _Categories = _defaultService.GetCategories(product.CategoryId).ToList();
@@ -38,11 +38,11 @@ namespace SNOW_Solution.Controllers
 
             var subscriberVM = new SubScriberVM
             {
-                Products = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductVM>>(_Products),
-                Categories = Mapper.Map<IEnumerable<Category>, IEnumerable<CategoryVM>>(_Categories),
-                Stores = Mapper.Map<IEnumerable<Store>, IEnumerable<StoreVM>>(_Stores),
-                Brands = Mapper.Map<IEnumerable<Brand>, IEnumerable<BrandVM>>(_Brands),
-                Companies = Mapper.Map<IEnumerable<Company>, IEnumerable<CompanyVM>>(_Companies),
+                Products = Mapper.Map<ICollection<Product>, ICollection<ProductVM>>(_Products),
+                Categories = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
+                Stores = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(_Stores),
+                Brands = Mapper.Map<ICollection<Brand>, ICollection<BrandVM>>(_Brands),
+                Companies = Mapper.Map<ICollection<Company>, ICollection<CompanyVM>>(_Companies),
             };
 
             
