@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 
 namespace SNOW_Solution.Models
 {
@@ -22,8 +23,5 @@ namespace SNOW_Solution.Models
         [ForeignKey("MyProduct")]
         public int ProductId { get; set; }
         public virtual Product MyProduct { get; set; }
-
-        //urs
-        //thumb_url
     }
 }

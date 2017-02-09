@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using SNOW_Solution.Models;
 
-namespace SNOW_Solution.ViewModels
+namespace SNOW_Solution.Web.ViewModels
 {
     public class CountryVM
     {

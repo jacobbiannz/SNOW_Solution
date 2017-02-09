@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SNOW_Solution.Models;
 using Snow.Data;
+using SNOW_Solution.Web.Models;
 
 namespace SNOW_Solution.Controllers
 {

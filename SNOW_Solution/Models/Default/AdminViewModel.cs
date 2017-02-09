@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SNOW_Solution.Models
+namespace SNOW_Solution.Web.Models
 {
     public class RoleViewModel
     {
