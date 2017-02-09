@@ -15,8 +15,8 @@ namespace SNOW_Solution.Web.ViewModels
         public int CompanyId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public decimal Price { get; set; }
-
+        public decimal StockPrice { get; set; }
+        public decimal MarketPrice { get; set; }
         public int CategoryId { get; set; }
 
         public string CategoryDescription { get; set; }
@@ -52,6 +52,14 @@ namespace SNOW_Solution.Web.ViewModels
                     throw;
                 }
             }
+        }
+
+        public SubScriberVM MySubscriberVM { set; get; }
+       
+
+    public string GetCategoryDescription()
+        {
+            return "Category Description";
         }
     }
 }

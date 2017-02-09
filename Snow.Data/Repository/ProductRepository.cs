@@ -17,7 +17,7 @@ namespace SNOW_Solution.Repository
        }
         public Product GetProductByName(string productName)
         {
-            var product = this.DbContext.Products.Where(c => c.Name == productName).FirstOrDefault();
+            var product = DbContext.Products.Where(c => c.Name == productName).FirstOrDefault();
 
             return product;
         }

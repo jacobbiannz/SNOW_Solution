@@ -7,6 +7,7 @@ namespace SNOW_Solution.Web.ViewModels
 {
     public class StoreVM
     {
+        public string StoreId { get; set; }
         public string Name { get; set; }
     }
 }

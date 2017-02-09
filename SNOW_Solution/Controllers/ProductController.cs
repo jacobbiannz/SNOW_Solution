@@ -12,41 +12,37 @@ namespace SNOW_Solution.Controllers
     {
         private readonly IProductService _productService;
         private readonly IImageService _imageService;
-        private readonly IDefaultService _defaultService;
+        private readonly ICategoryService _categoryService;
+        private readonly IBrandService _brandService;
+        private readonly ICompanyService _companyService;
+        private readonly IStoreService _StoreService;
 
-        public ProductController(IProductService productService, IImageService imageService, IDefaultService defaultService)
+        public ProductController(IProductService productService, 
+                                   IImageService imageService, 
+                                   ICategoryService categoryService,
+                                   IStoreService storeService,
+                                   ICompanyService companyService,
+                                   IBrandService brandService
+                                   )
         {
             _productService = productService;
             _imageService = imageService;
-            _defaultService = defaultService;
+            _categoryService = categoryService;
+            _companyService = companyService;
+            _StoreService = storeService;
+            _brandService = brandService;
         }
 
         public ActionResult Index(ProductVM product =null)
         {
+            IEnumerable<ProductVM> viewModelProducts;
+            IEnumerable<Product> Products;
 
-            ICollection<Product> _Products;
-            ICollection<Brand> _Brands;
-            ICollection<Category> _Categories;
-            ICollection<Store> _Stores;
-            ICollection<Company> _Companies;
-            _Products = _productService.GetProducts(product.Name).ToList();
-            _Brands = _defaultService.GetBrands(product.BrandId).ToList();
-            _Categories = _defaultService.GetCategories(product.CategoryId).ToList();
-            _Stores = _defaultService.GetStores(product.StoreId).ToList();
-            _Companies = _defaultService.GetCompanies(product.CategoryId).ToList();
+            Products = _productService.GetProducts(product.Name).ToList();
 
-
-            var subscriberVM = new SubScriberVM
-            {
-                Products = Mapper.Map<ICollection<Product>, ICollection<ProductVM>>(_Products),
-                Categories = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
-                Stores = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(_Stores),
-                Brands = Mapper.Map<ICollection<Brand>, ICollection<BrandVM>>(_Brands),
-                Companies = Mapper.Map<ICollection<Company>, ICollection<CompanyVM>>(_Companies),
-            };
-
+            viewModelProducts = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductVM>>(Products);
             
-            return View(subscriberVM);
+            return View(viewModelProducts);
         }
 
 
@@ -61,10 +57,10 @@ namespace SNOW_Solution.Controllers
                 if (productVM != null && productVM.Photos != null)
                 {
                     var prod = Mapper.Map<ProductVM, Product>(productVM);
-                    prod.BrandId = 1;
-                    prod.CategoryId = 1;
-                    prod.CompanyId = 1;
-                    prod.StoreId = 1;
+                    prod.BrandId = productVM.BrandId;
+                    prod.CategoryId = productVM.CategoryId;
+                    prod.CompanyId = productVM.CompanyId;
+                    prod.StoreId = productVM.StoreId;
                     
                     _productService.CreateProduct(prod);
                     foreach (var bin in productVM.Photos)
@@ -83,12 +79,37 @@ namespace SNOW_Solution.Controllers
 
                 
             }
-            return View();
+            return RedirectToAction("Index");
         }
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            return View();
+
+            ICollection<Brand> _Brands;
+            ICollection<Category> _Categories;
+            ICollection<Store> _Stores;
+            ICollection<Company> _Companies;
+
+
+            _Categories = _categoryService.GetCategories().ToList();
+            _Brands = _brandService.GetBrands().ToList();
+            _Stores = _StoreService.GetStores().ToList();
+            _Companies = _companyService.GetCompanies().ToList();
+
+            ViewBag.Categories = _Categories;
+
+            var subscriberVM = new SubScriberVM
+            {
+                Categories = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
+                Brands = Mapper.Map<ICollection<Brand>, ICollection<BrandVM>>(_Brands),
+                Stores = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(_Stores),
+                Companies = Mapper.Map<ICollection<Company>, ICollection<CompanyVM>>(_Companies)
+              
+            };
+
+            var productVM = new ProductVM();
+            productVM.MySubscriberVM = subscriberVM;
+            return View(productVM);
         }
 
         public ActionResult Insert(Product obj)

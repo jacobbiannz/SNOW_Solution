@@ -10,7 +10,7 @@ namespace SNOW_Solution.Web.ViewModels
     public class SubScriberVM
     {
       public ICollection<ProductVM> Products { set; get; }
-      public ICollection<CategoryVM> Categories { set; get; }
+      public IEnumerable<CategoryVM> Categories { set; get; }
       public ICollection<CompanyVM> Companies { set; get; }
       public ICollection<StoreVM> Stores { set; get; }
       public ICollection<BrandVM> Brands { set; get; }
