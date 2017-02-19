@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace SNOW_Solution
+namespace Snow.Web.App_Start
 {
     public class BundleConfig
     {

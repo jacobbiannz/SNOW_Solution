@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace SNOW_Solution.Models
+namespace Snow.Model
 {
     public class Customer : AuditableEntity<Customer>
     {

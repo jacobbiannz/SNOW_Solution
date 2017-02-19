@@ -2,15 +2,16 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Snow.Data;
-using SNOW_Solution.Web.Models;
+using Snow.Web.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using SNOW_Solution;
 
-namespace SNOW_Solution.Controllers
+namespace Snow.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class RolesAdminController : Controller

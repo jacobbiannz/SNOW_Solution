@@ -1,11 +1,11 @@
-﻿using SNOW_Solution.Models;
+﻿using Snow.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
 
-namespace SNOW_Solution.Configuration
+namespace Snow.Data.Configuration
 {
     public class Companyfiguration : EntityTypeConfiguration<Company>
     {

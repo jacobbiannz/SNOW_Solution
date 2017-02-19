@@ -1,8 +1,9 @@
 ﻿
 using Microsoft.AspNet.Identity.Owin;
 using Snow.Data;
-using SNOW_Solution.Models;
-using SNOW_Solution.Web.Models;
+using Snow.Model;
+using Snow.Web.ViewModel;
+using SNOW_Solution;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -11,7 +12,7 @@ using System.Web;
 using System.Web.Mvc;
 
 
-namespace SNOW_Solution.Controllers
+namespace Snow.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminUserController : Controller

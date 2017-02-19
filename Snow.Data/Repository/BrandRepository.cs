@@ -1,6 +1,6 @@
 ﻿using Snow.Data.Infrastructure;
-using Snow.Data.Repository.Interface;
-using SNOW_Solution.Models;
+////using Snow.Data.Repository.Interface;
+using Snow.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

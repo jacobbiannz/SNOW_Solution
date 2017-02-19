@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using SNOW_Solution.Models;
+using Snow.Model;
 
-namespace SNOW_Solution.Controllers
+namespace Snow.Web.Controllers
 {
     /*
     [Authorize]

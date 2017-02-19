@@ -1,4 +1,4 @@
-﻿using SNOW_Solution.Models;
+﻿using Snow.Model;
 using SNOW_Solution.Web.ViewModels;
 using System;
 using System.Collections.Generic;

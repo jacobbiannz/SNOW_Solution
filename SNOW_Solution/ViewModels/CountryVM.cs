@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using SNOW_Solution.Models;
+using Snow.Model;
 
 namespace SNOW_Solution.Web.ViewModels
 {

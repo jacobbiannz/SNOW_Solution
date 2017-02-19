@@ -1,12 +1,12 @@
 ﻿using Snow.Data.Infrastructure;
-using SNOW_Solution.Models;
+using Snow.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace SNOW_Solution.Repository
+namespace Snow.Data.Repository
 {
     public class ProductRepository : RepositoryBase<Product>, IProductRepository
     {

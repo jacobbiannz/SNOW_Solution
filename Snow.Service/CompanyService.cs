@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SNOW_Solution.Models;
+using Snow.Model;
 using Snow.Data.Repository;
-using Snow.Data.Repository.Interface;
+////using Snow.Data.Repository.Interface;
 using Snow.Data.Infrastructure;
 
-namespace Snow.Service.Interface
+namespace Snow.Service
 {
     class CompanyService : ICompanyService
     {

@@ -1,13 +1,13 @@
-﻿using Snow.Service.Interface;
+﻿//using Snow.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SNOW_Solution.Models;
-using SNOW_Solution.Repository;
-using Snow.Data.Infrastructure;
+using Snow.Model;
 using Snow.Data.Repository;
+using Snow.Data.Infrastructure;
+//using Snow.Data.Repository;
 
 namespace Snow.Service
 {

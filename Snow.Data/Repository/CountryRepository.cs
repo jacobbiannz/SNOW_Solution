@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using SNOW_Solution.Models;
+using Snow.Model;
 using System.Data.Entity;
 using Snow.Data.Infrastructure;
 
-namespace SNOW_Solution.Repository
+namespace Snow.Data.Repository
 {
     public class CountryRepository : RepositoryBase<Country>, ICountryRepository
     {

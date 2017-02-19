@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using SNOW_Solution.Models;
+using Snow.Model;
 using SNOW_Solution.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SNOW_Solution.Mapping
+namespace Snow.Web.Mapping
 {
     public static class AutoMapperConfiguration
     {

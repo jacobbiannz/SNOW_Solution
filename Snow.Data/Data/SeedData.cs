@@ -2,7 +2,7 @@ namespace SNOW_Solution.Migrations
 {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using Models;
+    using Snow.Model;
     using Snow.Data;
     using System.Data.Entity.Migrations;
     using System;
@@ -14,7 +14,7 @@ namespace SNOW_Solution.Migrations
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
-            //   ContextKey = "SNOW_Solution.Models.CompanyDbContext";
+            //   ContextKey = "Snow.Model.CompanyDbContext";
         }
 
         protected override void Seed(CompanyDBContext context)

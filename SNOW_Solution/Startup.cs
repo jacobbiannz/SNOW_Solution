@@ -2,8 +2,11 @@
 using Microsoft.Owin;
 using Owin;
 using Snow.Data;
-[assembly: OwinStartupAttribute(typeof(SNOW_Solution.Startup))]
-namespace SNOW_Solution
+using SNOW_Solution;
+
+[assembly: OwinStartupAttribute(typeof(Snow.Web.Startup))]
+
+namespace Snow.Web
 {
     public class Startup
     {

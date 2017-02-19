@@ -3,8 +3,8 @@ using Autofac.Integration.Mvc;
 using AutoMapper;
 using Snow.Data.Infrastructure;
 using Snow.Service;
-using SNOW_Solution.Mapping;
-using SNOW_Solution.Repository;
+using Snow.Web.Mapping;
+using Snow.Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SNOW_Solution.App_Start
+namespace Snow.Web.App_Start
 {
     public static class Bootstrapper
     {

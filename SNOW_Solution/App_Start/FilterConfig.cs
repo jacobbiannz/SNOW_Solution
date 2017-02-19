@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace SNOW_Solution
+namespace Snow.Web.App_Start
 {
     public class FilterConfig
     {

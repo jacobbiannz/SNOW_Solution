@@ -1,4 +1,4 @@
-﻿using SNOW_Solution.App_Start;
+﻿using Snow.Web.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace SNOW_Solution
+namespace Snow.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {

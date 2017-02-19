@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SNOW_Solution;
-using SNOW_Solution.Configuration;
-using SNOW_Solution.Models;
+using Snow.Data.Configuration;
+using Snow.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

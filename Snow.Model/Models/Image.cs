@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 
-namespace SNOW_Solution.Models
+namespace Snow.Model
 {
     public class Image : AuditableEntity<Image>
     {

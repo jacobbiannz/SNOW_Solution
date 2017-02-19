@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SNOW_Solution.Models
+namespace Snow.Model
 {
 
     public interface IAuditableEntity

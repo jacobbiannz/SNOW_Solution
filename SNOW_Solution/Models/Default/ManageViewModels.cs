@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace SNOW_Solution.Web.Models
+namespace Snow.Web.ViewModel
 {
     public class IndexViewModel
     {

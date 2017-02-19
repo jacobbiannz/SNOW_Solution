@@ -8,11 +8,12 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using SNOW_Solution.Models;
+using Snow.Model;
 using Snow.Data;
-using SNOW_Solution.Web.Models;
+using SNOW_Solution;
+using Snow.Web.ViewModel;
 
-namespace SNOW_Solution.Controllers
+namespace Snow.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller

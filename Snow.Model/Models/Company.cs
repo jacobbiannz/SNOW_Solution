@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace SNOW_Solution.Models
+namespace Snow.Model
 {
     public class Company : AuditableEntity<Company>
     {

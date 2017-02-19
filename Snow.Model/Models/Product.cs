@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using SNOW_Solution.Models;
+using Snow.Model;
 
-namespace SNOW_Solution.Models
+namespace Snow.Model
 {
     public class Product : AuditableEntity<Product>
     {

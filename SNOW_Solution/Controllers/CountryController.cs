@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using SNOW_Solution.Models;
+using Snow.Model;
 using SNOW_Solution.Web.ViewModels;
-using SNOW_Solution.Repository;
+using Snow.Data.Repository;
 
-namespace SNOW_Solution.Controllers
+namespace Snow.Web.Controllers
 {
     public class CountryController : Controller
     {
