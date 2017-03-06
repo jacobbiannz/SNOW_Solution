@@ -1,18 +1,21 @@
 ﻿using Snow.Model;
-using SNOW_Solution.Web.ViewModels;
+using Snow.Web.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SNOW_Solution.Web.ViewModels
+namespace Snow.Web.ViewModel
 {
-    public class SubScriberVM
+    public class SubscriberVM
     {
-      public ICollection<ProductVM> Products { set; get; }
-      public IEnumerable<CategoryVM> Categories { set; get; }
-      public ICollection<CompanyVM> Companies { set; get; }
-      public ICollection<StoreVM> Stores { set; get; }
-      public ICollection<BrandVM> Brands { set; get; }
+        public ICollection<ProductVM> Products { set; get; }
+        public IEnumerable<CategoryVM> Categories { set; get; }
+        public ICollection<CompanyVM> Companies { set; get; }
+        public ICollection<StoreVM> Stores { set; get; }
+        public ICollection<BrandVM> Brands { set; get; }
+        public ICollection<CountryVM> CountriesVM { set; get; }
+    
+        
     }
 }

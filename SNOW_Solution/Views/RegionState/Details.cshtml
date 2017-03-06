@@ -1,4 +1,4 @@
-﻿@model Snow.Web.ViewModel.CountryVM
+﻿@model Snow.Web.ViewModel.RegionStateVM
 
 @{
     ViewBag.Title = "Details";
@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>CountryVM</h4>
+    <h4>RegionStateVM</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,19 +19,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Code)
+            @Html.DisplayNameFor(model => model.CountryName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Code)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Tax)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tax)
+            @Html.DisplayFor(model => model.CountryName)
         </dd>
 
     </dl>

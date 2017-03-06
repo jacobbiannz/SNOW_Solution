@@ -113,7 +113,7 @@ namespace Snow.Data
             try
             {
                 modelBuilder.Configurations.Add(new CountryConfiguration());
-                modelBuilder.Configurations.Add(new RegionalStateConfiguration());
+                modelBuilder.Configurations.Add(new RegionStateConfiguration());
                 modelBuilder.Configurations.Add(new CityConfiguration());
                 modelBuilder.Configurations.Add(new AddressConfiguration());
                 modelBuilder.Configurations.Add(new Companyfiguration());
@@ -172,11 +172,11 @@ namespace Snow.Data
                     .HasMany(d => d.AllOrders)
                     .WithRequired(l => l.MyOrderStatus).WillCascadeOnDelete(false);
 
-
-
+                /*
                 modelBuilder.Entity<Store>()
                 .HasOptional(s => s.MyAddress)
                 .WithOptionalDependent(a => a.MyStore);
+                */
 
                 modelBuilder.Entity<Promotion>()
                     .HasMany(d => d.AllProducts)

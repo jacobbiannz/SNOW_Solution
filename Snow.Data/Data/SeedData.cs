@@ -64,8 +64,8 @@ namespace SNOW_Solution.Migrations
             {
                 AddressLine1 = "queen st",
                 MyCity = city,
-                PhoneNumber = "02188888",
-                Email = "demo@hotmail.com",
+                //PhoneNumber = "02188888",
+                //Email = "demo@hotmail.com",
 
                 Id = 1
             };
@@ -73,7 +73,7 @@ namespace SNOW_Solution.Migrations
             var company = new Company
             {
                 Name = "Snow",
-                MyAddress = address,
+                //MyAddress = address,
 
                 Id = 1
             };

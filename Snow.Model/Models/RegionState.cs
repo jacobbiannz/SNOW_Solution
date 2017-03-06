@@ -15,7 +15,7 @@ namespace Snow.Model
 
         [ForeignKey("MyCountry")]
         public int CountryId { get; set; }
-        public Country MyCountry { get; set; }
+        public virtual Country MyCountry { get; set; }
 
         public virtual ICollection<City> AllCities { get; set; }
     }

@@ -46,6 +46,7 @@ namespace Snow.Data.Infrastructure
 
         public virtual void Delete(T entity)
         {
+            dbSet.Attach(entity);
             dbSet.Remove(entity);
         }
 

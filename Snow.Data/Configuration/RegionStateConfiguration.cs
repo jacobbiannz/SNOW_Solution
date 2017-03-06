@@ -7,9 +7,9 @@ using System.Web;
 
 namespace Snow.Data.Configuration
 {
-    public class RegionalStateConfiguration : EntityTypeConfiguration<RegionState>
+    public class RegionStateConfiguration : EntityTypeConfiguration<RegionState>
     {
-        public RegionalStateConfiguration()
+        public RegionStateConfiguration()
         {
             ToTable("RegionalStates");
             Property(r => r.Name).IsRequired();

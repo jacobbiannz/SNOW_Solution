@@ -18,9 +18,14 @@ namespace Snow.Data.Repository
         }
         public Country GetCountryByName(string countryName)
         {
-            var country = this.DbContext.Countries.Where(c => c.Name == countryName).FirstOrDefault();
+            var country = DbContext.Countries.Where(c => c.Name == countryName).FirstOrDefault();
 
             return country;
+        }  
+        public override void Update(Country entity)
+        {
+            entity.UpdatedDate = DateTime.Now;
+            base.Update(entity);
         }
 
     }

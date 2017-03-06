@@ -14,8 +14,8 @@ namespace Snow.Data.Configuration
             ToTable("Addresses");
             Property(a => a.CityId);
             Property(a => a.AddressLine1);
-            Property(a => a.PhoneNumber).IsRequired();
-            Property(a => a.Email).IsRequired();
+            //Property(a => a.PhoneNumber).IsRequired();
+            //Property(a => a.Email).IsRequired();
         }
     }
 }

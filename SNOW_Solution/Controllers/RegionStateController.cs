@@ -1,95 +1,141 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Snow.Model;
-using SNOW_Solution.Web.ViewModels;
+using Snow.Web.ViewModel;
 using Snow.Data.Repository;
+using Snow.Service;
+using AutoMapper;
+using System.Linq;
 
 namespace Snow.Web.Controllers
 {
     public class RegionStateController : Controller
     {
-        private readonly IRegionStateRepository regionStateRepository;
-        private readonly ICountryRepository countryRepository;
-        
-        public RegionStateController(IRegionStateRepository regionStateRepositor, ICountryRepository countryRepository)
+        private readonly IRegionStateService _RegionStateService;
+        private readonly ICountryService _CountryStateService;
+
+        public RegionStateController(IRegionStateService RegionStateService,
+                                     ICountryService countryService)
         {
-            this.regionStateRepository = regionStateRepositor;
-            this.countryRepository = countryRepository;
+            _RegionStateService = RegionStateService;
+            _CountryStateService = countryService;
         }
 
-        //-------------------------
-        public void RegionStateUpdate(RegionStateVM regionStateVM, RegionState regionState)
+        public ActionResult Index(RegionStateVM RegionState = null)
         {
-            regionState.Name = regionStateVM.Name;
-            regionState.CountryId = regionStateVM.SelectedCountryId;
-        }
-        //--------------------------------
-        public ActionResult Index()
-        {
-            var model = (List<RegionState>)regionStateRepository.GetAll();
-            return View(model);
+            IEnumerable<RegionStateVM> viewModelRegionStates;
+            IEnumerable<RegionState> RegionStates;
+
+            RegionStates = _RegionStateService.GetRegionStates(RegionState.Name).ToList();
+
+            viewModelRegionStates = Mapper.Map<IEnumerable<RegionState>, IEnumerable<RegionStateVM>>(RegionStates);
+
+            return View(viewModelRegionStates);
         }
 
         public ActionResult Details(int id)
         {
-            var regionState = (RegionState)regionStateRepository.GetById(id);
-            return View(regionState);
+            var existing = _RegionStateService.GetRegionState(id);
+            var viewModelProduct = Mapper.Map<RegionState, RegionStateVM>(existing);
+            return View(viewModelProduct);
         }
 
-        public ActionResult create()
+        [Authorize(Roles = "Admin")]
+        public ActionResult Create()
         {
-            var regionstateVM = new RegionStateVM();
-            regionstateVM.Countries = new SelectList((List<Country>)countryRepository.GetAll(), "Id", "Name", regionstateVM.SelectedCountryId);
-            return View(regionstateVM);
+            ICollection<Country> _Countries;
+            _Countries = _CountryStateService.GetCountries().ToList();
 
-        }
-
-        [HttpPost]
-        public ActionResult Create(RegionStateVM regionStateVM)
-        {
-            if (ModelState.IsValid)
+            var subscriberVM = new SubscriberVM
             {
-                RegionState regionState = new RegionState();
-                RegionStateUpdate(regionStateVM, regionState);
-                regionStateRepository.Add(regionState);
-                return RedirectToAction("Index");
-            }
+                CountriesVM = Mapper.Map<ICollection<Country>, ICollection<CountryVM>>(_Countries)
+            };
 
-            regionStateVM.Countries = new SelectList((List<Country>)countryRepository.GetAll(), "Id", "Name", regionStateVM.SelectedCountryId);
-
+            var regionStateVM = new RegionStateVM();
+            regionStateVM.MySubscriberVM = subscriberVM;
             return View(regionStateVM);
         }
 
-
-        public ActionResult Edit(int id)
-        {
-            var regionState = (RegionState)regionStateRepository.GetById(id);
-            return View(regionState);
-        }
-
         [HttpPost]
-        public ActionResult Edit(RegionState regionState)
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public ActionResult Create(RegionStateVM RegionStateVM)
         {
             if (ModelState.IsValid)
             {
-                regionStateRepository.Update(regionState);
-                return RedirectToAction("Index");
+                if (RegionStateVM != null)
+                {
+                    var RegionState = Mapper.Map<RegionStateVM, RegionState>(RegionStateVM);
+                    _RegionStateService.CreateRegionState(RegionState);
+                    _RegionStateService.SaveRegionState();
+                }
             }
-            return View(regionState);
+            return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(int id)
+        {
+            ICollection<Country> _Countries;
+            _Countries = _CountryStateService.GetCountries().ToList();
+
+            var existing = _RegionStateService.GetRegionState(id);
+            if (existing == null)
+            {
+                return HttpNotFound();
+            }
+
+            var regionStateVM = Mapper.Map<RegionState, RegionStateVM>(existing);
+
+            var subscriberVM = new SubscriberVM
+            {
+                CountriesVM = Mapper.Map<ICollection<Country>, ICollection<CountryVM>>(_Countries)
+            };
+
+            regionStateVM.MySubscriberVM = subscriberVM;
+            return View(regionStateVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(RegionStateVM RegionStateVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var existing = Mapper.Map<RegionStateVM, RegionState>(RegionStateVM);
+                _RegionStateService.UpdateRegionState(existing);
+                _RegionStateService.SaveRegionState();
+                return RedirectToAction("Index");
+            }
+            return View(RegionStateVM);
+        }
+
+        
+
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
-            var regionState = (RegionState)regionStateRepository.GetById(id);
-            return View(regionState);
+            var existing = _RegionStateService.GetRegionState(id);
+            var RegionStateVM = Mapper.Map<RegionState, RegionStateVM>(existing);
+            return View(RegionStateVM);
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public ActionResult DeleteConfirmed(RegionStateVM RegionStateVM)
         {
-            var regionState = (RegionState)regionStateRepository.GetById(id);
-            regionStateRepository.Delete(regionState);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var existing = Mapper.Map<RegionStateVM, RegionState>(RegionStateVM);
+                _RegionStateService.DeleteRegionState(existing);
+                _RegionStateService.SaveRegionState();
+                return RedirectToAction("Index");
+            }
+            return View(RegionStateVM);
         }
+
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Snow.Service;
 using Snow.Model;
-using SNOW_Solution.Web.ViewModels;
+using Snow.Web.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -45,6 +45,36 @@ namespace Snow.Web.Controllers
             return View(viewModelProducts);
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult Create()
+        {
+
+            ICollection<Brand> _Brands;
+            ICollection<Category> _Categories;
+            ICollection<Store> _Stores;
+           // ICollection<Company> _Companies;
+
+
+            _Categories = _categoryService.GetCategories().ToList();
+            _Brands = _brandService.GetBrands().ToList();
+            _Stores = _StoreService.GetStores().ToList();
+            //_Companies = _companyService.GetCompanies().ToList();
+
+            //ViewBag.Categories = _Categories;
+
+            var subscriberVM = new SubscriberVM
+            {
+                Categories = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
+                Brands = Mapper.Map<ICollection<Brand>, ICollection<BrandVM>>(_Brands),
+                Stores = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(_Stores),
+                //Companies = Mapper.Map<ICollection<Company>, ICollection<CompanyVM>>(_Companies)
+
+            };
+
+            var productVM = new ProductVM();
+            productVM.MySubscriberVM = subscriberVM;
+            return View(productVM);
+        }
 
         // POST: Items/Create
         [HttpPost]
@@ -81,36 +111,7 @@ namespace Snow.Web.Controllers
             }
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "Admin")]
-        public ActionResult Create()
-        {
-
-            ICollection<Brand> _Brands;
-            ICollection<Category> _Categories;
-            ICollection<Store> _Stores;
-            ICollection<Company> _Companies;
-
-
-            _Categories = _categoryService.GetCategories().ToList();
-            _Brands = _brandService.GetBrands().ToList();
-            _Stores = _StoreService.GetStores().ToList();
-            _Companies = _companyService.GetCompanies().ToList();
-
-            ViewBag.Categories = _Categories;
-
-            var subscriberVM = new SubScriberVM
-            {
-                Categories = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
-                Brands = Mapper.Map<ICollection<Brand>, ICollection<BrandVM>>(_Brands),
-                Stores = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(_Stores),
-                Companies = Mapper.Map<ICollection<Company>, ICollection<CompanyVM>>(_Companies)
-              
-            };
-
-            var productVM = new ProductVM();
-            productVM.MySubscriberVM = subscriberVM;
-            return View(productVM);
-        }
+        
 
         public ActionResult Insert(Product obj)
         {

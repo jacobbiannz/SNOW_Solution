@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Snow.Model;
-using SNOW_Solution.Web.ViewModels;
+using Snow.Web.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,18 +23,41 @@ namespace Snow.Web.Mapping
                .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
                .ForMember(d => d.BrandId, opt => opt.MapFrom(s => s.Id))
                .ReverseMap();
+
             cfg.CreateMap<Category, CategoryVM>()
               .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
               .ForMember(d => d.CategoryId, opt => opt.MapFrom(s => s.Id))
               .ReverseMap();
+
             cfg.CreateMap<Store, StoreVM>()
               .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
               .ForMember(d => d.StoreId, opt => opt.MapFrom(s => s.Id))
               .ReverseMap();
-            cfg.CreateMap<Company, CompanyVM>()
+            
+            cfg.CreateMap<Country, CountryVM>()
              .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
-             .ForMember(d => d.CompanyId, opt => opt.MapFrom(s => s.Id))
+             .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+             .ForMember(d => d.Code, opt => opt.MapFrom(s => s.Code))
+             .ForMember(d => d.Tax, opt => opt.MapFrom(s => s.Tax))
              .ReverseMap();
+
+            cfg.CreateMap<RegionState, RegionStateVM>()
+            .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
+            .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+            .ForMember(d => d.CountryId, opt => opt.MapFrom(s => s.CountryId))
+            .ForMember(d => d.CountryName, opt => opt.MapFrom(s => s.MyCountry.Name))
+            .ReverseMap();
+
+            cfg.CreateMap<Company, CompanyVM>()
+            .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
+            .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+            .ForMember(d => d.PhoneNumber, opt => opt.MapFrom(s => s.PhoneNumber))
+            .ForMember(d => d.Email, opt => opt.MapFrom(s => s.Email))
+            .ForMember(d => d.AddressLine1, opt => opt.MapFrom(s => s.AddressLine1))
+            .ForMember(d => d.AddressLine2, opt => opt.MapFrom(s => s.AddressLine2))
+            .ForMember(d => d.City, opt => opt.MapFrom(s => s.City))
+            .ForMember(d => d.Country, opt => opt.MapFrom(s => s.Country))
+            .ReverseMap();
         }
     }
 }

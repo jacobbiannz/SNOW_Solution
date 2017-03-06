@@ -9,6 +9,7 @@ namespace Snow.Model
 {
     public class Address : AuditableEntity<Address>
     {
+        /*
         [Required]
         [MaxLength(50)]
         public string PhoneNumber { get; set; }
@@ -17,7 +18,8 @@ namespace Snow.Model
         [MaxLength(100)]
         [EmailAddress]
         public string Email { get; set; }
-        
+        */
+
         [MaxLength(100)]
         public string AddressLine1 { get; set; }
 
@@ -31,6 +33,6 @@ namespace Snow.Model
         public int CityId { get; set; }
         public virtual City MyCity { get; set; }
 
-        public Store MyStore { get; set; }
+        //public Store MyStore { get; set; }
     }
 }

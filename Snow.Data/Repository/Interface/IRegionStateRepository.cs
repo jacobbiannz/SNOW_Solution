@@ -9,5 +9,6 @@ namespace Snow.Data.Repository
 {
     public interface IRegionStateRepository : IRepository<RegionState>
     {
+        RegionState GetRegionStateByName(string countryName);
     }
 }

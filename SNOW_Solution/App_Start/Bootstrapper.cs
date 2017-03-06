@@ -35,8 +35,9 @@ namespace Snow.Web.App_Start
             builder.RegisterAssemblyTypes(typeof(ProductRepository).Assembly)
                 .Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces().InstancePerRequest();
+            
             // Services
-            builder.RegisterAssemblyTypes(typeof(ImageService).Assembly)
+            builder.RegisterAssemblyTypes(typeof(ProductService).Assembly)
                .Where(t => t.Name.EndsWith("Service"))
                .AsImplementedInterfaces().InstancePerRequest();
 

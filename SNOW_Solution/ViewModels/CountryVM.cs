@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Snow.Model;
 
-namespace SNOW_Solution.Web.ViewModels
+namespace Snow.Web.ViewModel
 {
     public class CountryVM
     {
@@ -12,5 +12,7 @@ namespace SNOW_Solution.Web.ViewModels
         public string Name { get; set; }
         public string Code { get; set; }
         public decimal Tax { get; set; }
+
+        public SubscriberVM MySubscriberVM { set; get; }
     }
 }

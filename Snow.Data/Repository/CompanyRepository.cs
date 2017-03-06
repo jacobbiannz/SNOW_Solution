@@ -14,5 +14,17 @@ namespace Snow.Data.Repository
         public CompanyRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
+        public Company GetCompanyByName(string companyName)
+        {
+            var company = DbContext.Companys.Where(c => c.Name == companyName).FirstOrDefault();
+
+            return company;
+        }
+
+        public override void Update(Company entity)
+        {
+            entity.UpdatedDate = DateTime.Now;
+            base.Update(entity);
+        }
     }
 }

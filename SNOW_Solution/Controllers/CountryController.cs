@@ -1,104 +1,114 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Snow.Model;
-using SNOW_Solution.Web.ViewModels;
+using Snow.Web.ViewModel;
 using Snow.Data.Repository;
+using Snow.Service;
+using AutoMapper;
+using System.Linq;
 
 namespace Snow.Web.Controllers
 {
     public class CountryController : Controller
     {
-        private readonly ICountryRepository countryRepository;
+        private readonly ICountryService _countryService;
 
-        public CountryController(ICountryRepository countryRepository)
+        public CountryController(ICountryService countryService)
         {
-            this.countryRepository = countryRepository;
+            _countryService = countryService;
         }
 
-        public void CountryUpdate(CountryVM countryVM, Country country)
+        public ActionResult Index(CountryVM country = null)
         {
-            country.Name = countryVM.Name;
-            country.Code = countryVM.Code;
-            country.Tax = countryVM.Tax;
+            IEnumerable<CountryVM> viewModelCountries;
+            IEnumerable<Country> Countries;
+
+            Countries = _countryService.GetCountries(country.Name).ToList();
+
+            viewModelCountries = Mapper.Map<IEnumerable<Country>, IEnumerable<CountryVM>>(Countries);
+
+            return View(viewModelCountries);
         }
 
-        private CountryVM countryVMFromExist(Country country)
-        {
-            CountryVM countryVM = new CountryVM
-            {
-                Id = country.Id,
-                Name = country.Name,
-                Code = country.Code,
-                Tax = country.Tax
-            };
-            return countryVM;
-        }
-        //-------------------------------------------------
-        public ActionResult Index()
-        {
-            var model = (List<Country>)countryRepository.GetAll();
-            return View(model);
-        }
-
-        public ActionResult Details(int id)
-        {
-            var country = (Country)countryRepository.GetById(id);
-            return View(country);
-        }
-
-        public ActionResult create()
+        // POST: Items/Create
+        
+        //[ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(CountryVM countryVM)
         {
             if (ModelState.IsValid)
             {
-                Country country = new Country();
-                CountryUpdate(countryVM, country);
-                countryRepository.Add(country);
-                return RedirectToAction("Index");
+                if (countryVM != null)
+                {
+                    var country = Mapper.Map<CountryVM, Country>(countryVM);
+                    _countryService.CreateCountry(country);
+                    _countryService.SaveCountry();
+                }
             }
-            return View(countryVM);
+            return RedirectToAction("Index");
         }
 
-
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-            var country = (Country)countryRepository.GetById(id);
-            if (country == null) return new HttpNotFoundResult();
-            CountryVM countryVM = countryVMFromExist(country);
-            return View(countryVM);
+            var existing = _countryService.GetCountry(id);
+            var viewModelCountry = Mapper.Map<Country, CountryVM>(existing);
+            return View(viewModelCountry);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(CountryVM countryVM)
         {
             if (ModelState.IsValid)
             {
-                var country = (Country)countryRepository.GetById(countryVM.Id);
-                CountryUpdate(countryVM, country);
-                countryRepository.Update(country);
+                var existing = Mapper.Map<CountryVM, Country>(countryVM);
+                _countryService.UpdateCountry(existing);
+                _countryService.SaveCountry();
                 return RedirectToAction("Index");
             }
             return View(countryVM);
         }
 
+        public ActionResult Details(int id)
+        {
+            var existing = _countryService.GetCountry(id);
+            var viewModelProduct = Mapper.Map<Country, CountryVM>(existing);
+            return View(viewModelProduct);
+        }
+
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
-            var country = (Country)countryRepository.GetById(id);
-            return View(country);
+            var existing = _countryService.GetCountry(id);
+            var viewModelCountry = Mapper.Map<Country, CountryVM>(existing);
+            return View(viewModelCountry);
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public ActionResult DeleteConfirmed(CountryVM countryVM)
         {
-            var country = (Country)countryRepository.GetById(id);
-            countryRepository.Delete(country);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var existing = Mapper.Map<CountryVM, Country>(countryVM);
+                _countryService.DeleteCountry(existing);
+                _countryService.SaveCountry();
+                return RedirectToAction("Index");
+            }
+            return View(countryVM);
         }
+
+
     }
 }

@@ -10,5 +10,6 @@ namespace Snow.Data.Repository
 {
    public interface ICompanyRepository : IRepository<Company>
     {
+        Company GetCompanyByName(string companyName);
     }
 }

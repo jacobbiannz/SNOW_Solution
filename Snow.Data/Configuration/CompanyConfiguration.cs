@@ -13,8 +13,6 @@ namespace Snow.Data.Configuration
         {
             ToTable("Companies");
             Property(c => c.Name).IsRequired().HasMaxLength(100);
-            Property(c => c.AddressId);
-            
         }
     }
 }

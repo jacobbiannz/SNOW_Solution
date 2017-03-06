@@ -5,13 +5,14 @@ using System.Web;
 using Snow.Model;
 using System.Web.Mvc;
 
-namespace SNOW_Solution.Web.ViewModels
+namespace Snow.Web.ViewModel
 {
     public class RegionStateVM
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int SelectedCountryId { get; set; }
-        public IEnumerable<SelectListItem> Countries { get; set; }
+        public int CountryId { get; set; }
+        public string CountryName { get; set; }
+        public SubscriberVM MySubscriberVM { get; set;}
     }
 }

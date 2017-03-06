@@ -215,11 +215,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\RegionStateController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\RegionStateController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -238,7 +239,7 @@
     <Compile Include="ViewModels\ProductVM.cs" />
     <Compile Include="ViewModels\RegionStateVM.cs" />
     <Compile Include="ViewModels\StoreVM.cs" />
-    <Compile Include="ViewModels\SubScriberVM.cs" />
+    <Compile Include="ViewModels\SubscriberVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -303,16 +304,22 @@
     <Content Include="Views\RolesAdmin\Details.cshtml" />
     <Content Include="Views\RolesAdmin\Edit.cshtml" />
     <Content Include="Views\RolesAdmin\Index.cshtml" />
-    <Content Include="Views\Country\Create.cshtml" />
-    <Content Include="Views\Country\Delete.cshtml" />
-    <Content Include="Views\Country\Details.cshtml" />
-    <Content Include="Views\Country\Edit.cshtml" />
-    <Content Include="Views\Country\Index.cshtml" />
-    <Content Include="Views\RegionState\create.cshtml" />
-    <Content Include="Views\RegionState\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Country\Index.cshtml" />
+    <Content Include="Views\Country\Create.cshtml" />
+    <Content Include="Views\Country\Edit.cshtml" />
+    <Content Include="Views\Country\Details.cshtml" />
+    <Content Include="Views\Country\Delete.cshtml" />
+    <Content Include="Views\RegionState\Index.cshtml" />
+    <Content Include="Views\RegionState\Create.cshtml" />
+    <Content Include="Views\RegionState\Details.cshtml" />
+    <Content Include="Views\RegionState\Edit.cshtml" />
+    <Content Include="Views\RegionState\Delete.cshtml" />
+    <Content Include="Views\Company\Details.cshtml" />
+    <Content Include="Views\Company\Create.cshtml" />
+    <Content Include="Views\Company\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
