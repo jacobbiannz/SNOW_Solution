@@ -68,7 +68,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PaymentTypeService.cs" />
     <Compile Include="BrandService.cs" />
+    <Compile Include="Interface\IPaymentTypeService.cs" />
     <Compile Include="Interface\IValidate.cs" />
     <Compile Include="Interface\IValidationDictionary.cs" />
     <Compile Include="RegionStateService.cs" />

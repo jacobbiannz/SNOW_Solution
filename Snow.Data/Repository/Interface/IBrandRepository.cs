@@ -10,5 +10,6 @@ namespace Snow.Data.Repository
 {
    public interface IBrandRepository : IRepository<Brand>
     {
+        Brand GetBrandByName(string brandName);
     }
 }

@@ -14,5 +14,18 @@ namespace Snow.Data.Repository
         public BrandRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
+
+        public Brand GetBrandByName(string BrandName)
+        {
+            var Brand = DbContext.Brands.Where(c => c.Name == BrandName).FirstOrDefault();
+
+            return Brand;
+        }
+
+        public override void Update(Brand entity)
+        {
+            entity.UpdatedDate = DateTime.Now;
+            base.Update(entity);
+        }
     }
 }

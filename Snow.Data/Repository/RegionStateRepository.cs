@@ -11,8 +11,7 @@ namespace Snow.Data.Repository
     public class RegionStateRepository : RepositoryBase<RegionState>, IRegionStateRepository
     {
 
-        public RegionStateRepository(IDbFactory dbFactory)
-         : base(dbFactory)
+        public RegionStateRepository(IDbFactory dbFactory): base(dbFactory)
         {
 
         }

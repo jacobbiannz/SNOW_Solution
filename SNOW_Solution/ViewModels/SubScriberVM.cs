@@ -9,12 +9,13 @@ namespace Snow.Web.ViewModel
 {
     public class SubscriberVM
     {
-        public ICollection<ProductVM> Products { set; get; }
-        public IEnumerable<CategoryVM> Categories { set; get; }
-        public ICollection<CompanyVM> Companies { set; get; }
-        public ICollection<StoreVM> Stores { set; get; }
-        public ICollection<BrandVM> Brands { set; get; }
+        public ICollection<ProductVM> ProductsVM { set; get; }
+        public IEnumerable<CategoryVM> CategoriesVM { set; get; }
+        public ICollection<CompanyVM> CompaniesVM { set; get; }
+        public ICollection<StoreVM> StoresVM { set; get; }
+        public ICollection<BrandVM> BrandsVM { set; get; }
         public ICollection<CountryVM> CountriesVM { set; get; }
+        public ICollection<PaymentTypeVM> PaymentTypesVM { set; get; }
     
         
     }

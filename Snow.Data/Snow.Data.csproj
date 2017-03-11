@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\AddressConfiguration.cs" />
+    <Compile Include="Configuration\PaymentTypeConfiguration.cs" />
     <Compile Include="Configuration\BrandConfiguration.cs" />
     <Compile Include="Configuration\CategoryConfiguration.cs" />
     <Compile Include="Configuration\CityConfiguration.cs" />
@@ -137,7 +138,9 @@
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Data\SeedData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\PaymentTypeRepository.cs" />
     <Compile Include="Repository\CompanyRepository.cs" />
+    <Compile Include="Repository\Interface\IPaymentTypeRepository.cs" />
     <Compile Include="Repository\Interface\ICompanyRepository.cs" />
     <Compile Include="Repository\StoreRepository.cs" />
     <Compile Include="Repository\BrandRepository.cs" />

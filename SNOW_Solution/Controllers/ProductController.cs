@@ -52,22 +52,22 @@ namespace Snow.Web.Controllers
             ICollection<Brand> _Brands;
             ICollection<Category> _Categories;
             ICollection<Store> _Stores;
-           // ICollection<Company> _Companies;
+            ICollection<Company> _Companies;
 
 
             _Categories = _categoryService.GetCategories().ToList();
             _Brands = _brandService.GetBrands().ToList();
             _Stores = _StoreService.GetStores().ToList();
-            //_Companies = _companyService.GetCompanies().ToList();
+            _Companies = _companyService.GetCompanies().ToList();
 
             //ViewBag.Categories = _Categories;
 
             var subscriberVM = new SubscriberVM
             {
-                Categories = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
-                Brands = Mapper.Map<ICollection<Brand>, ICollection<BrandVM>>(_Brands),
-                Stores = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(_Stores),
-                //Companies = Mapper.Map<ICollection<Company>, ICollection<CompanyVM>>(_Companies)
+                CategoriesVM = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
+                BrandsVM = Mapper.Map<ICollection<Brand>, ICollection<BrandVM>>(_Brands),
+                StoresVM = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(_Stores),
+                CompaniesVM = Mapper.Map<ICollection<Company>, ICollection<CompanyVM>>(_Companies)
 
             };
 

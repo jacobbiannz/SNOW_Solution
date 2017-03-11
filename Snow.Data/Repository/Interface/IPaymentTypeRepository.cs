@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Snow.Data.Repository
 {
-   public interface ICategoryRepository : IRepository<Category>
+   public interface IPaymentTypeRepository : IRepository<PaymentType>
     {
-        Category GetCategoryByName(string categoryName);
+        PaymentType GetPaymentTypeByName(string paymenttypeName);
     }
 }

@@ -1,5 +1,4 @@
-﻿@model Snow.Web.ViewModel.RegionStateVM
-@using SNOW_Solution.Web.Helper
+﻿@model Snow.Web.ViewModel.PaymentTypeVM
 
 @{
     ViewBag.Title = "Create";
@@ -13,11 +12,11 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>RegionStateVM</h4>
+        <h4>CategoryVM</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-           @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -25,20 +24,20 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Counry", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.CountryId, // Store selected value in Model.State
+                @Html.DropDownListFor(m => m.CompanyId, // Store selected value in Model.State
 
                       // Notice "ME" as the last parameter here -
                       // that's the key for "Maine" in the supplied dictionary
-                      new SelectList(Model.MySubscriberVM.CountriesVM, "Id", "Name", "ME"),
+                      new SelectList(Model.MySubscriberVM.CompaniesVM, "Id", "Name", "ME"),
 
                       // Text for the first, non-selected option
-                      "- Please select Counry -",
+                      //"- Please select company -",
 
                       // A class name to put on the "<select>"
                       new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
             </div>
         </div>
 

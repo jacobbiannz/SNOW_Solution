@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 
 namespace Snow.Model
 {
@@ -18,6 +19,6 @@ namespace Snow.Model
 
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
-        public Company MyCompany { get; set; }
+        public virtual Company MyCompany { get; set; }
     }
 }

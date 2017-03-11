@@ -7,7 +7,10 @@ namespace Snow.Web.ViewModel
 {
     public class CategoryVM
     {
-        public string CategoryId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
+        public int CompanyId { get; set; }
+        public string CompanyName { get; set; }
+        public SubscriberVM MySubscriberVM { get; set; }
     }
 }

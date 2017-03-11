@@ -36,8 +36,8 @@ namespace Snow.Web.Controllers
         public ActionResult Details(int id)
         {
             var existing = _RegionStateService.GetRegionState(id);
-            var viewModelProduct = Mapper.Map<RegionState, RegionStateVM>(existing);
-            return View(viewModelProduct);
+            var vmRegionstate = Mapper.Map<RegionState, RegionStateVM>(existing);
+            return View(vmRegionstate);
         }
 
         [Authorize(Roles = "Admin")]

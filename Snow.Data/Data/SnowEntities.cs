@@ -44,23 +44,26 @@ namespace Snow.Data
         {
         }
         #region
-        public DbSet<Company> Companys { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Product> Products { get; set; }
-
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Brand> Brands { get; set; }
-        public DbSet<Country> Countries { get; set; }
-
-        public DbSet<City> Cities { get; set; }
-
         public DbSet<Address> Addresses { get; set; }
-
-        public DbSet<Store> Stores { get; set; }
-
-        public DbSet<RegionState> RegionalStates { get; set; }
-       
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Company> Companys { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderStatus> Orderstatuses { get; set; }
+        public DbSet<PaymentType> PaymentTypes { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<Receipt> Receipts { get; set; }
+        public DbSet<RegionState> RegionalStates { get; set; }
+        public DbSet<Size> Sizes { get; set; }
+        public DbSet<SizeType> SizeTypes { get; set; }
+        public DbSet<Store> Stores { get; set; }
 
         #endregion
         public override int SaveChanges()
