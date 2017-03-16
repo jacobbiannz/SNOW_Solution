@@ -68,6 +68,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InventoryService.cs" />
+    <Compile Include="Interface\IInventoryService.cs" />
+    <Compile Include="SizeService.cs" />
+    <Compile Include="Interface\ISizeService.cs" />
     <Compile Include="PaymentTypeService.cs" />
     <Compile Include="BrandService.cs" />
     <Compile Include="Interface\IPaymentTypeService.cs" />

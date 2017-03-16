@@ -119,6 +119,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\AddressConfiguration.cs" />
+    <Compile Include="Configuration\InventoryConfiguration.cs" />
+    <Compile Include="Configuration\SizeConfiguration.cs" />
     <Compile Include="Configuration\PaymentTypeConfiguration.cs" />
     <Compile Include="Configuration\BrandConfiguration.cs" />
     <Compile Include="Configuration\CategoryConfiguration.cs" />
@@ -138,6 +140,10 @@
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Data\SeedData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\InventoryRepository.cs" />
+    <Compile Include="Repository\Interface\IInventoryRepository.cs" />
+    <Compile Include="Repository\SizeRepository.cs" />
+    <Compile Include="Repository\Interface\ISizeRepository.cs" />
     <Compile Include="Repository\PaymentTypeRepository.cs" />
     <Compile Include="Repository\CompanyRepository.cs" />
     <Compile Include="Repository\Interface\IPaymentTypeRepository.cs" />

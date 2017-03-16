@@ -9,17 +9,7 @@ namespace Snow.Model
 {
     public class Address : AuditableEntity<Address>
     {
-        /*
-        [Required]
-        [MaxLength(50)]
-        public string PhoneNumber { get; set; }
-
-        [Required]
-        [MaxLength(100)]
-        [EmailAddress]
-        public string Email { get; set; }
-        */
-
+        
         [MaxLength(100)]
         public string AddressLine1 { get; set; }
 

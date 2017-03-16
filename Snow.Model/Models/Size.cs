@@ -13,12 +13,13 @@ namespace Snow.Model
         [MaxLength(50)]
         public string Name { get; set; }
 
-        [MaxLength(500)]
-        public string Description { get; set; }
+        [ForeignKey("MyCategory")]
+        public int CategoryId { get; set; }
+        public virtual Category MyCategory { get; set; }
 
-        [ForeignKey("MySizeType")]
-        public int SizeTypeId { get; set; }
-        public SizeType MySizeType { get; set; }
+        //[ForeignKey("MySizeType")]
+        //public int SizeTypeId { get; set; }
+        //public SizeType MySizeType { get; set; }
 
         public virtual ICollection<Inventory> AllInventories { get; set; }
         public virtual ICollection<OrderDetail> AllOrderDetails { get; set; }

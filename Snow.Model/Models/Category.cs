@@ -17,5 +17,6 @@ namespace Snow.Model
         public int CompanyId { get; set; }
         public virtual Company MyCompany { get; set; }
         public ICollection<Product> AllProducts { get; set; }
+        public ICollection<Size> AllSizes { get; set; }
     }
 }

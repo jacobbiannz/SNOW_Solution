@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Snow.Data.Repository
 {
-   public interface IStoreRepository : IRepository<Store>
+   public interface ISizeRepository : IRepository<Size>
     {
-        Store GetStoreByName(string brandName);
+        Size GetSizeByName(string sizeName);
     }
 }

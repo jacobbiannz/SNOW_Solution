@@ -12,19 +12,18 @@ namespace Snow.Model
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
 
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
-        public virtual Company MyCompany { get; set; }
-
-        [ForeignKey("MyAddress")]
-        public int AddressId { get; set; }
-        public virtual Address MyAddress { get; set; }
-      
+        public virtual Company MyCompany { get; set; }    
         public virtual ICollection<Product> AllProducts { get; set; }
-        
-        
-        //alluser(bo)
+        public virtual ICollection<Inventory> AllInventories { get; set; }
 
     }
 }

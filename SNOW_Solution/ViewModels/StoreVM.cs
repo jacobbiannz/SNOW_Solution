@@ -7,7 +7,16 @@ namespace Snow.Web.ViewModel
 {
     public class StoreVM
     {
-        public string StoreId { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public int CompanyId { get; set; }
+        public string CompanyName { get; set; }
+        public SubscriberVM MySubscriberVM { set; get; }
     }
 }

@@ -38,6 +38,6 @@ namespace Snow.Model
         public virtual ICollection<Category> AllCategories{ get; set; }
         public virtual ICollection<OrderStatus> AllOrderStatus { get; set; }
         public virtual ICollection<PaymentType> AllPaymentTypes { get; set; }
-        public virtual ICollection<SizeType> AllSizeTypes { get; set; }
+        
     }
 }

@@ -9,19 +9,22 @@ namespace Snow.Model
 {
     public class Inventory : AuditableEntity<Inventory>
     {
-        [Required]
-        [MaxLength(50)]
-        public string Name { get; set; }
-
+       
         public int Quantity { get; set; }
+
+        [Required]
+        [ForeignKey("MyStore")]
+        public int StoreId { get; set; }
+        public virtual Store MyStore { get; set; }
 
         [Required]
         [ForeignKey("MyProduct")]
         public int ProductId { get; set; }
         public virtual Product MyProduct { get; set; }
+
         [Required]
         [ForeignKey("MySize")]
         public int SizeId { get; set; }
-        public Size MySize { get; set; }
+        public virtual Size MySize { get; set; }
     }
 }

@@ -81,7 +81,7 @@ namespace SNOW_Solution.Migrations
             var store = new Store
             {
                 Name = "Auckland Store",
-                MyAddress = address,
+                //MyAddress = address,
                 MyCompany = company,
 
                 Id = 1

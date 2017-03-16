@@ -62,7 +62,7 @@ namespace Snow.Data
         public DbSet<Receipt> Receipts { get; set; }
         public DbSet<RegionState> RegionalStates { get; set; }
         public DbSet<Size> Sizes { get; set; }
-        public DbSet<SizeType> SizeTypes { get; set; }
+        //public DbSet<SizeType> SizeTypes { get; set; }
         public DbSet<Store> Stores { get; set; }
 
         #endregion
@@ -140,11 +140,6 @@ namespace Snow.Data
                     .WithRequired(p => p.MyCompany).WillCascadeOnDelete(false);
 
                 modelBuilder.Entity<Company>()
-                   .HasMany(c => c.AllSizeTypes)
-                   .WithRequired(s => s.MyCompany).WillCascadeOnDelete(false);
-
-
-                modelBuilder.Entity<Company>()
                   .HasMany(c => c.AllStores)
                   .WithRequired(s => s.MyCompany).WillCascadeOnDelete(false);
 
@@ -160,15 +155,21 @@ namespace Snow.Data
                  .HasMany(c => c.AllRegionSatates)
                  .WithRequired(r => r.MyCountry).WillCascadeOnDelete(false);
 
+                modelBuilder.Entity<Store>()
+                 .HasMany(c => c.AllInventories)
+                 .WithRequired(r => r.MyStore).WillCascadeOnDelete(false);
 
-                modelBuilder.Entity<SizeType>()
+                modelBuilder.Entity<Store>()
+                 .HasMany(c => c.AllProducts)
+                 .WithRequired(r => r.MyStore).WillCascadeOnDelete(false);
+
+                modelBuilder.Entity<Category>()
                    .HasMany(s => s.AllSizes)
-                   .WithRequired(s => s.MySizeType).WillCascadeOnDelete(false);
+                   .WithRequired(s => s.MyCategory).WillCascadeOnDelete(false);
 
                 modelBuilder.Entity<Size>()
                     .HasMany(d => d.AllInventories)
                     .WithRequired(l => l.MySize).WillCascadeOnDelete(false);
-
 
 
                 modelBuilder.Entity<OrderStatus>()
@@ -180,7 +181,7 @@ namespace Snow.Data
                 .HasOptional(s => s.MyAddress)
                 .WithOptionalDependent(a => a.MyStore);
                 */
-
+               
                 modelBuilder.Entity<Promotion>()
                     .HasMany(d => d.AllProducts)
                     .WithMany(l => l.AllPromotions)
