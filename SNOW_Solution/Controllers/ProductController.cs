@@ -5,6 +5,7 @@ using Snow.Web.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Snow.Web.ViewModels;
 
 namespace Snow.Web.Controllers
 {
@@ -128,7 +129,19 @@ namespace Snow.Web.Controllers
         public ActionResult Details(int id)
         {
             var existing = _productService.GetProduct(id);
-            var viewModelProduct = Mapper.Map<Product,ProductVM>(existing);
+            var viewModelProduct = Mapper.Map<Product, ProductVM>(existing);
+
+            viewModelProduct.Images = new List<ImageVM>();
+
+            foreach (var image in existing.AllImages)
+            {
+                var viewModelImage = Mapper.Map<Image, ImageVM>(image);
+
+                viewModelProduct.Images.Add(viewModelImage);
+            }
+
+            
+
             return View(viewModelProduct);
         }
 

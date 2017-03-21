@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Snow.Model;
 using Snow.Web.ViewModel;
+using Snow.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,6 +86,13 @@ namespace Snow.Web.Mapping
               .ForMember(d => d.CompanyId, opt => opt.MapFrom(s => s.CompanyId))
               .ForMember(d => d.CompanyName, opt => opt.MapFrom(s => s.MyCompany.Name))
               .ReverseMap();
+
+            cfg.CreateMap<Image, ImageVM>()
+              .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
+             .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+             .ForMember(d => d.IsMain, opt => opt.MapFrom(s => s.IsMain))
+             .ForMember(d => d.Data, opt => opt.MapFrom(s => s.Photo))
+             .ReverseMap();
         }
     }
 }
