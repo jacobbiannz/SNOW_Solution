@@ -10,9 +10,8 @@ namespace Snow.Model.Models
 {
     public class ImageInfo : AuditableEntity<ImageInfo>
     {
-        [Required]
-        [ForeignKey("MyImage")]
-        public string ImageId { get; set; }
+        public int imageId { get; set; }
+
         public virtual Image MyImage { get; set; }
 
         [Required]

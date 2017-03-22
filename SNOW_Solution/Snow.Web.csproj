@@ -59,9 +59,11 @@
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
@@ -237,18 +239,18 @@
     <Compile Include="Models\Default\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModel\ImageVM.cs" />
-    <Compile Include="ViewModel\InventoryVM.cs" />
-    <Compile Include="ViewModel\SizeVM.cs" />
-    <Compile Include="ViewModel\PaymentTypeVM.cs" />
-    <Compile Include="ViewModel\BrandVM.cs" />
-    <Compile Include="ViewModel\CategoryVM.cs" />
-    <Compile Include="ViewModel\CompanyVM.cs" />
-    <Compile Include="ViewModel\CountryVM.cs" />
-    <Compile Include="ViewModel\ProductVM.cs" />
-    <Compile Include="ViewModel\RegionStateVM.cs" />
-    <Compile Include="ViewModel\StoreVM.cs" />
-    <Compile Include="ViewModel\SubscriberVM.cs" />
+    <Compile Include="ViewModels\ImageVM.cs" />
+    <Compile Include="ViewModels\InventoryVM.cs" />
+    <Compile Include="ViewModels\SizeVM.cs" />
+    <Compile Include="ViewModels\PaymentTypeVM.cs" />
+    <Compile Include="ViewModels\BrandVM.cs" />
+    <Compile Include="ViewModels\CategoryVM.cs" />
+    <Compile Include="ViewModels\CompanyVM.cs" />
+    <Compile Include="ViewModels\CountryVM.cs" />
+    <Compile Include="ViewModels\ProductVM.cs" />
+    <Compile Include="ViewModels\RegionStateVM.cs" />
+    <Compile Include="ViewModels\StoreVM.cs" />
+    <Compile Include="ViewModels\SubscriberVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
