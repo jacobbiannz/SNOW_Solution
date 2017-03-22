@@ -18,6 +18,7 @@ namespace Snow.Web.Mapping
                 .ForMember(d => d.CategoryDescription, opt => opt.MapFrom(s => s.MyCategory.Name))
                 .ForMember(d => d.MarketPrice, opt =>opt.MapFrom(s => s.MarketPrice))
                 .ForMember(d => d.StockPrice, opt => opt.MapFrom(s => s.StockPrice))
+                .ForMember(d => d.ImageInfos, opt => opt.MapFrom(s => s.AllImageInfos))
                 .ReverseMap();
 
             cfg.CreateMap<Brand, BrandVM>()
@@ -88,10 +89,9 @@ namespace Snow.Web.Mapping
               .ReverseMap();
 
             cfg.CreateMap<Image, ImageVM>()
-              .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
+              .ForMember(d => d.Name, opt => opt.MapFrom(s => s.MyImageInfo.Name))
              .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
-             .ForMember(d => d.IsMain, opt => opt.MapFrom(s => s.IsMain))
-             .ForMember(d => d.Data, opt => opt.MapFrom(s => s.Photo))
+             .ForMember(d => d.IsMain, opt => opt.MapFrom(s => s.MyImageInfo.IsMain))
              .ReverseMap();
         }
     }

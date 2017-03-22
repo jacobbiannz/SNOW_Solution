@@ -60,9 +60,9 @@
                 @Html.DisplayFor(modelItem => item.CategoryDescription)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "Edit", "Product", new {id=item.ProductId}, null) |
                 @Html.ActionLink("Details", "Details", "Product", new { id = item.ProductId }, null) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Delete", "Delete", "Product",  new { id=item.ProductId }, null)
             </td>
         </tr>
     }

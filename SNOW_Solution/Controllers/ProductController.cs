@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Snow.Web.ViewModels;
+using Snow.Model.Models;
 
 namespace Snow.Web.Controllers
 {
@@ -17,7 +18,7 @@ namespace Snow.Web.Controllers
         private readonly IBrandService _brandService;
         private readonly ICompanyService _companyService;
         private readonly IStoreService _StoreService;
-
+        
         public ProductController(IProductService productService, 
                                    IImageService imageService, 
                                    ICategoryService categoryService,
@@ -61,8 +62,7 @@ namespace Snow.Web.Controllers
             _Stores = _StoreService.GetStores().ToList();
             _Companies = _companyService.GetCompanies().ToList();
 
-            //ViewBag.Categories = _Categories;
-
+           
             var subscriberVM = new SubscriberVM
             {
                 CategoriesVM = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
@@ -96,14 +96,19 @@ namespace Snow.Web.Controllers
                     _productService.CreateProduct(prod);
                     foreach (var bin in productVM.Photos)
                     {
+                       
                         var image = new Image()
                         {
                             Photo = bin,
-                            Name = prod.Name
+                            MyImageInfo = new ImageInfo
+                            {
+                                Name = prod.Name,
+                               
+                            }
                         };
                         _imageService.CreateImage(image);
                         _imageService.SaveImage();
-                        prod.AllImages.Add(image);
+                        prod.AllImageInfos.Add(image.MyImageInfo);
                     }
                     _productService.SaveProduct();
                 }
@@ -122,26 +127,40 @@ namespace Snow.Web.Controllers
 
         public ActionResult Edit(int id)
         {
+
+            ICollection<Brand> _Brands;
+            ICollection<Category> _Categories;
+            ICollection<Store> _Stores;
+            ICollection<Company> _Companies;
+
+
+            _Categories = _categoryService.GetCategories().ToList();
+            _Brands = _brandService.GetBrands().ToList();
+            _Stores = _StoreService.GetStores().ToList();
+            _Companies = _companyService.GetCompanies().ToList();
+
+
+            var subscriberVM = new SubscriberVM
+            {
+                CategoriesVM = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
+                BrandsVM = Mapper.Map<ICollection<Brand>, ICollection<BrandVM>>(_Brands),
+                StoresVM = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(_Stores),
+                CompaniesVM = Mapper.Map<ICollection<Company>, ICollection<CompanyVM>>(_Companies)
+
+            };
+
             var existing = _productService.GetProduct(id);
-            return View(existing);
+            var viewModelProduct = Mapper.Map<Product, ProductVM>(existing);
+            viewModelProduct.MySubscriberVM = subscriberVM;
+
+            return View(viewModelProduct);
         }
 
         public ActionResult Details(int id)
         {
             var existing = _productService.GetProduct(id);
             var viewModelProduct = Mapper.Map<Product, ProductVM>(existing);
-
-            viewModelProduct.Images = new List<ImageVM>();
-
-            foreach (var image in existing.AllImages)
-            {
-                var viewModelImage = Mapper.Map<Image, ImageVM>(image);
-
-                viewModelProduct.Images.Add(viewModelImage);
-            }
-
-            
-
+  
             return View(viewModelProduct);
         }
 
@@ -162,5 +181,8 @@ namespace Snow.Web.Controllers
             return File(photoBack, "image/png");
         }
 
+#region
+       
+#endregion
     }
 }

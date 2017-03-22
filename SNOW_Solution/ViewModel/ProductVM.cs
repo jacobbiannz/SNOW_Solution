@@ -1,4 +1,5 @@
 ﻿using Snow.Model;
+using Snow.Model.Models;
 using Snow.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace Snow.Web.ViewModel
 
         public List<byte[]> Photos { get; set; }
 
-        public List<ImageVM> Images { get; set; }
+        public ICollection<ImageInfo> ImageInfos { get; set; }
 
         public HttpPostedFileBase File
         {

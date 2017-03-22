@@ -1,5 +1,5 @@
 ﻿@model Snow.Web.ViewModel.ProductVM
-@using Snow.Web.ViewModel
+@using Snow.Web.ViewModels
 @{
     ViewBag.Title = "Details";
 }
@@ -60,10 +60,10 @@
     </dl>
 </div>
 <div>
-    @foreach (ImageVM image in Model.Images)
+    @foreach (var imageInfo in Model.ImageInfos)
     {
         <div>
-            <img alt="" src="@Convert.ToBase64String(image.Data,0,image.Data.Length)" />
+            <img alt="" src="/Product/RenderImage/@imageInfo.ImageId" />
         </div>
     }
 </div>
