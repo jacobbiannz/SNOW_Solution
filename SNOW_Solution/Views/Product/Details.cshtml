@@ -63,11 +63,11 @@
     @foreach (var imageInfo in Model.ImageInfos)
     {
         <div>
-            <img alt="" src="/Product/RenderImage/@imageInfo.ImageId" />
+            <img alt="" src="/Product/RenderImage/@imageInfo.imageId" />
         </div>
     }
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.ProductId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
