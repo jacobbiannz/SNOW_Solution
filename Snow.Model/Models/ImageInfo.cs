@@ -12,7 +12,7 @@ namespace Snow.Model.Models
     {
         public int ImageId { get; set; }
 
-        public virtual Image MyImage { get; set; }
+       // public virtual Image MyImage { get; set; }
 
         [Required]
         [MaxLength(50)]

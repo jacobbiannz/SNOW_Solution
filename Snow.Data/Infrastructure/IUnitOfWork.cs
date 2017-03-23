@@ -9,5 +9,6 @@ namespace Snow.Data.Infrastructure
     public interface IUnitOfWork
     {
         void Commit();
+        Task<int> CommitAsync();
     }
 }

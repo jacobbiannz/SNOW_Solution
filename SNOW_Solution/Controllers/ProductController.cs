@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web.Mvc;
 using Snow.Web.ViewModels;
 using Snow.Model.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace Snow.Web.Controllers
 {
@@ -81,7 +83,7 @@ namespace Snow.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(ProductVM productVM)
+        public async Task<ActionResult> Create(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
@@ -116,7 +118,7 @@ namespace Snow.Web.Controllers
                         _imageService.SaveImage();
                         prod.AllImageInfos.Add(image.MyImageInfo);
                     }
-                    _productService.SaveProduct();
+                  await  _productService.SaveProductAsync();
                 }
 
                 
@@ -136,33 +138,43 @@ namespace Snow.Web.Controllers
 
                 if (prodVM != null)
                 {
-                    var prod = Mapper.Map<ProductVM, Product>(prodVM);
+                   
+                    product.Name = productVM.Name;
+                    product.Description = productVM.Description;
+                    product.StockPrice = productVM.StockPrice;
+                    product.MarketPrice = productVM.MarketPrice;
+                    product.CategoryId = productVM.CategoryId;
+                    product.BrandId = productVM.BrandId;
 
-                    _productService.UpdateProduct(prod);
-                    
-                    foreach (var info in prodVM.ImagesDict)
+                    try
                     {
-
-                        var imageVM = new ImageVM()
+                        foreach (var info in productVM.ImagesDict)
                         {
-                            Photo = info.Value,
-                            MyImageInfo = new ImageInfoVM
+                            var imageVM = new ImageVM()
                             {
-                                Name = info.Key.Name,
-                                ContentType = info.Key.ContentType,
-                                IsMain = info.Key.IsMain,
-                                IsSelected = info.Key.IsSelected
-                            }
+                                Photo = info.Value,
+                                MyImageInfo = new ImageInfoVM
+                                {
+                                    Name = info.Key.Name,
+                                    ContentType = info.Key.ContentType,
+                                    IsMain = info.Key.IsMain,
+                                    IsSelected = info.Key.IsSelected,
+                                    ProductId = info.Key.ProductId
+                                }
+                            };
 
-                        };
+                            var image = Mapper.Map<ImageVM, Image>(imageVM);
 
-                        var image = Mapper.Map<ImageVM, Image>(imageVM);
-
-                        _imageService.CreateImage(image);
-                        _imageService.SaveImage();
-                        prod.AllImageInfos.Add(image.MyImageInfo);
+                            _imageService.CreateImage(image);
+                            _imageService.SaveImage();
+                        }
+                        _productService.UpdateProduct(product);
+                        _productService.SaveProduct();
                     }
-                    _productService.SaveProduct();
+                    catch(Exception e)
+                    {
+                        return RedirectToAction("Error");
+                    }
                 }
 
 

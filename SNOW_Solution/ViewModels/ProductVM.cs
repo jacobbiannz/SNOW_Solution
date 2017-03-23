@@ -53,7 +53,8 @@ namespace Snow.Web.ViewModel
                     var imageInfo = new ImageInfoVM
                     {
                         Name = value.FileName,
-                        ContentType = value.ContentType
+                        ContentType = value.ContentType,
+                        ProductId = ProductId
                     };
                     
                     Photos.Add( target.ToArray());

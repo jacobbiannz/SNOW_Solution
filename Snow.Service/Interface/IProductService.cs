@@ -15,5 +15,6 @@ namespace Snow.Service
         void CreateProduct(Product product);
         void UpdateProduct(Product product);
         void SaveProduct();
+        Task<int> SaveProductAsync();
     }
 }

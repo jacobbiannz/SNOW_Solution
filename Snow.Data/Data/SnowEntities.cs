@@ -206,8 +206,8 @@ namespace Snow.Data
 
                 // Configure imageid as FK for imageinfo
                 modelBuilder.Entity<Image>()
-                            .HasRequired(i => i.MyImageInfo)
-                            .WithRequiredPrincipal(info => info.MyImage);
+                            .HasRequired(i => i.MyImageInfo);
+                            //.WithRequiredPrincipal(info => info.MyImage);
 
 
 
