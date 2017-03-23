@@ -10,7 +10,7 @@ namespace Snow.Model.Models
 {
     public class ImageInfo : AuditableEntity<ImageInfo>
     {
-        public int imageId { get; set; }
+        public int ImageId { get; set; }
 
         public virtual Image MyImage { get; set; }
 
@@ -19,6 +19,10 @@ namespace Snow.Model.Models
         public string Name { get; set; }
 
         public bool IsMain { get; set; }
+
+        public bool IsSelected { get; set; }
+
+        public string ContentType { get; set; }
 
         [Required]
         [ForeignKey("MyProduct")]

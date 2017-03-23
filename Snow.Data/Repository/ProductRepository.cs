@@ -1,5 +1,6 @@
 ﻿using Snow.Data.Infrastructure;
 using Snow.Model;
+using Snow.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -25,6 +26,19 @@ namespace Snow.Data.Repository
         {
             entity.UpdatedDate = DateTime.Now;
             base.Update(entity);
+        }
+
+        public IList<ImageInfo> GetImageInfos(int id)
+        {
+            var imageInfos = new List<ImageInfo>();
+            foreach (var info in DbContext.ImageInfos)
+            {
+                if (info.ProductId == id)
+                {
+                    imageInfos.Add(info);
+                }
+            }
+            return imageInfos;
         }
     }
 }

@@ -24,7 +24,9 @@ namespace Snow.Web.ViewModel
 
         public List<byte[]> Photos { get; set; }
 
-        public ICollection<ImageInfo> ImageInfos { get; set; }
+        public ICollection<ImageInfoVM> ImageInfos { get; set; }
+
+        public IDictionary<ImageInfoVM, byte[]> ImagesDict { get; set; }
 
         public HttpPostedFileBase File
         {
@@ -47,8 +49,20 @@ namespace Snow.Web.ViewModel
                     {
                         Photos = new List<byte[]>();
                     }
+
+                    var imageInfo = new ImageInfoVM
+                    {
+                        Name = value.FileName,
+                        ContentType = value.ContentType
+                    };
                     
                     Photos.Add( target.ToArray());
+                   
+                    if (ImagesDict == null)
+                    {
+                        ImagesDict = new Dictionary<ImageInfoVM, byte[]>();
+                    }
+                    ImagesDict.Add(imageInfo, target.ToArray());
                 }
                 catch (Exception ex)
                 {

@@ -8,9 +8,9 @@ namespace Snow.Web.ViewModels
     public class ImageVM
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string ContentType { get; set; }
-        public bool IsSelected { get; set; }
-        public bool IsMain { get; set; }
+
+        public byte[] Photo { get; set; }
+
+        public ImageInfoVM MyImageInfo { get; set; }
     }
 }

@@ -202,7 +202,7 @@ namespace Snow.Data
 
                 // Configure image as PK for imageinfo
                 modelBuilder.Entity<ImageInfo>()
-                    .HasKey(i => i.imageId);
+                    .HasKey(i => i.ImageId);
 
                 // Configure imageid as FK for imageinfo
                 modelBuilder.Entity<Image>()

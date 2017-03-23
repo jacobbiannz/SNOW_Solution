@@ -13,6 +13,7 @@ namespace Snow.Service
         Product GetProduct(int id);
         Product GetProduct(string name);
         void CreateProduct(Product product);
+        void UpdateProduct(Product product);
         void SaveProduct();
     }
 }

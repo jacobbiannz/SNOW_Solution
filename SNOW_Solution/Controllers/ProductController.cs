@@ -94,18 +94,24 @@ namespace Snow.Web.Controllers
                     prod.StoreId = productVM.StoreId;
                     
                     _productService.CreateProduct(prod);
-                    foreach (var bin in productVM.Photos)
+                    foreach (var info in productVM.ImagesDict)
                     {
-                       
-                        var image = new Image()
+
+                        var imageVM = new ImageVM()
                         {
-                            Photo = bin,
-                            MyImageInfo = new ImageInfo
+                            Photo = info.Value,
+                            MyImageInfo = new ImageInfoVM
                             {
-                                Name = prod.Name,
-                               
+                                Name = info.Key.Name,
+                                ContentType = info.Key.ContentType,
+                                IsMain = info.Key.IsMain,
+                                IsSelected = info.Key.IsSelected
                             }
+
                         };
+
+                        var image = Mapper.Map<ImageVM, Image>(imageVM);
+
                         _imageService.CreateImage(image);
                         _imageService.SaveImage();
                         prod.AllImageInfos.Add(image.MyImageInfo);
@@ -117,7 +123,54 @@ namespace Snow.Web.Controllers
             }
             return RedirectToAction("Index");
         }
-        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(ProductVM productVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var product = _productService.GetProduct(productVM.ProductId);
+                var prodVM = Mapper.Map<Product,ProductVM>(product);
+
+                if (prodVM != null)
+                {
+                    var prod = Mapper.Map<ProductVM, Product>(prodVM);
+
+                    _productService.UpdateProduct(prod);
+                    
+                    foreach (var info in prodVM.ImagesDict)
+                    {
+
+                        var imageVM = new ImageVM()
+                        {
+                            Photo = info.Value,
+                            MyImageInfo = new ImageInfoVM
+                            {
+                                Name = info.Key.Name,
+                                ContentType = info.Key.ContentType,
+                                IsMain = info.Key.IsMain,
+                                IsSelected = info.Key.IsSelected
+                            }
+
+                        };
+
+                        var image = Mapper.Map<ImageVM, Image>(imageVM);
+
+                        _imageService.CreateImage(image);
+                        _imageService.SaveImage();
+                        prod.AllImageInfos.Add(image.MyImageInfo);
+                    }
+                    _productService.SaveProduct();
+                }
+
+
+            }
+            return RedirectToAction("Index");
+        }
+
+
 
         public ActionResult Insert(Product obj)
         {
