@@ -28,6 +28,7 @@ namespace Snow.Web.Mapping
                 .ForMember(d => d.MarketPrice, opt =>opt.MapFrom(s => s.MarketPrice))
                 .ForMember(d => d.StockPrice, opt => opt.MapFrom(s => s.StockPrice))
                 .ForMember(d => d.ImageInfos, opt => opt.MapFrom(s => s.AllImageInfos))
+                .ForMember(d => d.IsDeleted, opt => opt.MapFrom(s => s.IsDeleted))
                 .ReverseMap();
 
             cfg.CreateMap<Brand, BrandVM>()

@@ -16,6 +16,6 @@ namespace Snow.Service
         void UpdateInventory(Inventory inventory);
         void DeleteInventory(Inventory inventory);
         void SaveInventory();
-
+        Task<int> SaveInventoryAsync();
     }
 }

@@ -16,6 +16,6 @@ namespace Snow.Service
         void UpdatePaymentType(PaymentType brand);
         void DeletePaymentType(PaymentType brand);
         void SavePaymentType();
-
+        Task<int> SavePaymentTypeAsync();
     }
 }

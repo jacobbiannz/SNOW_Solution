@@ -28,6 +28,7 @@ namespace Snow.Web.ViewModel
 
         public IDictionary<ImageInfoVM, byte[]> ImagesDict { get; set; }
 
+        public bool IsDeleted { get; set; }
         public HttpPostedFileBase File
         {
             get

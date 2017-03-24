@@ -60,6 +60,11 @@ namespace Snow.Service
             unitOfWork.Commit();
         }
 
+        public Task<int> SaveImageAsync()
+        {
+           return unitOfWork.CommitAsync();
+        }
+
         #endregion
     }
 }

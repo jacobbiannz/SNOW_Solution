@@ -9,6 +9,7 @@ using Snow.Web.ViewModels;
 using Snow.Model.Models;
 using System;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace Snow.Web.Controllers
 {
@@ -87,38 +88,46 @@ namespace Snow.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (productVM != null && productVM.Photos != null)
+                try
                 {
-                    var prod = Mapper.Map<ProductVM, Product>(productVM);
-                    prod.BrandId = productVM.BrandId;
-                    prod.CategoryId = productVM.CategoryId;
-                    prod.CompanyId = productVM.CompanyId;
-                    prod.StoreId = productVM.StoreId;
-                    
-                    _productService.CreateProduct(prod);
-                    foreach (var info in productVM.ImagesDict)
+                    if (productVM != null && productVM.Photos != null)
                     {
+                        var prod = Mapper.Map<ProductVM, Product>(productVM);
+                        prod.BrandId = productVM.BrandId;
+                        prod.CategoryId = productVM.CategoryId;
+                        prod.CompanyId = productVM.CompanyId;
+                        prod.StoreId = productVM.StoreId;
 
-                        var imageVM = new ImageVM()
+                        
+                        foreach (var info in productVM.ImagesDict)
                         {
-                            Photo = info.Value,
-                            MyImageInfo = new ImageInfoVM
+
+                            var imageVM = new ImageVM()
                             {
-                                Name = info.Key.Name,
-                                ContentType = info.Key.ContentType,
-                                IsMain = info.Key.IsMain,
-                                IsSelected = info.Key.IsSelected
-                            }
+                                Photo = info.Value,
+                                MyImageInfo = new ImageInfoVM
+                                {
+                                    Name = info.Key.Name,
+                                    ContentType = info.Key.ContentType,
+                                    IsMain = info.Key.IsMain,
+                                    IsSelected = info.Key.IsSelected
+                                }
 
-                        };
+                            };
 
-                        var image = Mapper.Map<ImageVM, Image>(imageVM);
+                            var image = Mapper.Map<ImageVM, Image>(imageVM);
 
-                        _imageService.CreateImage(image);
-                        _imageService.SaveImage();
-                        prod.AllImageInfos.Add(image.MyImageInfo);
+                            _imageService.CreateImage(image);
+                           await _imageService.SaveImageAsync();
+                            prod.AllImageInfos.Add(image.MyImageInfo);
+                        }
+                        _productService.CreateProduct(prod);
+                        await _productService.SaveProductAsync();
                     }
-                  await  _productService.SaveProductAsync();
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("General/Error");
                 }
 
                 
@@ -129,7 +138,7 @@ namespace Snow.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(ProductVM productVM)
+        public async Task<ActionResult> Edit(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
@@ -166,23 +175,60 @@ namespace Snow.Web.Controllers
                             var image = Mapper.Map<ImageVM, Image>(imageVM);
 
                             _imageService.CreateImage(image);
-                            _imageService.SaveImage();
+                            await _imageService.SaveImageAsync();
                         }
                         _productService.UpdateProduct(product);
-                        _productService.SaveProduct();
+                        await _productService.SaveProductAsync();
                     }
                     catch(Exception e)
                     {
-                        return RedirectToAction("Error");
+                        return RedirectToAction("General/Error");
                     }
                 }
-
-
             }
             return RedirectToAction("Index");
         }
 
 
+
+        public ActionResult Delete(int id)
+        {
+
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var product =  _productService.GetProduct(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            var viewModelProduct = Mapper.Map<Product, ProductVM>(product);
+            return View(viewModelProduct);
+        }
+        // POST: /Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var product = _productService.GetProduct(id);
+                    product.IsDeleted = true;
+
+                    _productService.UpdateProduct(product);
+                    await _productService.SaveProductAsync();
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("General/Error");
+                }
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
 
         public ActionResult Insert(Product obj)
         {

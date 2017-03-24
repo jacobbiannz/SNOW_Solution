@@ -52,5 +52,6 @@ namespace Snow.Model
 
         public virtual ICollection<OrderDetail> AllOrderDetails { get; set; }
 
+        public bool IsDeleted { get; set; }
     }
 }
