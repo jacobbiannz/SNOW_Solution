@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Snow.Model.Models;
 
 namespace Snow.Data
 {
@@ -40,7 +41,7 @@ namespace Snow.Data
     public class CompanyDBContext :  IdentityDbContext<ApplicationUser>
     {
         public CompanyDBContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("SNOWSolution", throwIfV1Schema: false)
         {
         }
         #region
@@ -52,6 +53,7 @@ namespace Snow.Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<ImageInfo> ImageInfos { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
@@ -197,6 +199,17 @@ namespace Snow.Data
                         dl.MapLeftKey("PromotionId");
                         dl.MapRightKey("OrderId");
                     });
+
+                // Configure image as PK for imageinfo
+                modelBuilder.Entity<ImageInfo>()
+                    .HasKey(i => i.ImageId);
+
+                // Configure imageid as FK for imageinfo
+                modelBuilder.Entity<Image>()
+                            .HasRequired(i => i.MyImageInfo);
+                            //.WithRequiredPrincipal(info => info.MyImage);
+
+
 
                 modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
                 modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);

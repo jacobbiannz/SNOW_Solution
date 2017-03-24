@@ -16,5 +16,7 @@ namespace Snow.Service
         void UpdateCompany(Company company);
         //void DeleteCountry(Country country);
         void SaveCompany();
+        Task<int> SaveCompanyAsync();
+
     }
 }

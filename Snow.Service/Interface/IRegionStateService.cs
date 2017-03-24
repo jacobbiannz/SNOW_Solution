@@ -16,5 +16,6 @@ namespace Snow.Service
         void UpdateRegionState(RegionState counry);
         void DeleteRegionState(RegionState country);
         void SaveRegionState();
+        Task<int> SaveRegionStateAsync();
     }
 }

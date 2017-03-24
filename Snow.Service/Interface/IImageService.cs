@@ -13,5 +13,6 @@ namespace Snow.Service
         Image GetImage(int id);
         void CreateImage(Image image);
         void SaveImage();
+        Task<int> SaveImageAsync();
     }
 }

@@ -5,6 +5,11 @@ using Snow.Web.ViewModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Snow.Web.ViewModels;
+using Snow.Model.Models;
+using System;
+using System.Threading.Tasks;
+using System.Net;
 
 namespace Snow.Web.Controllers
 {
@@ -16,7 +21,7 @@ namespace Snow.Web.Controllers
         private readonly IBrandService _brandService;
         private readonly ICompanyService _companyService;
         private readonly IStoreService _StoreService;
-
+        
         public ProductController(IProductService productService, 
                                    IImageService imageService, 
                                    ICategoryService categoryService,
@@ -60,8 +65,7 @@ namespace Snow.Web.Controllers
             _Stores = _StoreService.GetStores().ToList();
             _Companies = _companyService.GetCompanies().ToList();
 
-            //ViewBag.Categories = _Categories;
-
+           
             var subscriberVM = new SubscriberVM
             {
                 CategoriesVM = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
@@ -80,38 +84,151 @@ namespace Snow.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(ProductVM productVM)
+        public async Task<ActionResult> Create(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-                if (productVM != null && productVM.Photos != null)
+                try
                 {
-                    var prod = Mapper.Map<ProductVM, Product>(productVM);
-                    prod.BrandId = productVM.BrandId;
-                    prod.CategoryId = productVM.CategoryId;
-                    prod.CompanyId = productVM.CompanyId;
-                    prod.StoreId = productVM.StoreId;
-                    
-                    _productService.CreateProduct(prod);
-                    foreach (var bin in productVM.Photos)
+                    if (productVM != null && productVM.Photos != null)
                     {
-                        var image = new Image()
+                        var prod = Mapper.Map<ProductVM, Product>(productVM);
+                        prod.BrandId = productVM.BrandId;
+                        prod.CategoryId = productVM.CategoryId;
+                        prod.CompanyId = productVM.CompanyId;
+                        prod.StoreId = productVM.StoreId;
+                        _productService.CreateProduct(prod);
+
+                        foreach (var info in productVM.ImagesDict)
                         {
-                            Photo = bin,
-                            Name = prod.Name
-                        };
-                        _imageService.CreateImage(image);
-                        _imageService.SaveImage();
-                        prod.AllImages.Add(image);
+
+                            var imageVM = new ImageVM()
+                            {
+                                Photo = info.Value,
+                                MyImageInfo = new ImageInfoVM
+                                {
+                                    Name = info.Key.Name,
+                                    ContentType = info.Key.ContentType,
+                                    IsMain = info.Key.IsMain,
+                                    IsSelected = info.Key.IsSelected
+                                }
+
+                            };
+
+                            var image = Mapper.Map<ImageVM, Image>(imageVM);
+
+                            _imageService.CreateImage(image);
+                            await _imageService.SaveImageAsync();
+                            prod.AllImageInfos.Add(image.MyImageInfo);
+                        }
+                       
+                        await _productService.SaveProductAsync();
                     }
-                    _productService.SaveProduct();
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("General/Error");
                 }
 
                 
             }
             return RedirectToAction("Index");
         }
-        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Edit(ProductVM productVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var product = _productService.GetProduct(productVM.ProductId);
+                var prodVM = Mapper.Map<Product,ProductVM>(product);
+
+                if (prodVM != null)
+                {
+                   
+                    product.Name = productVM.Name;
+                    product.Description = productVM.Description;
+                    product.StockPrice = productVM.StockPrice;
+                    product.MarketPrice = productVM.MarketPrice;
+                    product.CategoryId = productVM.CategoryId;
+                    product.BrandId = productVM.BrandId;
+
+                    try
+                    {
+                        foreach (var info in productVM.ImagesDict)
+                        {
+                            var imageVM = new ImageVM()
+                            {
+                                Photo = info.Value,
+                                MyImageInfo = new ImageInfoVM
+                                {
+                                    Name = info.Key.Name,
+                                    ContentType = info.Key.ContentType,
+                                    IsMain = info.Key.IsMain,
+                                    IsSelected = info.Key.IsSelected,
+                                    ProductId = info.Key.ProductId
+                                }
+                            };
+
+                            var image = Mapper.Map<ImageVM, Image>(imageVM);
+
+                            _imageService.CreateImage(image);
+                            await _imageService.SaveImageAsync();
+                        }
+                        _productService.UpdateProduct(product);
+                        await _productService.SaveProductAsync();
+                    }
+                    catch(Exception e)
+                    {
+                        return RedirectToAction("General/Error");
+                    }
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+
+
+        public ActionResult Delete(int id)
+        {
+
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var product =  _productService.GetProduct(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            var viewModelProduct = Mapper.Map<Product, ProductVM>(product);
+            return View(viewModelProduct);
+        }
+        // POST: /Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var product = _productService.GetProduct(id);
+                    product.IsDeleted = true;
+
+                    _productService.UpdateProduct(product);
+                    await _productService.SaveProductAsync();
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("General/Error");
+                }
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
 
         public ActionResult Insert(Product obj)
         {
@@ -121,14 +238,40 @@ namespace Snow.Web.Controllers
 
         public ActionResult Edit(int id)
         {
+
+            ICollection<Brand> _Brands;
+            ICollection<Category> _Categories;
+            ICollection<Store> _Stores;
+            ICollection<Company> _Companies;
+
+
+            _Categories = _categoryService.GetCategories().ToList();
+            _Brands = _brandService.GetBrands().ToList();
+            _Stores = _StoreService.GetStores().ToList();
+            _Companies = _companyService.GetCompanies().ToList();
+
+
+            var subscriberVM = new SubscriberVM
+            {
+                CategoriesVM = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
+                BrandsVM = Mapper.Map<ICollection<Brand>, ICollection<BrandVM>>(_Brands),
+                StoresVM = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(_Stores),
+                CompaniesVM = Mapper.Map<ICollection<Company>, ICollection<CompanyVM>>(_Companies)
+
+            };
+
             var existing = _productService.GetProduct(id);
-            return View(existing);
+            var viewModelProduct = Mapper.Map<Product, ProductVM>(existing);
+            viewModelProduct.MySubscriberVM = subscriberVM;
+
+            return View(viewModelProduct);
         }
 
         public ActionResult Details(int id)
         {
             var existing = _productService.GetProduct(id);
-            var viewModelProduct = Mapper.Map<Product,ProductVM>(existing);
+            var viewModelProduct = Mapper.Map<Product, ProductVM>(existing);
+  
             return View(viewModelProduct);
         }
 
@@ -149,5 +292,8 @@ namespace Snow.Web.Controllers
             return File(photoBack, "image/png");
         }
 
+#region
+       
+#endregion
     }
 }

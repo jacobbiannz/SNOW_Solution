@@ -16,6 +16,6 @@ namespace Snow.Service
         void UpdateSize(Size brand);
         void DeleteSize(Size brand);
         void SaveSize();
-
+        Task<int> SaveSizeStateAsync();
     }
 }

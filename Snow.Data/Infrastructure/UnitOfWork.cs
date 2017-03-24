@@ -25,5 +25,10 @@ namespace Snow.Data.Infrastructure
         {
             DbContext.SaveChanges();
         }
+
+        public Task<int> CommitAsync()
+        {
+           return DbContext.SaveChangesAsync();
+        }
     }
 }

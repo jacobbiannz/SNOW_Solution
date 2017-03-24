@@ -27,6 +27,11 @@ namespace Snow.Service
             productRepository.Add(product);
         }
 
+        public void UpdateProduct(Product product)
+        {
+            productRepository.Update(product);
+        }
+
         public Product GetProduct(string name)
         {
             var product = productRepository.GetProductByName(name);
@@ -36,6 +41,8 @@ namespace Snow.Service
         public Product GetProduct(int id)
         {
             var product = productRepository.GetById(id);
+            var imageInfos = productRepository.GetImageInfos(id);
+            product.AllImageInfos = imageInfos;
             return product;
         }
 
@@ -50,6 +57,11 @@ namespace Snow.Service
         public void SaveProduct()
         {
             unitOfWork.Commit();
+        }
+
+        public Task<int> SaveProductAsync()
+        {
+           return unitOfWork.CommitAsync();
         }
         #endregion
     }

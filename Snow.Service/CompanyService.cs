@@ -72,10 +72,15 @@ namespace Snow.Service
         {
             _unitOfWork.Commit();
         }
+
+        public Task<int> SaveCompanyAsync()
+        {
+            return _unitOfWork.CommitAsync();
+        }
         #endregion
-        
-        
-        
+
+
+
 
     }
 }

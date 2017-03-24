@@ -16,7 +16,7 @@ namespace Snow.Data.Repository
 
         public Image GetImageById(int productId)
         {
-            var image = DbContext.Images.Where(c => c.ProductId == productId).FirstOrDefault();
+            var image = DbContext.Images.Where(c => c.MyImageInfo.ProductId == productId).FirstOrDefault();
 
             return image;
         }
