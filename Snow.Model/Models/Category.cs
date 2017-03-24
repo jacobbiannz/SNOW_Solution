@@ -16,7 +16,7 @@ namespace Snow.Model
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
         public virtual Company MyCompany { get; set; }
-        public ICollection<Product> AllProducts { get; set; }
-        public ICollection<Size> AllSizes { get; set; }
+        public virtual ICollection<Product> AllProducts { get; set; }
+        public virtual ICollection<Size> AllSizes { get; set; }
     }
 }

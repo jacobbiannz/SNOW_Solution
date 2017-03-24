@@ -79,11 +79,22 @@ namespace Snow.Web.Mapping
             .ReverseMap();
 
             cfg.CreateMap<PaymentType, PaymentTypeVM>()
-               .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
-               .ForMember(d => d.Description, opt => opt.MapFrom(s => s.Description))
+              .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
+              .ForMember(d => d.Description, opt => opt.MapFrom(s => s.Description))
               .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
               .ForMember(d => d.CompanyId, opt => opt.MapFrom(s => s.CompanyId))
               .ForMember(d => d.CompanyName, opt => opt.MapFrom(s => s.MyCompany.Name))
+              .ReverseMap();
+
+            cfg.CreateMap<Inventory, InventoryVM>()
+              .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+              .ForMember(d => d.Quantity, opt => opt.MapFrom(s => s.Quantity))
+              .ForMember(d => d.StoreId, opt => opt.MapFrom(s => s.StoreId))
+              .ForMember(d => d.StoreName, opt => opt.MapFrom(s => s.MyStore.Name))
+              .ForMember(d => d.ProductId, opt => opt.MapFrom(s => s.ProductId))
+              .ForMember(d => d.ProductName, opt => opt.MapFrom(s => s.MyProduct.Name))
+              .ForMember(d => d.SizeId, opt => opt.MapFrom(s => s.SizeId))
+              .ForMember(d => d.SizeName, opt => opt.MapFrom(s => s.MySize.Name))
               .ReverseMap();
         }
     }

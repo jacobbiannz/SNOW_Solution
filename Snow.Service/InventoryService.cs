@@ -30,11 +30,12 @@ namespace Snow.Service
         {
             _inventoryRepository.Update(inventory);
         }
+        /*
         public void DeleteInventory(Inventory inventory)
         {
             _inventoryRepository.Delete(inventory);
         }
-        
+        */
         /*
         public Inventory GetInventory(string name)
         {
@@ -49,6 +50,11 @@ namespace Snow.Service
             return Inventory;
         }
 
+        public Inventory GetInventory(Store store, Product product, Size size)
+        {
+            var Inventory = _inventoryRepository.GetInventoryBySPS(store, product, size);
+            return Inventory;
+        }
         /*
         public IEnumerable<Inventory> GetInventorys(string name = null)
         {

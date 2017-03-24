@@ -16,7 +16,8 @@ namespace Snow.Web.ViewModel
         public ICollection<BrandVM> BrandsVM { set; get; }
         public ICollection<CountryVM> CountriesVM { set; get; }
         public ICollection<PaymentTypeVM> PaymentTypesVM { set; get; }
-    
-        
+        public ICollection<SizeVM> SizesVM { set; get; }
+
+
     }
 }

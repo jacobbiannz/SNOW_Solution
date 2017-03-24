@@ -14,14 +14,15 @@ namespace Snow.Data.Repository
         public InventoryRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
-        
-        /*
-        public Inventory GetInventoryByName(string InventoryName)
+  
+        public Inventory GetInventoryBySPS(Store store, Product product, Size size)
         {
-            var Inventory = DbContext.Inventories.Where(c => c.Name == InventoryName).FirstOrDefault();
+            Inventory inventory = DbContext.Inventories.Where(c => (c.MyStore.Id == store.Id)
+                                                            && (c.MyProduct.Id == product.Id)
+                                                            && (c.MySize.Id == size.Id)).FirstOrDefault();
 
-            return Inventory;
-        }*/
+            return inventory;
+        }
 
         public override void Update(Inventory entity)
         {

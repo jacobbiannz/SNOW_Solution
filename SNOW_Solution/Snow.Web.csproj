@@ -215,6 +215,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\SizeController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\PaymentTypeController.cs" />
@@ -353,6 +354,10 @@
     <Content Include="Views\Size\Details.cshtml" />
     <Content Include="Views\Size\Edit.cshtml" />
     <Content Include="Views\Size\Index.cshtml" />
+    <Content Include="Views\Inventory\Create.cshtml" />
+    <Content Include="Views\Inventory\Details.cshtml" />
+    <Content Include="Views\Inventory\Edit.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

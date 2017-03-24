@@ -11,5 +11,6 @@ namespace Snow.Data.Repository
    public interface IInventoryRepository : IRepository<Inventory>
     {
         //Inventory GetInventoryByName(string brandName);
+        Inventory GetInventoryBySPS(Store store, Product product, Size size);
     }
 }
