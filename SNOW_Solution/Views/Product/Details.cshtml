@@ -1,5 +1,5 @@
 ﻿@model Snow.Web.ViewModel.ProductVM
-
+@using Snow.Web.ViewModels
 @{
     ViewBag.Title = "Details";
 }
@@ -10,11 +10,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ProductID)
+            @Html.DisplayNameFor(model => model.ProductId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProductID)
+            @Html.DisplayFor(model => model.ProductId)
         </dd>
 
         <dt>
@@ -34,32 +34,49 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.MarketPrice)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.MarketPrice)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Image)
+            @Html.DisplayNameFor(model => model.StockPrice)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Image)
+            @Html.DisplayFor(model => model.StockPrice)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CategoryID)
+            @Html.DisplayNameFor(model => model.CategoryId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CategoryID)
+            @Html.DisplayFor(model => model.CategoryId)
         </dd>
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div>
+    @foreach (var imageInfo in Model.ImageInfos)
+    {
+        <div>
+            <img alt="" src="/Product/RenderImage/@imageInfo.ImageId" />
+        </div>
+    }
+</div>
+@if (Model.IsDeleted)
+{
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

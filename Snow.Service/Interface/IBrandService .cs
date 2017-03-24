@@ -16,6 +16,6 @@ namespace Snow.Service
         void UpdateBrand(Brand brand);
         void DeleteBrand(Brand brand);
         void SaveBrand();
-
+        Task<int> SaveBrandAsync();
     }
 }

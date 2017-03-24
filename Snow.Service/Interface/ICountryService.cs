@@ -16,5 +16,6 @@ namespace Snow.Service
         void UpdateCountry(Country counry);
         void DeleteCountry(Country country);
         void SaveCountry();
+        Task<int> SaveCountryAsync();
     }
 }

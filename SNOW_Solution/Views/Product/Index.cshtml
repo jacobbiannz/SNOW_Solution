@@ -40,7 +40,8 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+        
+        <tr style="@(item.IsDeleted ? "Background-color:red" : "")">
             <td>
                 @Html.DisplayFor(modelItem => item.ProductId)
             </td>
@@ -59,11 +60,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CategoryDescription)
             </td>
+            @if (item.IsDeleted)
+            {
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", "Product", new { id = item.ProductId }, null) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Details", "Details", "Product", new { id = item.ProductId }, null) 
             </td>
+            }
+            else
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Product", new { id = item.ProductId }, null) |
+                    @Html.ActionLink("Details", "Details", "Product", new { id = item.ProductId }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Product", new { id = item.ProductId }, null)
+                </td>
+            }
+           
         </tr>
     }
 

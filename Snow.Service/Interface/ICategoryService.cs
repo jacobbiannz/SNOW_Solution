@@ -16,6 +16,6 @@ namespace Snow.Service
         void UpdateCategory(Category category);
         void DeleteCategory(Category category);
         void SaveCategory();
-
+        Task<int> SaveCategoryAsync();
     }
 }

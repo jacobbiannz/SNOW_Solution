@@ -5,6 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Snow.Model;
+using Snow.Model.Models;
 
 namespace Snow.Model
 {
@@ -47,9 +48,10 @@ namespace Snow.Model
 
         public virtual ICollection<Promotion> AllPromotions { get; set; }
 
-        public virtual ICollection<Image> AllImages { get; set; }
+        public virtual ICollection<ImageInfo> AllImageInfos { get; set; }
 
         public virtual ICollection<OrderDetail> AllOrderDetails { get; set; }
 
+        public bool IsDeleted { get; set; }
     }
 }

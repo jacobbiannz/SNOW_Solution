@@ -1,4 +1,6 @@
 ﻿using Snow.Model;
+using Snow.Model.Models;
+using Snow.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,6 +24,11 @@ namespace Snow.Web.ViewModel
 
         public List<byte[]> Photos { get; set; }
 
+        public ICollection<ImageInfoVM> ImageInfos { get; set; }
+
+        public IDictionary<ImageInfoVM, byte[]> ImagesDict { get; set; }
+
+        public bool IsDeleted { get; set; }
         public HttpPostedFileBase File
         {
             get
@@ -43,8 +50,21 @@ namespace Snow.Web.ViewModel
                     {
                         Photos = new List<byte[]>();
                     }
+
+                    var imageInfo = new ImageInfoVM
+                    {
+                        Name = value.FileName,
+                        ContentType = value.ContentType,
+                        ProductId = ProductId
+                    };
                     
                     Photos.Add( target.ToArray());
+                   
+                    if (ImagesDict == null)
+                    {
+                        ImagesDict = new Dictionary<ImageInfoVM, byte[]>();
+                    }
+                    ImagesDict.Add(imageInfo, target.ToArray());
                 }
                 catch (Exception ex)
                 {

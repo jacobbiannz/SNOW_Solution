@@ -16,6 +16,6 @@ namespace Snow.Service
         void UpdateStore(Store store);
         void DeleteStore(Store store);
         void SaveStore();
-
+        Task<int> SaveStoreAsync();
     }
 }
