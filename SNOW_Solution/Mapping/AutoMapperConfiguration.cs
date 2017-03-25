@@ -110,8 +110,7 @@ namespace Snow.Web.Mapping
               .ReverseMap();
 
             cfg.CreateMap<Image, ImageVM>()
-             .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
-             .ForMember(d => d.MyImageInfo, opt => opt.MapFrom(s => s.MyImageInfo))
+             .ForMember(d => d.ImageInfoId, opt => opt.MapFrom(s => s.ImageInfoId))
              .ReverseMap();
         }
     }

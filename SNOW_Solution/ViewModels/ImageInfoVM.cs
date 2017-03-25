@@ -15,5 +15,7 @@ namespace Snow.Web.ViewModels
         public int ProductId { get; set; }
         public int ImageId { get; set; }
 
+        public byte[] Photo { get; set; }
+
     }
 }

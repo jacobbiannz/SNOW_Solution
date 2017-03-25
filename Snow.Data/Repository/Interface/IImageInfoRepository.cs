@@ -10,6 +10,6 @@ namespace Snow.Data.Repository.Interface
 {
     public interface IImageInfoRepository : IRepository<ImageInfo>
     {
-        ImageInfo GetImageInfoById(int productId);
+        IEnumerable<ImageInfo> GetImageInfosById(int productId);
     }
 }

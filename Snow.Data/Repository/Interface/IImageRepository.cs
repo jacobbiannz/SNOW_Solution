@@ -1,5 +1,6 @@
 ﻿using Snow.Data.Infrastructure;
 using Snow.Model;
+using Snow.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,5 @@ namespace Snow.Data.Repository
 {
     public interface IImageRepository : IRepository<Image>
     {
-        Image GetImageById(int productId);
     }
 }

@@ -14,6 +14,6 @@ namespace Snow.Model
         [Column(TypeName = "Image")]
         public byte[] Photo { get; set; }
 
-        public virtual ImageInfo MyImageInfo { get; set; }
+        public virtual int ImageInfoId { get; set; }
     }
 }

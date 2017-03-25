@@ -9,7 +9,7 @@ namespace Snow.Service
 {
     public interface IImageService
     {
-        IEnumerable<Image> GetImages(int productId);
+        IList<Image> GetImages(int productId);
         Image GetImage(int id);
         void CreateImage(Image image);
         void SaveImage();

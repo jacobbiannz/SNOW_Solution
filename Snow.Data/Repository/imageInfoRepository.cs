@@ -15,11 +15,11 @@ namespace Snow.Data.Repository
         {
         }
 
-        public ImageInfo GetImageInfoById(int productId)
+        public IEnumerable<ImageInfo> GetImageInfosById(int productId)
         {
-            var imageInfo = DbContext.ImageInfos.Where(c => c.ProductId == productId).FirstOrDefault();
+            var imageInfos = DbContext.ImageInfos.Where(c => c.ProductId == productId);
 
-            return imageInfo;
+            return imageInfos;
         }
     }
 }
