@@ -62,6 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImageInfoService.cs" />
+    <Compile Include="Interface\IImageInfoService.cs" />
     <Compile Include="InventoryService.cs" />
     <Compile Include="Interface\IInventoryService.cs" />
     <Compile Include="SizeService.cs" />

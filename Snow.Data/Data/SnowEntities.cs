@@ -200,14 +200,18 @@ namespace Snow.Data
                         dl.MapRightKey("OrderId");
                     });
 
+                modelBuilder.Entity<Product>()
+                  .HasMany(d => d.AllImageInfos)
+                  .WithRequired(l => l.MyProduct);
+
                 // Configure image as PK for imageinfo
                 modelBuilder.Entity<ImageInfo>()
-                    .HasKey(i => i.ImageId);
+                    .HasKey(i => i.ImageId).Ignore(i=>i.Id);
 
                 // Configure imageid as FK for imageinfo
                 modelBuilder.Entity<Image>()
-                            .HasRequired(i => i.MyImageInfo);
-                            //.WithRequiredPrincipal(info => info.MyImage);
+                           .HasKey(i => i.ImageInfoId).Ignore(i => i.Id);
+                           
 
 
 

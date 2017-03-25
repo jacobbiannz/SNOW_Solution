@@ -1,5 +1,6 @@
 ﻿using Snow.Data.Infrastructure;
 using Snow.Model;
+using Snow.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,6 @@ namespace Snow.Data.Repository
     {
         public ImageRepository(IDbFactory dbFactory) : base(dbFactory)
         {
-        }
-
-        public Image GetImageById(int productId)
-        {
-            var image = DbContext.Images.Where(c => c.MyImageInfo.ProductId == productId).FirstOrDefault();
-
-            return image;
         }
     }
 }

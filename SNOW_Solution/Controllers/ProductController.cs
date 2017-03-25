@@ -10,12 +10,14 @@ using Snow.Model.Models;
 using System;
 using System.Threading.Tasks;
 using System.Net;
+using Snow.Service.Interface;
 
 namespace Snow.Web.Controllers
 {
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IImageInfoService _imageInfoService;
         private readonly IImageService _imageService;
         private readonly ICategoryService _categoryService;
         private readonly IBrandService _brandService;
@@ -23,7 +25,8 @@ namespace Snow.Web.Controllers
         private readonly IStoreService _StoreService;
         
         public ProductController(IProductService productService, 
-                                   IImageService imageService, 
+                                   IImageService imageService,
+                                   IImageInfoService imageInfoService,
                                    ICategoryService categoryService,
                                    IStoreService storeService,
                                    ICompanyService companyService,
@@ -32,6 +35,7 @@ namespace Snow.Web.Controllers
         {
             _productService = productService;
             _imageService = imageService;
+            _imageInfoService = imageInfoService;
             _categoryService = categoryService;
             _companyService = companyService;
             _StoreService = storeService;
@@ -102,24 +106,28 @@ namespace Snow.Web.Controllers
                         foreach (var info in productVM.ImagesDict)
                         {
 
-                            var imageVM = new ImageVM()
+                            var imageInfoVM = new ImageInfoVM()
                             {
                                 Photo = info.Value,
-                                MyImageInfo = new ImageInfoVM
-                                {
-                                    Name = info.Key.Name,
-                                    ContentType = info.Key.ContentType,
-                                    IsMain = info.Key.IsMain,
-                                    IsSelected = info.Key.IsSelected
-                                }
-
+                                Name = info.Key.Name,
+                                ContentType = info.Key.ContentType,
+                                IsMain = info.Key.IsMain,
+                                IsSelected = info.Key.IsSelected
                             };
 
+                            var imageInfo = Mapper.Map<ImageInfoVM, ImageInfo>(imageInfoVM);
+
+                            _imageInfoService.CreateImageInfo(imageInfo);
+
+                            var imageVM = new ImageVM
+                            {
+                                Photo = info.Value
+                            };
                             var image = Mapper.Map<ImageVM, Image>(imageVM);
 
                             _imageService.CreateImage(image);
                             await _imageService.SaveImageAsync();
-                            prod.AllImageInfos.Add(image.MyImageInfo);
+                            await _imageInfoService.SaveImageInfoAsync();
                         }
                        
                         await _productService.SaveProductAsync();
@@ -159,23 +167,30 @@ namespace Snow.Web.Controllers
                     {
                         foreach (var info in productVM.ImagesDict)
                         {
-                            var imageVM = new ImageVM()
+                            var imageInfoVM = new ImageInfoVM()
                             {
                                 Photo = info.Value,
-                                MyImageInfo = new ImageInfoVM
-                                {
-                                    Name = info.Key.Name,
-                                    ContentType = info.Key.ContentType,
-                                    IsMain = info.Key.IsMain,
-                                    IsSelected = info.Key.IsSelected,
-                                    ProductId = info.Key.ProductId
-                                }
+                                Name = info.Key.Name,
+                                ContentType = info.Key.ContentType,
+                                IsMain = info.Key.IsMain,
+                                IsSelected = info.Key.IsSelected,
+                                ProductId = product.Id
                             };
 
+                            var imageInfo = Mapper.Map<ImageInfoVM, ImageInfo>(imageInfoVM);
+
+                            _imageInfoService.CreateImageInfo(imageInfo);
+
+                            var imageVM = new ImageVM
+                            {
+                                Photo = info.Value
+                            };
                             var image = Mapper.Map<ImageVM, Image>(imageVM);
+
 
                             _imageService.CreateImage(image);
                             await _imageService.SaveImageAsync();
+                            await _imageInfoService.SaveImageInfoAsync();
                         }
                         _productService.UpdateProduct(product);
                         await _productService.SaveProductAsync();

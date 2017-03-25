@@ -11,6 +11,8 @@ namespace Snow.Web.ViewModels
 
         public byte[] Photo { get; set; }
 
-        public ImageInfoVM MyImageInfo { get; set; }
+        public ImageInfoVM MyImageInfoVM { get; set; }
+
+        public int ImageInfoId { get; set; }
     }
 }

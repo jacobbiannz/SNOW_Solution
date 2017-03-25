@@ -30,13 +30,11 @@ namespace Snow.Service
 
         public void Create(Image image)
         {
-            _ImageInfoRepository.Add(image.MyImageInfo);
             _ImageRepository.Add(image);
         }
 
         public void CreateImage(Image image)
         {
-            _ImageInfoRepository.Add(image.MyImageInfo);
             _ImageRepository.Add(image);
         }
 
@@ -46,12 +44,22 @@ namespace Snow.Service
             return iamge;
         }
 
-        public IEnumerable<Image> GetImages(int productId)
+        public IList<Image> GetImages(int productId)
         {
+            var images = new List<Image>();
             if (string.IsNullOrEmpty(productId.ToString()))
-                return _ImageRepository.GetAll();
+                return _ImageRepository.GetAll().ToList();
             else
-                return _ImageRepository.GetAll().Where(c => c.MyImageInfo.ProductId == productId);
+            {
+                var imageInfos = _ImageInfoRepository.GetAll().Where(c => c.ProductId == productId);
+
+                foreach(var info in imageInfos)
+                {
+                    images.Add(GetImage(info.ImageId));
+                }
+            }
+
+            return images;
         }
 
 
