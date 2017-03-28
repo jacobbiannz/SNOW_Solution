@@ -9,6 +9,32 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<div class="form-group">
+    @using (Html.BeginForm("Index", "Inventory", FormMethod.Get))
+    {
+        <text>Store </text>
+    
+        @Html.DropDownList("Store", // Store selected value in Model.State
+
+                          // Notice "ME" as the last parameter here -
+                          // that's the key for "Maine" in the supplied dictionary
+                          new SelectList(ViewBag.Stores, "Name", "Name", "ME"),
+
+                          // Text for the first, non-selected option
+                          "All",
+
+                          // A class name to put on the "<select>"
+                          new { @class = "form-control" })
+       
+        <input type="submit" value="Search" />
+    }
+</div>
+
+<p>
+
+</p>
+
 <table class="table">
 
     <tr>

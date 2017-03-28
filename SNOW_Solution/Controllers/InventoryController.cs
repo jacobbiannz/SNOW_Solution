@@ -27,40 +27,23 @@ namespace Snow.Web.Controllers
             _SizeService = SizeService;
         }
 
-        public ActionResult Index(int? storeId)
+        public ActionResult Index(string store)
         {
 
-            var store = _StoreService.GetStore(1);
-            if (store == null)
-            {
-                return HttpNotFound();
-            }
+            ICollection<Store> _Stores;
+            ICollection<StoreVM> StoresVM;
+            _Stores = _StoreService.GetStores().ToList();
 
-            foreach (var product in store.AllProducts)
-            {
-                if (product.MyCategory != null)
-                    foreach (var size in product.MyCategory.AllSizes)
-                    {
-                        if (_InventoryService.GetInventory(store, product, size) == null)
-                        {
-                            var inventoryVM = new InventoryVM();
-                            inventoryVM.StoreId = store.Id;
-                            inventoryVM.ProductId = product.Id;
-                            inventoryVM.SizeId = size.Id;
+            StoresVM = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(_Stores);
 
-                            var inventory = Mapper.Map<InventoryVM, Inventory>(inventoryVM);
-                            _InventoryService.CreateInventory(inventory);
-                            _InventoryService.SaveInventory();
-                        }
-                    }
-                
-                
-            }
+            ViewBag.Stores = StoresVM;
+
+            _InventoryService.GenerateInventory();
 
             IEnumerable<InventoryVM> viewModelInventorys;
             IEnumerable<Inventory> Inventorys;
 
-            Inventorys = store.AllInventories.ToList();
+            Inventorys = _InventoryService.GetInventorys(store).ToList();
 
             viewModelInventorys = Mapper.Map<IEnumerable<Inventory>, IEnumerable<InventoryVM>>(Inventorys);
 

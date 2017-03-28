@@ -12,11 +12,13 @@ namespace Snow.Service
     class InventoryService : IInventoryService
     {
         private readonly IInventoryRepository _inventoryRepository;
+        private readonly IStoreRepository _storeRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public InventoryService(IInventoryRepository InventoryRepository, IUnitOfWork unitOfWork)
+        public InventoryService(IInventoryRepository InventoryRepository, IStoreRepository StoreRepository, IUnitOfWork unitOfWork)
         {
             _inventoryRepository = InventoryRepository;
+            _storeRepository = StoreRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -55,15 +57,39 @@ namespace Snow.Service
             var Inventory = _inventoryRepository.GetInventoryBySPS(store, product, size);
             return Inventory;
         }
-        /*
-        public IEnumerable<Inventory> GetInventorys(string name = null)
+        
+        public IEnumerable<Inventory> GetInventorys(string Store = null)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(Store))
                 return _inventoryRepository.GetAll();
-            return _inventoryRepository.GetAll().Where(c => c.Name == name);
-
+            return _inventoryRepository.GetAll().Where(c => c.MyStore.Name == Store);
         }
-        */
+
+        public void GenerateInventory()
+        {
+            foreach (var store in _storeRepository.GetAll())
+            {
+                foreach (var product in store.AllProducts)
+                {
+                    if (product.MyCategory != null)
+                        foreach (var size in product.MyCategory.AllSizes)
+                        {
+                            if (GetInventory(store, product, size) == null)
+                            {
+                                var inventory = new Inventory();
+                                inventory.StoreId = store.Id;
+                                inventory.ProductId = product.Id;
+                                inventory.SizeId = size.Id;
+
+                                CreateInventory(inventory);
+                                SaveInventory();
+                            }
+                        }
+                }
+            }
+        }
+
+
         public void SaveInventory()
         {
             _unitOfWork.Commit();
