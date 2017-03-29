@@ -100,7 +100,7 @@ namespace Snow.Web.Controllers
                         prod.BrandId = productVM.BrandId;
                         prod.CategoryId = productVM.CategoryId;
                         prod.CompanyId = productVM.CompanyId;
-                        prod.StoreId = productVM.StoreId;
+                        //prod.StoreId = productVM.StoreId;
                         _productService.CreateProduct(prod);
 
                         foreach (var info in productVM.ImagesDict)

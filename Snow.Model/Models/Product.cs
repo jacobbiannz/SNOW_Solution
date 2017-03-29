@@ -40,9 +40,11 @@ namespace Snow.Model
 
         public virtual Brand MyBrand { get; set; }
 
+        /*
         [ForeignKey("MyStore")]
         public int StoreId { get; set; }
         public virtual Store MyStore { get; set; }
+        */
 
         public virtual ICollection<Inventory> AllInventories { get; set; }
 

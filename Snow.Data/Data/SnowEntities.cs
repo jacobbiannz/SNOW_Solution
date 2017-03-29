@@ -160,11 +160,11 @@ namespace Snow.Data
                 modelBuilder.Entity<Store>()
                  .HasMany(c => c.AllInventories)
                  .WithRequired(r => r.MyStore).WillCascadeOnDelete(false);
-
+                /*
                 modelBuilder.Entity<Store>()
                  .HasMany(c => c.AllProducts)
                  .WithRequired(r => r.MyStore).WillCascadeOnDelete(false);
-
+                */
                 modelBuilder.Entity<Category>()
                    .HasMany(s => s.AllSizes)
                    .WithRequired(s => s.MyCategory).WillCascadeOnDelete(false);

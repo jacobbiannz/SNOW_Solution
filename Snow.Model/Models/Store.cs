@@ -22,7 +22,7 @@ namespace Snow.Model
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
         public virtual Company MyCompany { get; set; }    
-        public virtual ICollection<Product> AllProducts { get; set; }
+        //public virtual ICollection<Product> AllProducts { get; set; }
         public virtual ICollection<Inventory> AllInventories { get; set; }
 
     }

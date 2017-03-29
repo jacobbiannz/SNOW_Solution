@@ -358,11 +358,11 @@
     <Content Include="Views\Size\Edit.cshtml" />
     <Content Include="Views\Size\Index.cshtml" />
     <Content Include="Views\Inventory\Create.cshtml" />
-    <Content Include="Views\Inventory\Details.cshtml" />
     <Content Include="Views\Inventory\Edit.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Inventory\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

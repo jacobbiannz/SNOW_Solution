@@ -80,15 +80,21 @@ namespace SNOW_Solution.Migrations
 
             var store = new Store
             {
-                Name = "Auckland Store",
+                Name = "Auckland City",
                 //MyAddress = address,
                 MyCompany = company,
 
                 Id = 1
             };
 
+            var store1 = new Store
+            {
+                Name = "Auckland Parnell",
+                //MyAddress = address,
+                MyCompany = company,
 
-
+                Id = 1
+            };
 
             var brand1 = new Brand
             {
@@ -120,6 +126,26 @@ namespace SNOW_Solution.Migrations
 
                 Id = 1
             };
+
+            var size1 = new Size
+            {
+                Name = "S",
+                MyCategory = category1
+            };
+
+            var size2 = new Size
+            {
+                Name = "M",
+                MyCategory = category1
+            };
+
+            var size3 = new Size
+            {
+                Name = "L",
+                MyCategory = category1
+            };
+
+
             var category2 = new Category
             {
                 Name = "Shoes",
@@ -142,9 +168,10 @@ namespace SNOW_Solution.Migrations
                 MyCompany = company,
                 MyCategory = category1,
                 MyBrand = brand1,
-                MyStore = store,
-                Id = 1
+                //MyStore = store,
+               // Id = 1
             };
+
             var product2 = new Product
             {
                 Name = "Embroidered Cotton-Twill Baseball Cap",
@@ -152,9 +179,9 @@ namespace SNOW_Solution.Migrations
                 MyCompany = company,
                 MyCategory = category2,
                 MyBrand = brand2,
-                MyStore = store,
+                //MyStore = store,
 
-                Id = 2
+                //Id = 2
             };
             var product3 = new Product
             {
@@ -163,9 +190,9 @@ namespace SNOW_Solution.Migrations
                 MyCompany = company,
                 MyCategory = category3,
                 MyBrand = brand3,
-                MyStore = store,
+                //MyStore = store,
 
-                Id = 3
+               // Id = 3
             };
 
             context.Countries.Add(country);
@@ -174,10 +201,14 @@ namespace SNOW_Solution.Migrations
             context.Addresses.Add(address);
             context.Companys.Add(company);
             context.Stores.Add(store);
+            context.Stores.Add(store1);
             context.Brands.Add(brand1);
             context.Brands.Add(brand2);
             context.Brands.Add(brand3);
             context.Categories.Add(category1);
+            context.Sizes.Add(size1);
+            context.Sizes.Add(size2);
+            context.Sizes.Add(size3);
             context.Categories.Add(category2);
             context.Categories.Add(category3);
             context.Products.Add(product1);

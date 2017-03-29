@@ -69,7 +69,7 @@ namespace Snow.Service
         {
             foreach (var store in _storeRepository.GetAll())
             {
-                foreach (var product in store.AllProducts)
+                foreach (var product in store.MyCompany.AllProducts)
                 {
                     if (product.MyCategory != null)
                         foreach (var size in product.MyCategory.AllSizes)
