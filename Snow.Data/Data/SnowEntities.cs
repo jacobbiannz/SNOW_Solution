@@ -24,10 +24,13 @@ namespace Snow.Data
         //   public DateTime CreateTime { get; set; }
 
         //  public DateTime LastLogin { get; set; }
-        public Subscriber MySubscriber { get; set; }
+        public Subscriber Subscriber { get; set; }
         //  [ForeignKey("MyCompany")]
         // public int CompanyId { get; set; }
-        public Company MyCompany { get; set; }
+        public string Company { get; set; }
+
+        public string Store { get; set; }
+        public string StoreName { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

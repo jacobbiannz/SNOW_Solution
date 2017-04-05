@@ -31,6 +31,15 @@
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.Label("Store", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(x => x.StoreId, new SelectList(ViewBag.Subscriber.StoresVM, "Id", "Name"))
+            @Html.ValidationMessageFor(model => model.StoreId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
     <div class="form-group">
         <label class="col-md-2 control-label">
             Select User Role

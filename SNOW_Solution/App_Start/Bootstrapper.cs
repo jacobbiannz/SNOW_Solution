@@ -41,6 +41,10 @@ namespace Snow.Web.App_Start
                .Where(t => t.Name.EndsWith("Service"))
                .AsImplementedInterfaces().InstancePerRequest();
 
+            builder.RegisterAssemblyTypes(typeof(StoreService).Assembly)
+              .Where(t => t.Name.EndsWith("Service"))
+              .AsImplementedInterfaces().InstancePerRequest();
+
             IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
