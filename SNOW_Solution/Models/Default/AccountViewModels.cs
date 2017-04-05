@@ -79,6 +79,13 @@ namespace Snow.Web.ViewModel
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+       
+        public int StoreId { get; set; }
+        public string StoreName { get; set; }
+        public ICollection<StoreVM> Stores;
+
+        public SubscriberVM Subscriber { get; set; }
     }
 
     public class ResetPasswordViewModel

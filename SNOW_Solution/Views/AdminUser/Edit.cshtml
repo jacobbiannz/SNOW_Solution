@@ -24,6 +24,13 @@
             </div>
         </div>
         <div class="form-group">
+            @Html.Label("Store", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.StoreId, new SelectList(ViewBag.Subscriber.StoresVM, "Id", "Name"))
+                @Html.ValidationMessageFor(model => model.StoreId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
             @Html.Label("Roles", new { @class = "control-label col-md-2" })
             <span class=" col-md-10">
                 @foreach (var item in Model.RolesList)
