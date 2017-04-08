@@ -22,13 +22,11 @@ namespace Snow.Web.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IBrandService _brandService;
         private readonly ICompanyService _companyService;
-        private readonly IStoreService _StoreService;
         
         public ProductController(IProductService productService, 
                                    IImageService imageService,
                                    IImageInfoService imageInfoService,
                                    ICategoryService categoryService,
-                                   IStoreService storeService,
                                    ICompanyService companyService,
                                    IBrandService brandService
                                    )
@@ -38,7 +36,6 @@ namespace Snow.Web.Controllers
             _imageInfoService = imageInfoService;
             _categoryService = categoryService;
             _companyService = companyService;
-            _StoreService = storeService;
             _brandService = brandService;
         }
 
@@ -60,13 +57,11 @@ namespace Snow.Web.Controllers
 
             ICollection<Brand> _Brands;
             ICollection<Category> _Categories;
-            ICollection<Store> _Stores;
             ICollection<Company> _Companies;
 
 
             _Categories = _categoryService.GetCategories().ToList();
             _Brands = _brandService.GetBrands().ToList();
-            _Stores = _StoreService.GetStores().ToList();
             _Companies = _companyService.GetCompanies().ToList();
 
            
@@ -74,7 +69,6 @@ namespace Snow.Web.Controllers
             {
                 CategoriesVM = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
                 BrandsVM = Mapper.Map<ICollection<Brand>, ICollection<BrandVM>>(_Brands),
-                StoresVM = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(_Stores),
                 CompaniesVM = Mapper.Map<ICollection<Company>, ICollection<CompanyVM>>(_Companies)
 
             };
@@ -100,7 +94,6 @@ namespace Snow.Web.Controllers
                         prod.BrandId = productVM.BrandId;
                         prod.CategoryId = productVM.CategoryId;
                         prod.CompanyId = productVM.CompanyId;
-                        //prod.StoreId = productVM.StoreId;
                         _productService.CreateProduct(prod);
 
                         foreach (var info in productVM.ImagesDict)
@@ -256,13 +249,11 @@ namespace Snow.Web.Controllers
 
             ICollection<Brand> _Brands;
             ICollection<Category> _Categories;
-            ICollection<Store> _Stores;
             ICollection<Company> _Companies;
 
 
             _Categories = _categoryService.GetCategories().ToList();
             _Brands = _brandService.GetBrands().ToList();
-            _Stores = _StoreService.GetStores().ToList();
             _Companies = _companyService.GetCompanies().ToList();
 
 
@@ -270,7 +261,6 @@ namespace Snow.Web.Controllers
             {
                 CategoriesVM = Mapper.Map<ICollection<Category>, ICollection<CategoryVM>>(_Categories),
                 BrandsVM = Mapper.Map<ICollection<Brand>, ICollection<BrandVM>>(_Brands),
-                StoresVM = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(_Stores),
                 CompaniesVM = Mapper.Map<ICollection<Company>, ICollection<CompanyVM>>(_Companies)
 
             };

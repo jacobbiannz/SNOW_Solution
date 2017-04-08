@@ -1,9 +1,12 @@
 ﻿
+using AutoMapper;
 using Microsoft.AspNet.Identity.Owin;
 using Snow.Data;
 using Snow.Model;
+using Snow.Service;
 using Snow.Web.ViewModel;
 using SNOW_Solution;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -17,13 +20,17 @@ namespace Snow.Web.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminUserController : Controller
     {
-        public AdminUserController()
+        private readonly IStoreService _storeService;
+        public AdminUserController(IStoreService storeService)
         {
+            _storeService = storeService;
         }
+    
         public AdminUserController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
             RoleManager = roleManager;
+           
         }
 
         private ApplicationUserManager _userManager;
@@ -78,6 +85,14 @@ namespace Snow.Web.Controllers
         // GET: /Users/Create
         public async Task<ActionResult> Create()
         {
+           
+            var stores = _storeService.GetStores().ToList();
+            var subscriberVM = new SubscriberVM
+            {
+                StoresVM = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(stores),
+            };
+            ViewBag.Subscriber = subscriberVM;
+
             //Get the list of Roles
             ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
             return View();
@@ -90,7 +105,8 @@ namespace Snow.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email };
+                var store = _storeService.GetStore(userViewModel.StoreId);
+                var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email, StoreName = store.Name, Store = userViewModel.StoreId.ToString() };
                 var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
 
                 //Add User to the selected Roles 
@@ -134,6 +150,14 @@ namespace Snow.Web.Controllers
                 return HttpNotFound();
             }
 
+            var stores = _storeService.GetStores().ToList();
+            var subscriberVM = new SubscriberVM
+            {
+                StoresVM = Mapper.Map<ICollection<Store>, ICollection<StoreVM>>(stores),
+            };
+            ViewBag.Subscriber = subscriberVM;
+            
+
             var userRoles = await UserManager.GetRolesAsync(user.Id);
 
             return View(new EditUserViewModel()
@@ -143,6 +167,12 @@ namespace Snow.Web.Controllers
                 RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
                 {
                     Selected = userRoles.Contains(x.Name),
+                    Text = x.Name,
+                    Value = x.Name
+                }),
+                StoreList = subscriberVM.StoresVM.ToList().Select(x => new SelectListItem()
+                {
+                    Selected = user.Store.Contains(x.Name),
                     Text = x.Name,
                     Value = x.Name
                 })

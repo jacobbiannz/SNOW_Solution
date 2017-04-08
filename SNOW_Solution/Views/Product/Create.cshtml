@@ -85,25 +85,6 @@
             </div>
         </div>
 
-
-        <div class="form-group">
-            @Html.Label("Store", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.StoreId, // Store selected value in Model.State
-
-                      // Notice "ME" as the last parameter here -
-                      // that's the key for "Maine" in the supplied dictionary
-                      new SelectList(Model.MySubscriberVM.StoresVM, "Id", "Name", "ME"),
-
-                      // Text for the first, non-selected option
-                      "- Please select store -",
-
-                      // A class name to put on the "<select>"
-                      new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StoreId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group">
             @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
