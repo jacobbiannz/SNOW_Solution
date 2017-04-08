@@ -1,0 +1,85 @@
+﻿@model Snow.Web.ViewModel.OrderVM
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>OrderVM</h4>
+<hr />
+
+
+    <label for="ddlProductBarcode"><strong>Product Barcode</strong></label>
+   
+    <input type="text" name="ProductBarcode" id = "barCode">
+
+    <input type="button" value="Add Product" id="buttonClick" c/>
+    
+    <button type="button" onclick="loadDoc()">Change Content</button>
+    <div id="demo"> </div>
+   
+    <br /><br />
+    <div id="orderDetails">
+        @{Html.RenderPartial("_OrderDetails", Model.AllOrderDetailsVM);}
+    </div>
+
+
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    <script>
+        function loadDoc() {
+            
+                    document.getElementById("demo").innerHTML =
+                    'test test';
+                    alert('test');
+                
+        }
+    </script>
+    
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            //$("#buttonClick").click(function () {
+            
+            $('#buttonClick').on('click', function() { 
+                var barcode = $('#barCode').val();
+                var url = "@Url.Action("AddOrderDetail", "Order")?barcode=" + barcode + '&orderId=' + @Model.Id;
+                //alert(url);
+                $("#orderDetails").load(url);
+                //$("#orderDetails").load("Index");
+                $.ajaxSetup({ cache: false });
+            });
+            
+        });
+    </script>
+
+
+
+
+    <!--
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#buttonClick").click(function () {
+                var barcode =  $("#barCode").val();
+                $("#orderDetails").load('@Url.Action("AddOrderDetail", "Order")?barcode=' + barcode + 'orderId=' + @Model.Id));
+
+        });
+        });
+    </script>
+        -----
+         var val = $('#barCode').val();
+                $.ajax({
+                    url: "test",
+                    type: "GET",
+                    data: { year: ((val * 1) + 1) }
+                })
+                .done(function (partialViewResult) {
+                    ("#orderDetails").html(partialViewResult);
+                });
+
+    -->

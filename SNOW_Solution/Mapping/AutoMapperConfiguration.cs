@@ -38,6 +38,33 @@ namespace Snow.Web.Mapping
               .ForMember(d => d.CompanyName, opt => opt.MapFrom(s => s.MyCompany.Name))
               .ReverseMap();
 
+            cfg.CreateMap<OrderStatus, OrderStatusVM>()
+              .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
+              .ForMember(d => d.Description, opt => opt.MapFrom(s => s.Description))
+              .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+              .ForMember(d => d.CompanyId, opt => opt.MapFrom(s => s.CompanyId))
+              .ForMember(d => d.CompanyName, opt => opt.MapFrom(s => s.MyCompany.Name))
+              .ReverseMap();
+
+            cfg.CreateMap<OrderDetail, OrderDetailVM>()
+             .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+             .ForMember(d => d.OrderId, opt => opt.MapFrom(s => s.OrderId))
+             .ForMember(d => d.ProductId, opt => opt.MapFrom(s => s.ProductId))
+             .ForMember(d => d.ProductName, opt => opt.MapFrom(s => s.MyProduct.Name))
+             .ForMember(d => d.SizetId, opt => opt.MapFrom(s => s.SizeId))
+             .ForMember(d => d.SizeName, opt => opt.MapFrom(s => s.MySize.Name))
+             
+             .ReverseMap();
+
+            cfg.CreateMap<Order, OrderVM>()
+            .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+            .ForMember(d => d.StoreId, opt => opt.MapFrom(s => s.StoreId))
+            .ForMember(d => d.StoreName, opt => opt.MapFrom(s => s.MyStore.Name))
+            .ForMember(d => d.OrderStatusId, opt => opt.MapFrom(s => s.OrderStatusId))
+            .ForMember(d => d.OrderStatusName, opt => opt.MapFrom(s => s.MyOrderStatus.Name))
+            .ForMember(d => d.AllOrderDetailsVM, opt => opt.MapFrom(s => s.AllOrderDetails))
+            .ReverseMap();
+
             cfg.CreateMap<Category, CategoryVM>()
               .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
               .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))

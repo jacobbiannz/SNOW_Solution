@@ -117,6 +117,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\AddressConfiguration.cs" />
+    <Compile Include="Configuration\OrderDetailConfiguration.cs" />
+    <Compile Include="Configuration\OrderConfiguration.cs" />
+    <Compile Include="Configuration\OrderStatusConfiguration.cs" />
     <Compile Include="Configuration\InventoryConfiguration.cs" />
     <Compile Include="Configuration\SizeConfiguration.cs" />
     <Compile Include="Configuration\PaymentTypeConfiguration.cs" />
@@ -138,6 +141,12 @@
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Data\SeedData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Interface\IOrderDetailRepository.cs" />
+    <Compile Include="Repository\Interface\IOrderRepository.cs" />
+    <Compile Include="Repository\Interface\IOrderStatusRepository.cs" />
+    <Compile Include="Repository\OrderRepository.cs" />
+    <Compile Include="Repository\OrderDetailRepository.cs" />
+    <Compile Include="Repository\OrderStatusRepository.cs" />
     <Compile Include="Repository\imageInfoRepository.cs" />
     <Compile Include="Repository\Interface\IImageInfoRepository.cs" />
     <Compile Include="Repository\InventoryRepository.cs" />
@@ -175,7 +184,13 @@
       <Name>Snow.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.0.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

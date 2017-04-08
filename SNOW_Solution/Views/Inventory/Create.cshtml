@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>CategoryVM</h4>
+        <h4>InventoryVM</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -34,7 +34,7 @@
                       new SelectList(Model.MySubscriberVM.ProductsVM, "ProductId", "Name", "ME"),
 
                       // Text for the first, non-selected option
-                      "- Please select product -",
+                      //"- Please select company -",
 
                       // A class name to put on the "<select>"
                       new { @class = "form-control" })
@@ -43,7 +43,25 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Size", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.SizeId, // Store selected value in Model.State
+
+                      // Notice "ME" as the last parameter here -
+                      // that's the key for "Maine" in the supplied dictionary
+                      new SelectList(Model.MySubscriberVM.SizesVM, "Id", "Name", "ME"),
+
+                      // Text for the first, non-selected option
+                      //"- Please select company -",
+
+                      // A class name to put on the "<select>"
+                      new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SizeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Store", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(m => m.StoreId, // Store selected value in Model.State
 

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Snow.Web.ViewModel.OrderDetailVM>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            name
+        </th>
+        <th>
+            Size
+        </th>
+        <th>
+            Qty
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SizeName)
+            </td>
+            <td>
+               
+            </td>   
+        </tr>
+    }
+
+</table>

@@ -13,6 +13,7 @@ namespace Snow.Model
         [Required]
         public int Quantity { get; set; }
 
+        public decimal Price { get; set; }
        
         [ForeignKey("MyOrder")]
         public int OrderId { get; set; }

@@ -18,8 +18,8 @@ namespace Snow.Model
 
         [ForeignKey("MyCompany")]
         public int CompanyId { get; set; }
-        public Company MyCompany { get; set; }
+        public virtual Company MyCompany { get; set; }
 
-        public ICollection<Order> AllOrders { get; set; }
+        public virtual ICollection<Order> AllOrders { get; set; }
     }
 }
