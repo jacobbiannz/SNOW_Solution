@@ -372,6 +372,10 @@
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
     <Content Include="Views\Inventory\Details.cshtml" />
+    <Content Include="Views\AdminUser\Delete.cshtml" />												 
+    <Content Include="Views\AdminUser\Details.cshtml" />
+    <Content Include="Views\AdminUser\Edit.cshtml" />
+    <Content Include="Views\AdminUser\Create.cshtml" />
     <Content Include="Views\OrderStatus\Create.cshtml" />
     <Content Include="Views\OrderStatus\Delete.cshtml" />
     <Content Include="Views\OrderStatus\Details.cshtml" />
