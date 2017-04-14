@@ -372,7 +372,7 @@
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
     <Content Include="Views\Inventory\Details.cshtml" />
-    <Content Include="Views\AdminUser\Delete.cshtml" />												 
+    <Content Include="Views\AdminUser\Delete.cshtml" />
     <Content Include="Views\AdminUser\Details.cshtml" />
     <Content Include="Views\AdminUser\Edit.cshtml" />
     <Content Include="Views\AdminUser\Create.cshtml" />
@@ -384,7 +384,6 @@
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\_OrderDetails.cshtml" />
-    <Content Include="Views\Order\testPV.cshtml" />
     <Content Include="Views\Order\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<Snow.Web.ViewModel.OrderDetailVM>
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Sale Items";
 }
 
-<h2>Create</h2>
+<h3>Items</h3>
 
 
 <table class="table">
     <tr>
         <th>
-            name
+            Product Name
         </th>
         <th>
             Size
@@ -30,7 +30,7 @@
                 @Html.DisplayFor(modelItem => item.SizeName)
             </td>
             <td>
-               
+                @Html.DisplayFor(modelItem => item.Quantity)
             </td>   
         </tr>
     }

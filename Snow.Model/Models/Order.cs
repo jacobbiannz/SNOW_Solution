@@ -9,17 +9,14 @@ namespace Snow.Model
 {
     public class Order : AuditableEntity<Order>
     {
-        //[Required]
-        //public DateTime Date { get; set; }
-
+        
         //myCustomer(bo)
-
         [Required]
         [ForeignKey("MyStore")]
         public int StoreId { get; set; }
         public virtual Store MyStore { get; set; }
 
-       [Required]
+        [Required]
         [ForeignKey("MyOrderStatus")]
         public int OrderStatusId { get; set; }
         public virtual OrderStatus MyOrderStatus { get; set; }

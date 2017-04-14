@@ -4,82 +4,63 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>New Sale</h2>
 
-<h4>OrderVM</h4>
 <hr />
 
+<div>
+    <input type="button" value="Reset" id="buttonReset" />
+</div>
 
+<hr />
+
+<div>
     <label for="ddlProductBarcode"><strong>Product Barcode</strong></label>
-   
-    <input type="text" name="ProductBarcode" id = "barCode">
 
-    <input type="button" value="Add Product" id="buttonClick" c/>
+    <input type="text" name="ProductBarcode" id="barCode">
+
+    <input type="button" value="Add Product" id="buttonAdd" />
+</div>
+
+<hr />
+
+<div id="orderDetails">
+    @{Html.RenderPartial("_OrderDetails", Model.AllOrderDetailsVM);}
+</div>
+
+<hr />
+
+<h3>Checkout</h3>
+
+<div>
+    <input type="button" value="Cash" id="" />
+    <input type="button" value="Card" id="" />
+</div>
+
+<!--
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+-->
     
-    <button type="button" onclick="loadDoc()">Change Content</button>
-    <div id="demo"> </div>
-   
-    <br /><br />
-    <div id="orderDetails">
-        @{Html.RenderPartial("_OrderDetails", Model.AllOrderDetailsVM);}
-    </div>
+<script type="text/javascript">
 
-
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-
-    <script>
-        function loadDoc() {
-            
-                    document.getElementById("demo").innerHTML =
-                    'test test';
-                    alert('test');
-                
-        }
-    </script>
-    
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            //$("#buttonClick").click(function () {
-            
-            $('#buttonClick').on('click', function() { 
-                var barcode = $('#barCode').val();
-                var url = "@Url.Action("AddOrderDetail", "Order")?barcode=" + barcode + '&orderId=' + @Model.Id;
-                //alert(url);
-                $("#orderDetails").load(url);
-                //$("#orderDetails").load("Index");
-                $.ajaxSetup({ cache: false });
-            });
-            
+    $(document).ready(function () {
+        //$("#buttonClick").click(function () {
+        $('#buttonAdd').on('click', function() { 
+            var barcode = $('#barCode').val();
+            var url = "@Url.Action("AddOrderDetail", "Order")?barcode=" + barcode + '&orderId=' + @Model.Id;
+            $("#orderDetails").load(url);
+            //$("#orderDetails").load("Index");
+            $.ajaxSetup({ cache: false });
         });
-    </script>
-
-
-
-
-    <!--
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            $("#buttonClick").click(function () {
-                var barcode =  $("#barCode").val();
-                $("#orderDetails").load('@Url.Action("AddOrderDetail", "Order")?barcode=' + barcode + 'orderId=' + @Model.Id));
-
+            
+        $('#buttonReset').on('click', function() { 
+            var url = "@Url.Action("Reset", "Order")?orderId=" + @Model.Id;
+            $("#orderDetails").load(url);
+            //$("#orderDetails").load("Index");
+            $.ajaxSetup({ cache: false });
         });
-        });
-    </script>
-        -----
-         var val = $('#barCode').val();
-                $.ajax({
-                    url: "test",
-                    type: "GET",
-                    data: { year: ((val * 1) + 1) }
-                })
-                .done(function (partialViewResult) {
-                    ("#orderDetails").html(partialViewResult);
-                });
+    });
+</script>
 
-    -->

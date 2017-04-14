@@ -14,15 +14,18 @@ namespace Snow.Model
         public int Quantity { get; set; }
 
         public decimal Price { get; set; }
-       
+
+        [Required]
         [ForeignKey("MyOrder")]
         public int OrderId { get; set; }
         public virtual Order MyOrder { get; set; }
 
+        [Required]
         [ForeignKey("MyProduct")]
         public int ProductId{ get; set; }
         public virtual Product MyProduct { get; set; }
 
+        [Required]
         [ForeignKey("MySize")]
         public int SizeId { get; set; }
         public virtual Size MySize { get; set; }

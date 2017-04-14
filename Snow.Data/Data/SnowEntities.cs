@@ -116,10 +116,9 @@ namespace Snow.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
-
             try
             {
+                
                 modelBuilder.Configurations.Add(new CountryConfiguration());
                 modelBuilder.Configurations.Add(new RegionStateConfiguration());
                 modelBuilder.Configurations.Add(new CityConfiguration());
@@ -129,7 +128,7 @@ namespace Snow.Data
                 modelBuilder.Configurations.Add(new CategoryConfiguration());
                 modelBuilder.Configurations.Add(new BrandConfiguration());
                 modelBuilder.Configurations.Add(new ProductConfiguration());
-
+                
 
                 modelBuilder.Entity<Company>()
                     .HasMany(c => c.AllCategories)

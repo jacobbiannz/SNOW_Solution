@@ -53,7 +53,6 @@ namespace Snow.Web.Controllers
             return View(viewModelOrders);
         }
 
-
         public ActionResult Details(int id)
         {
             var existing = _OrderService.GetOrder(id);
@@ -61,7 +60,7 @@ namespace Snow.Web.Controllers
             return View(vmOrder);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             var order = new Order();
@@ -74,6 +73,7 @@ namespace Snow.Web.Controllers
             return View(OrderVM);
         }
       
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -81,9 +81,9 @@ namespace Snow.Web.Controllers
         {
             return RedirectToAction("Index");
         }
+        */
 
         [HttpGet]
-       
         public ActionResult AddOrderDetail(string barcode, int orderId)
         {
             var orderDetail = new OrderDetail();
@@ -101,6 +101,20 @@ namespace Snow.Web.Controllers
 
             var OrderVM = Mapper.Map<Order, OrderVM>(order);
 
+            return PartialView("_OrderDetails", OrderVM.AllOrderDetailsVM);
+        }
+
+        [HttpGet]
+        public ActionResult Reset(int orderId)
+        { 
+            var order = _OrderService.GetOrder(orderId);
+            foreach (var orderDetail in order.AllOrderDetails.ToList())
+            {
+                _OrderDetailService.DeleteOrderDetail(orderDetail);
+                _OrderDetailService.SaveOrderDetail();
+            }
+            _OrderService.SaveOrder();
+            var OrderVM = Mapper.Map<Order, OrderVM>(order);
             return PartialView("_OrderDetails", OrderVM.AllOrderDetailsVM);
         }
 

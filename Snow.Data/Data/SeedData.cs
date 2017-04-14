@@ -24,8 +24,8 @@ namespace SNOW_Solution.Migrations
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
             var subscriber = new Subscriber();
-            var user = new ApplicationUser { UserName = "snowAdmin@gmail.com", MySubscriber = subscriber };
-            var guest = new ApplicationUser { UserName = "guest@gmail.com", MySubscriber = subscriber };
+            var user = new ApplicationUser { UserName = "snowAdmin@gmail.com", Subscriber = subscriber };
+            var guest = new ApplicationUser { UserName = "guest@gmail.com", Subscriber = subscriber };
 
             userManager.Create(user, "123456");
             userManager.Create(guest, "abcdef");
@@ -127,6 +127,24 @@ namespace SNOW_Solution.Migrations
                 Id = 1
             };
 
+            var OrderStatus1 = new OrderStatus
+            {
+                Name = "Processing",
+                MyCompany = company
+            };
+
+            var OrderStatus2 = new OrderStatus
+            {
+                Name = "Pending",
+                MyCompany = company
+            };
+
+            var OrderStatus3 = new OrderStatus
+            {
+                Name = "Delivered",
+                MyCompany = company
+            };
+
             var size1 = new Size
             {
                 Name = "S",
@@ -214,6 +232,10 @@ namespace SNOW_Solution.Migrations
             context.Products.Add(product1);
             context.Products.Add(product2);
             context.Products.Add(product3);
+            context.Orderstatuses.Add(OrderStatus1);
+            context.Orderstatuses.Add(OrderStatus2);
+            context.Orderstatuses.Add(OrderStatus3);
+           
 
 
             //  This method will be called after migrating to the latest version.

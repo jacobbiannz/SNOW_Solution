@@ -49,6 +49,8 @@ namespace Snow.Web.Mapping
             cfg.CreateMap<OrderDetail, OrderDetailVM>()
              .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
              .ForMember(d => d.OrderId, opt => opt.MapFrom(s => s.OrderId))
+             .ForMember(d => d.Quantity, opt => opt.MapFrom(s => s.Quantity))
+             .ForMember(d => d.Price, opt => opt.MapFrom(s => s.Price))
              .ForMember(d => d.ProductId, opt => opt.MapFrom(s => s.ProductId))
              .ForMember(d => d.ProductName, opt => opt.MapFrom(s => s.MyProduct.Name))
              .ForMember(d => d.SizetId, opt => opt.MapFrom(s => s.SizeId))

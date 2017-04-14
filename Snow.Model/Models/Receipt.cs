@@ -12,11 +12,11 @@ namespace Snow.Model
         [Required]
         [ForeignKey("MyOrder")]
         public int OrderId { get; set; }
-        public Order MyOrder { get; set; }
+        public virtual Order MyOrder { get; set; }
 
         [Required]
         [ForeignKey("MyPaymentType")]
         public int PaymentTypeId { get; set; }
-        public PaymentType MyPaymentType { get; set; }
+        public virtual PaymentType MyPaymentType { get; set; }
     }
 }
