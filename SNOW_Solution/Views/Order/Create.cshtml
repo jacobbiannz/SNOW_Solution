@@ -35,7 +35,9 @@
 <div>
     <input type="button" value="Cash" id="" />
     <input type="button" value="Card" id="" />
+    <input type="button" value="Print Invoice" id="buttonPrint" />
 </div>
+
 
 <!--
 <div>
@@ -47,18 +49,24 @@
 
     $(document).ready(function () {
         //$("#buttonClick").click(function () {
-        $('#buttonAdd').on('click', function() { 
+        $('#buttonAdd').on('click', function() {
             var barcode = $('#barCode').val();
             var url = "@Url.Action("AddOrderDetail", "Order")?barcode=" + barcode + '&orderId=' + @Model.Id;
             $("#orderDetails").load(url);
             //$("#orderDetails").load("Index");
             $.ajaxSetup({ cache: false });
         });
-            
-        $('#buttonReset').on('click', function() { 
+
+        $('#buttonReset').on('click', function() {
             var url = "@Url.Action("Reset", "Order")?orderId=" + @Model.Id;
             $("#orderDetails").load(url);
             //$("#orderDetails").load("Index");
+            $.ajaxSetup({ cache: false });
+        });
+
+        $('#buttonPrint').on('click', function() {
+            var url = "@Url.Action("PrintInvoice", "Order")?orderId=" + @Model.Id;
+            $("#orderDetails").load(url);
             $.ajaxSetup({ cache: false });
         });
     });

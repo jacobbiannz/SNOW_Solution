@@ -6,6 +6,16 @@ using Snow.Data.Repository;
 using Snow.Service;
 using AutoMapper;
 using System.Linq;
+using System.Web.UI;
+using System.Text;
+using System;
+using System.IO;
+using System.Data;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
+using System.Web;
 
 namespace Snow.Web.Controllers
 {
@@ -117,7 +127,66 @@ namespace Snow.Web.Controllers
             var OrderVM = Mapper.Map<Order, OrderVM>(order);
             return PartialView("_OrderDetails", OrderVM.AllOrderDetailsVM);
         }
+        [HttpGet]
+        public ActionResult PrintInvoice(int orderId)
+        {
+            var order = _OrderService.GetOrder(orderId);
+            var OrderVM = Mapper.Map<Order, OrderVM>(order);
+            string companyName = "ASPSnippets";
+            Byte[] bytes;
 
+            DataTable dt = new DataTable();
+            dt.Columns.AddRange(new DataColumn[5] {
+                        new DataColumn("ProductId", typeof(string)),
+                        new DataColumn("Product", typeof(string)),
+                        new DataColumn("Price", typeof(int)),
+                        new DataColumn("Quantity",  typeof(int)),
+                        new DataColumn("Total",  typeof(int))});
+            dt.Rows.Add(101, "Sun Glasses", 200, 5, 1000);
+            dt.Rows.Add(102, "Jeans", 400, 2, 800);
+            dt.Rows.Add(103, "Trousers", 300, 3, 900);
+            dt.Rows.Add(104, "Shirts", 550, 2, 1100);
+            using (var ms = new MemoryStream())
+            {
+                using (var doc = new Document())
+                {
+                    using (var writer = PdfWriter.GetInstance(doc, ms))
+                    {
+
+                        doc.Open();
+
+                        var example_html = @"<p>This <em>is </em><span class=""headline"" style=""text-decoration: underline;"">some</span> <strong>sample <em> text</em></strong><span style=""color: red;"">!!!</span></p>";
+                        var example_css = @".headline{font-size:200%}";
+
+
+                        using (var msCss = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(example_css)))
+                        {
+                            using (var msHtml = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(example_html)))
+                            {
+
+                                //Parse the HTML
+                                XMLWorkerHelper.GetInstance().ParseXHtml(writer, doc, msHtml, msCss);
+                            }
+                        }
+                        doc.Close();
+                    }
+                }
+                bytes = ms.ToArray();
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", "attachment;filename=Invoice_" + orderId + ".pdf");
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
+                Response.OutputStream.Flush();
+                Response.OutputStream.Close();
+                Response.End();
+            }
+            
+
+            var testFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "test.pdf");
+            System.IO.File.WriteAllBytes(testFile, bytes);
+
+            return PartialView("_OrderDetails", OrderVM.AllOrderDetailsVM);
+        }
         /*
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
