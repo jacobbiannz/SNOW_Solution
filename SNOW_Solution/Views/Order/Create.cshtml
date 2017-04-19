@@ -35,9 +35,8 @@
 <div>
     <input type="button" value="Cash" id="" />
     <input type="button" value="Card" id="" />
-    <input type="button" value="Print Invoice" id="buttonPrint" />
+    @Html.ActionLink("Print", "PrintInvoice", "Order", null, null)
 </div>
-
 
 <!--
 <div>
@@ -62,13 +61,8 @@
             $("#orderDetails").load(url);
             //$("#orderDetails").load("Index");
             $.ajaxSetup({ cache: false });
-        });
-
-        $('#buttonPrint').on('click', function() {
-            var url = "@Url.Action("PrintInvoice", "Order")?orderId=" + @Model.Id;
-            $("#orderDetails").load(url);
-            $.ajaxSetup({ cache: false });
-        });
+        }); 
+       
     });
 </script>
 

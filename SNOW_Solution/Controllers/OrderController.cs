@@ -128,10 +128,10 @@ namespace Snow.Web.Controllers
             return PartialView("_OrderDetails", OrderVM.AllOrderDetailsVM);
         }
         [HttpGet]
-        public ActionResult PrintInvoice(int orderId)
+        public ActionResult PrintInvoice()
         {
-            var order = _OrderService.GetOrder(orderId);
-            var OrderVM = Mapper.Map<Order, OrderVM>(order);
+           // var order = _OrderService.GetOrder(orderId);
+           // var OrderVM = Mapper.Map<Order, OrderVM>(order);
             string companyName = "ASPSnippets";
             Byte[] bytes;
 
@@ -155,7 +155,7 @@ namespace Snow.Web.Controllers
 
                         doc.Open();
 
-                        var example_html = @"<p>This <em>is </em><span class=""headline"" style=""text-decoration: underline;"">some</span> <strong>sample <em> text</em></strong><span style=""color: red;"">!!!</span></p>";
+                        var example_html = GetReceiptFormat(dt);
                         var example_css = @".headline{font-size:200%}";
 
 
@@ -172,20 +172,17 @@ namespace Snow.Web.Controllers
                     }
                 }
                 bytes = ms.ToArray();
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("content-disposition", "attachment;filename=Invoice_" + orderId + ".pdf");
-                Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                Response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
-                Response.OutputStream.Flush();
-                Response.OutputStream.Close();
-                Response.End();
+                var response = HttpContext.Response;
+                response.ContentType = "application/pdf";
+                response.AddHeader("content-disposition", "attachment;filename=Invoice.pdf");
+                response.Cache.SetCacheability(HttpCacheability.NoCache);
+                response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
+                response.OutputStream.Flush();
+                response.OutputStream.Close();
+                response.End();
             }
             
-
-            var testFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "test.pdf");
-            System.IO.File.WriteAllBytes(testFile, bytes);
-
-            return PartialView("_OrderDetails", OrderVM.AllOrderDetailsVM);
+            return View();
         }
         /*
         [Authorize(Roles = "Admin")]
@@ -251,6 +248,55 @@ namespace Snow.Web.Controllers
             return View(OrderVM);
         }
         */
+        private string GetReceiptFormat(DataTable dt)
+        {
+            StringBuilder sb = new StringBuilder();
 
+            //Generate Invoice (Bill) Header.
+            sb.Append("<table width='100%' cellspacing='0' cellpadding='2'>");
+            sb.Append("<tr><td align='center' style='background-color: #18B5F0' colspan = '2'><b>Order Sheet</b></td></tr>");
+            sb.Append("<tr><td colspan = '2'></td></tr>");
+            sb.Append("<tr><td><b>Order No: </b>");
+            sb.Append("1");
+            sb.Append("</td><td align = 'right'><b>Date: </b>");
+            sb.Append(DateTime.Now);
+            sb.Append(" </td></tr>");
+            sb.Append("<tr><td colspan = '2'><b>Company Name: </b>");
+            sb.Append("Snow");
+            sb.Append("</td></tr>");
+            sb.Append("</table>");
+            sb.Append("<br />");
+
+            //Generate Invoice (Bill) Items Grid.
+            sb.Append("<table border = '1'>");
+            sb.Append("<tr>");
+            foreach (DataColumn column in dt.Columns)
+            {
+                sb.Append("<th style = 'background-color: #D20B0C;color:#ffffff'>");
+                sb.Append(column.ColumnName);
+                sb.Append("</th>");
+            }
+            sb.Append("</tr>");
+            foreach (DataRow row in dt.Rows)
+            {
+                sb.Append("<tr>");
+                foreach (DataColumn column in dt.Columns)
+                {
+                    sb.Append("<td>");
+                    sb.Append(row[column]);
+                    sb.Append("</td>");
+                }
+                sb.Append("</tr>");
+            }
+            sb.Append("<tr><td align = 'right' colspan = '");
+            sb.Append(dt.Columns.Count - 1);
+            sb.Append("'>Total</td>");
+            sb.Append("<td>");
+            sb.Append(dt.Compute("sum(Total)", ""));
+            sb.Append("</td>");
+            sb.Append("</tr></table>");
+
+            return sb.ToString();
+        }
     }
 }
