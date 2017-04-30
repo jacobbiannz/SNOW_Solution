@@ -88,41 +88,40 @@ namespace Snow.Web.Controllers
             {
                 try
                 {
-                    if (productVM != null && productVM.Photos != null)
+                    if (productVM != null /*&& productVM.Photos != null*/)
                     {
                         var prod = Mapper.Map<ProductVM, Product>(productVM);
                         prod.BrandId = productVM.BrandId;
                         prod.CategoryId = productVM.CategoryId;
                         prod.CompanyId = productVM.CompanyId;
                         _productService.CreateProduct(prod);
-
-                        foreach (var info in productVM.ImagesDict)
+                        if(productVM.Photos != null)
                         {
-
-                            var imageInfoVM = new ImageInfoVM()
+                            foreach (var info in productVM.ImagesDict)
                             {
-                                Photo = info.Value,
-                                Name = info.Key.Name,
-                                ContentType = info.Key.ContentType,
-                                IsMain = info.Key.IsMain,
-                                IsSelected = info.Key.IsSelected
-                            };
 
-                            var imageInfo = Mapper.Map<ImageInfoVM, ImageInfo>(imageInfoVM);
+                                var imageInfoVM = new ImageInfoVM()
+                                {
+                                    // Photo = info.Value,
+                                    Name = info.Key.Name,
+                                    ContentType = info.Key.ContentType
+                                };
 
-                            _imageInfoService.CreateImageInfo(imageInfo);
+                                var imageInfo = Mapper.Map<ImageInfoVM, ImageInfo>(imageInfoVM);
 
-                            var imageVM = new ImageVM
-                            {
-                                Photo = info.Value
-                            };
-                            var image = Mapper.Map<ImageVM, Image>(imageVM);
+                                _imageInfoService.CreateImageInfo(imageInfo);
 
-                            _imageService.CreateImage(image);
-                            await _imageService.SaveImageAsync();
-                            await _imageInfoService.SaveImageInfoAsync();
-                        }
-                       
+                                var imageVM = new ImageVM
+                                {
+                                    Photo = info.Value
+                                };
+                                var image = Mapper.Map<ImageVM, Image>(imageVM);
+
+                                _imageService.CreateImage(image);
+                                await _imageService.SaveImageAsync();
+                                await _imageInfoService.SaveImageInfoAsync();
+                            }
+                        } 
                         await _productService.SaveProductAsync();
                     }
                 }
@@ -162,11 +161,9 @@ namespace Snow.Web.Controllers
                         {
                             var imageInfoVM = new ImageInfoVM()
                             {
-                                Photo = info.Value,
+                              //  Photo = info.Value,
                                 Name = info.Key.Name,
                                 ContentType = info.Key.ContentType,
-                                IsMain = info.Key.IsMain,
-                                IsSelected = info.Key.IsSelected,
                                 ProductId = product.Id
                             };
 

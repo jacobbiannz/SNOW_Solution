@@ -16,10 +16,6 @@ namespace Snow.Model.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public bool IsMain { get; set; }
-
-        public bool IsSelected { get; set; }
-
         public string ContentType { get; set; }
 
         [Required]

@@ -41,30 +41,33 @@ namespace Snow.Web.ViewModel
                 try
                 {
                     var target = new MemoryStream();
-
-                    if (value.InputStream == null)
-                        return;
-
-                    value.InputStream.CopyTo(target);
-                    if (Photos ==null)
+                   if( value != null)
                     {
-                        Photos = new List<byte[]>();
+                        if (value.InputStream == null)
+                            return;
+
+                        value.InputStream.CopyTo(target);
+                        if (Photos == null)
+                        {
+                            Photos = new List<byte[]>();
+                        }
+
+                        var imageInfo = new ImageInfoVM
+                        {
+                            Name = value.FileName,
+                            ContentType = value.ContentType,
+                            ProductId = ProductId
+                        };
+
+                        Photos.Add(target.ToArray());
+
+                        if (ImagesDict == null)
+                        {
+                            ImagesDict = new Dictionary<ImageInfoVM, byte[]>();
+                        }
+                        ImagesDict.Add(imageInfo, target.ToArray());
                     }
-
-                    var imageInfo = new ImageInfoVM
-                    {
-                        Name = value.FileName,
-                        ContentType = value.ContentType,
-                        ProductId = ProductId
-                    };
                     
-                    Photos.Add( target.ToArray());
-                   
-                    if (ImagesDict == null)
-                    {
-                        ImagesDict = new Dictionary<ImageInfoVM, byte[]>();
-                    }
-                    ImagesDict.Add(imageInfo, target.ToArray());
                 }
                 catch (Exception ex)
                 {
