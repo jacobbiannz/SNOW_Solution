@@ -179,6 +179,19 @@ namespace SNOW_Solution.Migrations
                 Id = 3
             };
 
+            var PaymentType1 = new PaymentType
+            {
+                Name = "cash",
+                Description = "cash",
+                CompanyId = 1
+            };
+            var PaymentType2 = new PaymentType
+            {
+                Name = "card",
+                Description = "card",
+                CompanyId = 1
+            };
+
             var product1 = new Product
             {
                 Name = "Patterned Cotton Socks",
@@ -235,7 +248,8 @@ namespace SNOW_Solution.Migrations
             context.Orderstatuses.Add(OrderStatus1);
             context.Orderstatuses.Add(OrderStatus2);
             context.Orderstatuses.Add(OrderStatus3);
-           
+            context.PaymentTypes.Add(PaymentType1);
+            context.PaymentTypes.Add(PaymentType2);
 
 
             //  This method will be called after migrating to the latest version.

@@ -16,6 +16,7 @@ using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
 using System.Web;
+using Snow.Web.ViewModels;
 
 namespace Snow.Web.Controllers
 {
@@ -25,18 +26,23 @@ namespace Snow.Web.Controllers
         private readonly IOrderDetailService _OrderDetailService;
         private readonly IProductService _ProductService;
         private readonly ISizeService _SizeService;
-        
+        private readonly IPaymentTypeService _PaymentTypeService;
+        private readonly IReceiptService _ReceiptService;
         //private readonly ICompanyService _CompanyService;
 
         public OrderController(IOrderService OrderService,
                                      IOrderDetailService OrderDetailService,
                                      IProductService ProductService,
+                                     IPaymentTypeService PaymentService,
+                                     IReceiptService ReceiptService,
                                      ISizeService SizeService)
         {
             _OrderService = OrderService;
             _OrderDetailService = OrderDetailService;
             _ProductService = ProductService;
             _SizeService = SizeService;
+            _PaymentTypeService = PaymentService;
+            _ReceiptService = ReceiptService;
         }
 
         public ActionResult Index(OrderVM Order = null)
@@ -114,6 +120,50 @@ namespace Snow.Web.Controllers
             return PartialView("_OrderDetails", OrderVM.AllOrderDetailsVM);
         }
 
+        
+        public ActionResult GenerateCashReceipt(OrderVM orderVM)
+        {
+            
+            var order = _OrderService.GetOrder(orderVM.Id);
+
+            var receipt = new Receipt()
+            {
+                OrderId = order.Id,
+                PaymentTypeId = _PaymentTypeService.GetPaymentType("cash").Id
+            };
+
+            _ReceiptService.CreateReceipt(receipt);
+            _ReceiptService.SaveReceipt();
+
+            var receiptVM = Mapper.Map<Receipt, ReceiptVM>(receipt);
+
+            receiptVM.orderVM = Mapper.Map<Order, OrderVM>(order);
+
+            return RedirectToAction("Receipt", "Receipt", new { id = receiptVM.Id });
+        }
+
+        public ActionResult GenerateCardReceipt(OrderVM orderVM)
+        {
+
+            var order = _OrderService.GetOrder(orderVM.Id);
+
+            var receipt = new Receipt()
+            {
+                OrderId = order.Id,
+                PaymentTypeId = _PaymentTypeService.GetPaymentType("card").Id
+            };
+
+            _ReceiptService.CreateReceipt(receipt);
+            _ReceiptService.SaveReceipt();
+
+            var receiptVM = Mapper.Map<Receipt, ReceiptVM>(receipt);
+
+            receiptVM.orderVM = Mapper.Map<Order, OrderVM>(order);
+
+            return RedirectToAction("Receipt", "Receipt", new { id = receiptVM.Id });
+        }
+
+
         [HttpGet]
         public ActionResult Reset(int orderId)
         { 
@@ -127,63 +177,7 @@ namespace Snow.Web.Controllers
             var OrderVM = Mapper.Map<Order, OrderVM>(order);
             return PartialView("_OrderDetails", OrderVM.AllOrderDetailsVM);
         }
-        [HttpGet]
-        public ActionResult PrintInvoice()
-        {
-           // var order = _OrderService.GetOrder(orderId);
-           // var OrderVM = Mapper.Map<Order, OrderVM>(order);
-            string companyName = "ASPSnippets";
-            Byte[] bytes;
-
-            DataTable dt = new DataTable();
-            dt.Columns.AddRange(new DataColumn[5] {
-                        new DataColumn("ProductId", typeof(string)),
-                        new DataColumn("Product", typeof(string)),
-                        new DataColumn("Price", typeof(int)),
-                        new DataColumn("Quantity",  typeof(int)),
-                        new DataColumn("Total",  typeof(int))});
-            dt.Rows.Add(101, "Sun Glasses", 200, 5, 1000);
-            dt.Rows.Add(102, "Jeans", 400, 2, 800);
-            dt.Rows.Add(103, "Trousers", 300, 3, 900);
-            dt.Rows.Add(104, "Shirts", 550, 2, 1100);
-            using (var ms = new MemoryStream())
-            {
-                using (var doc = new Document())
-                {
-                    using (var writer = PdfWriter.GetInstance(doc, ms))
-                    {
-
-                        doc.Open();
-
-                        var example_html = GetReceiptFormat(dt);
-                        var example_css = @".headline{font-size:200%}";
-
-
-                        using (var msCss = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(example_css)))
-                        {
-                            using (var msHtml = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(example_html)))
-                            {
-
-                                //Parse the HTML
-                                XMLWorkerHelper.GetInstance().ParseXHtml(writer, doc, msHtml, msCss);
-                            }
-                        }
-                        doc.Close();
-                    }
-                }
-                bytes = ms.ToArray();
-                var response = HttpContext.Response;
-                response.ContentType = "application/pdf";
-                response.AddHeader("content-disposition", "attachment;filename=Invoice.pdf");
-                response.Cache.SetCacheability(HttpCacheability.NoCache);
-                response.OutputStream.Write(ms.GetBuffer(), 0, ms.GetBuffer().Length);
-                response.OutputStream.Flush();
-                response.OutputStream.Close();
-                response.End();
-            }
-            
-            return View();
-        }
+       
         /*
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
@@ -248,55 +242,5 @@ namespace Snow.Web.Controllers
             return View(OrderVM);
         }
         */
-        private string GetReceiptFormat(DataTable dt)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            //Generate Invoice (Bill) Header.
-            sb.Append("<table width='100%' cellspacing='0' cellpadding='2'>");
-            sb.Append("<tr><td align='center' style='background-color: #18B5F0' colspan = '2'><b>Order Sheet</b></td></tr>");
-            sb.Append("<tr><td colspan = '2'></td></tr>");
-            sb.Append("<tr><td><b>Order No: </b>");
-            sb.Append("1");
-            sb.Append("</td><td align = 'right'><b>Date: </b>");
-            sb.Append(DateTime.Now);
-            sb.Append(" </td></tr>");
-            sb.Append("<tr><td colspan = '2'><b>Company Name: </b>");
-            sb.Append("Snow");
-            sb.Append("</td></tr>");
-            sb.Append("</table>");
-            sb.Append("<br />");
-
-            //Generate Invoice (Bill) Items Grid.
-            sb.Append("<table border = '1'>");
-            sb.Append("<tr>");
-            foreach (DataColumn column in dt.Columns)
-            {
-                sb.Append("<th style = 'background-color: #D20B0C;color:#ffffff'>");
-                sb.Append(column.ColumnName);
-                sb.Append("</th>");
-            }
-            sb.Append("</tr>");
-            foreach (DataRow row in dt.Rows)
-            {
-                sb.Append("<tr>");
-                foreach (DataColumn column in dt.Columns)
-                {
-                    sb.Append("<td>");
-                    sb.Append(row[column]);
-                    sb.Append("</td>");
-                }
-                sb.Append("</tr>");
-            }
-            sb.Append("<tr><td align = 'right' colspan = '");
-            sb.Append(dt.Columns.Count - 1);
-            sb.Append("'>Total</td>");
-            sb.Append("<td>");
-            sb.Append(dt.Compute("sum(Total)", ""));
-            sb.Append("</td>");
-            sb.Append("</tr></table>");
-
-            return sb.ToString();
-        }
     }
 }

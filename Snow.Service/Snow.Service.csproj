@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Interface\IOrderDetailService.cs" />
     <Compile Include="Interface\IOrderService.cs" />
+    <Compile Include="Interface\IReceiptService.cs" />
     <Compile Include="OrderDetailService.cs" />
     <Compile Include="OrderService.cs" />
     <Compile Include="OrderStatusService.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Interface\IImageInfoService.cs" />
     <Compile Include="InventoryService.cs" />
     <Compile Include="Interface\IInventoryService.cs" />
+    <Compile Include="ReceiptService.cs" />
     <Compile Include="SizeService.cs" />
     <Compile Include="Interface\ISizeService.cs" />
     <Compile Include="PaymentTypeService.cs" />

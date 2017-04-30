@@ -141,6 +141,12 @@ namespace Snow.Web.Mapping
             cfg.CreateMap<Image, ImageVM>()
              .ForMember(d => d.ImageInfoId, opt => opt.MapFrom(s => s.ImageInfoId))
              .ReverseMap();
+
+            cfg.CreateMap<Receipt, ReceiptVM>()
+            .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+            .ForMember(d => d.OrderId, opt => opt.MapFrom(s => s.OrderId))
+            .ForMember(d => d.PaymentType, opt => opt.MapFrom(s => s.MyPaymentType.Name))
+            .ReverseMap();
         }
     }
 }

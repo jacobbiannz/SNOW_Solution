@@ -224,6 +224,7 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderStatusController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\ReceiptController.cs" />
     <Compile Include="Controllers\SizeController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\PaymentTypeController.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="ViewModels\ImageInfoVM.cs" />
     <Compile Include="ViewModels\ImageVM.cs" />
     <Compile Include="ViewModels\InventoryVM.cs" />
+    <Compile Include="ViewModels\ReceiptVM.cs" />
     <Compile Include="ViewModels\SizeVM.cs" />
     <Compile Include="ViewModels\PaymentTypeVM.cs" />
     <Compile Include="ViewModels\BrandVM.cs" />
@@ -391,6 +393,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\_OrderDetails.cshtml" />
     <Content Include="Views\Order\Index2.cshtml" />
+    <Content Include="Views\Receipt\Receipt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
