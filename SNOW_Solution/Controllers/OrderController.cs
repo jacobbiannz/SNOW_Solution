@@ -6,6 +6,17 @@ using Snow.Data.Repository;
 using Snow.Service;
 using AutoMapper;
 using System.Linq;
+using System.Web.UI;
+using System.Text;
+using System;
+using System.IO;
+using System.Data;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
+using System.Web;
+using Snow.Web.ViewModels;
 
 namespace Snow.Web.Controllers
 {
@@ -15,18 +26,23 @@ namespace Snow.Web.Controllers
         private readonly IOrderDetailService _OrderDetailService;
         private readonly IProductService _ProductService;
         private readonly ISizeService _SizeService;
-        
+        private readonly IPaymentTypeService _PaymentTypeService;
+        private readonly IReceiptService _ReceiptService;
         //private readonly ICompanyService _CompanyService;
 
         public OrderController(IOrderService OrderService,
                                      IOrderDetailService OrderDetailService,
                                      IProductService ProductService,
+                                     IPaymentTypeService PaymentService,
+                                     IReceiptService ReceiptService,
                                      ISizeService SizeService)
         {
             _OrderService = OrderService;
             _OrderDetailService = OrderDetailService;
             _ProductService = ProductService;
             _SizeService = SizeService;
+            _PaymentTypeService = PaymentService;
+            _ReceiptService = ReceiptService;
         }
 
         public ActionResult Index(OrderVM Order = null)
@@ -104,6 +120,50 @@ namespace Snow.Web.Controllers
             return PartialView("_OrderDetails", OrderVM.AllOrderDetailsVM);
         }
 
+        
+        public ActionResult GenerateCashReceipt(OrderVM orderVM)
+        {
+            
+            var order = _OrderService.GetOrder(orderVM.Id);
+
+            var receipt = new Receipt()
+            {
+                OrderId = order.Id,
+                PaymentTypeId = _PaymentTypeService.GetPaymentType("cash").Id
+            };
+
+            _ReceiptService.CreateReceipt(receipt);
+            _ReceiptService.SaveReceipt();
+
+            var receiptVM = Mapper.Map<Receipt, ReceiptVM>(receipt);
+
+            receiptVM.orderVM = Mapper.Map<Order, OrderVM>(order);
+
+            return RedirectToAction("Receipt", "Receipt", new { id = receiptVM.Id });
+        }
+
+        public ActionResult GenerateCardReceipt(OrderVM orderVM)
+        {
+
+            var order = _OrderService.GetOrder(orderVM.Id);
+
+            var receipt = new Receipt()
+            {
+                OrderId = order.Id,
+                PaymentTypeId = _PaymentTypeService.GetPaymentType("card").Id
+            };
+
+            _ReceiptService.CreateReceipt(receipt);
+            _ReceiptService.SaveReceipt();
+
+            var receiptVM = Mapper.Map<Receipt, ReceiptVM>(receipt);
+
+            receiptVM.orderVM = Mapper.Map<Order, OrderVM>(order);
+
+            return RedirectToAction("Receipt", "Receipt", new { id = receiptVM.Id });
+        }
+
+
         [HttpGet]
         public ActionResult Reset(int orderId)
         { 
@@ -117,7 +177,7 @@ namespace Snow.Web.Controllers
             var OrderVM = Mapper.Map<Order, OrderVM>(order);
             return PartialView("_OrderDetails", OrderVM.AllOrderDetailsVM);
         }
-
+       
         /*
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
@@ -182,6 +242,5 @@ namespace Snow.Web.Controllers
             return View(OrderVM);
         }
         */
-
     }
 }

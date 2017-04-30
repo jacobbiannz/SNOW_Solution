@@ -144,6 +144,7 @@
     <Compile Include="Repository\Interface\IOrderDetailRepository.cs" />
     <Compile Include="Repository\Interface\IOrderRepository.cs" />
     <Compile Include="Repository\Interface\IOrderStatusRepository.cs" />
+    <Compile Include="Repository\Interface\IReceiptRepository.cs" />
     <Compile Include="Repository\OrderRepository.cs" />
     <Compile Include="Repository\OrderDetailRepository.cs" />
     <Compile Include="Repository\OrderStatusRepository.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Repository\Interface\IImageInfoRepository.cs" />
     <Compile Include="Repository\InventoryRepository.cs" />
     <Compile Include="Repository\Interface\IInventoryRepository.cs" />
+    <Compile Include="Repository\ReceiptRepository.cs" />
     <Compile Include="Repository\SizeRepository.cs" />
     <Compile Include="Repository\Interface\ISizeRepository.cs" />
     <Compile Include="Repository\PaymentTypeRepository.cs" />
