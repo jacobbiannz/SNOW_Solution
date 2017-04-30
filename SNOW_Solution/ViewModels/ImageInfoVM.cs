@@ -9,13 +9,7 @@ namespace Snow.Web.ViewModels
     {
         public string Name { get; set; }
         public string ContentType { get; set; }
-        public bool IsSelected { get; set; }
-        public bool IsMain { get; set; }
-
         public int ProductId { get; set; }
         public int ImageId { get; set; }
-
-        public byte[] Photo { get; set; }
-
     }
 }
