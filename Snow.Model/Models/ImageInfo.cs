@@ -10,7 +10,7 @@ namespace Snow.Model.Models
 {
     public class ImageInfo : AuditableEntity<ImageInfo>
     {
-        public int ImageId { get; set; }
+        public int ImageIdentity { get; set; }
 
         [Required]
         [MaxLength(50)]

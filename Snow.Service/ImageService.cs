@@ -55,7 +55,7 @@ namespace Snow.Service
 
                 foreach(var info in imageInfos)
                 {
-                    images.Add(GetImage(info.ImageId));
+                    images.Add(GetImage(info.ImageIdentity));
                 }
             }
 
