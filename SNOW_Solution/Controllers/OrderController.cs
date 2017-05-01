@@ -177,7 +177,7 @@ namespace Snow.Web.Controllers
             var OrderVM = Mapper.Map<Order, OrderVM>(order);
             return PartialView("_OrderDetails", OrderVM.AllOrderDetailsVM);
         }
-       
+
         /*
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
@@ -219,6 +219,8 @@ namespace Snow.Web.Controllers
 
         
 
+        */
+
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
@@ -241,6 +243,6 @@ namespace Snow.Web.Controllers
             }
             return View(OrderVM);
         }
-        */
+
     }
 }
