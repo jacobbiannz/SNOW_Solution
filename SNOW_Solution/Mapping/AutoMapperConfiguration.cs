@@ -55,7 +55,6 @@ namespace Snow.Web.Mapping
              .ForMember(d => d.ProductName, opt => opt.MapFrom(s => s.MyProduct.Name))
              .ForMember(d => d.SizetId, opt => opt.MapFrom(s => s.SizeId))
              .ForMember(d => d.SizeName, opt => opt.MapFrom(s => s.MySize.Name))
-             
              .ReverseMap();
 
             cfg.CreateMap<Order, OrderVM>()
@@ -65,6 +64,7 @@ namespace Snow.Web.Mapping
             .ForMember(d => d.OrderStatusId, opt => opt.MapFrom(s => s.OrderStatusId))
             .ForMember(d => d.OrderStatusName, opt => opt.MapFrom(s => s.MyOrderStatus.Name))
             .ForMember(d => d.AllOrderDetailsVM, opt => opt.MapFrom(s => s.AllOrderDetails))
+             .ForMember(d => d.AllOrderDetailsVM, opt => opt.MapFrom(s => s.AllOrderDetails))
             .ReverseMap();
 
             cfg.CreateMap<Category, CategoryVM>()

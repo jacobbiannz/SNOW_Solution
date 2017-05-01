@@ -157,7 +157,7 @@ namespace Snow.Web.Controllers
             return View(OrderVM);
         }
 
-        
+        */
 
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
@@ -181,7 +181,7 @@ namespace Snow.Web.Controllers
             }
             return View(OrderVM);
         }
-        */
+        
 
     }
 }
