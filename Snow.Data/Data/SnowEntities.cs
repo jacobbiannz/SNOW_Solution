@@ -208,11 +208,11 @@ namespace Snow.Data
 
                 // Configure image as PK for imageinfo
                 modelBuilder.Entity<ImageInfo>()
-                    .HasKey(i => i.ImageId).Ignore(i=>i.Id);
+                    .HasKey(i => i.ImageIdentity).Ignore(i=>i.Id);
 
                 // Configure imageid as FK for imageinfo
                 modelBuilder.Entity<Image>()
-                           .HasKey(i => i.ImageInfoId).Ignore(i => i.Id);
+                           .HasKey(i => i.ImageInfoIdentity).Ignore(i => i.Id);
                            
 
 
