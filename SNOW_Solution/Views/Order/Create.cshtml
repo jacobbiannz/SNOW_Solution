@@ -33,8 +33,10 @@
 <h3>Checkout</h3>
 
 <div>
-    <input type="button" value="Cash" id="" />
-    <input type="button" value="Card" id="" />
+    <!--<input type="button" value="Cash" id="buttonCash" />
+   <input type="button" value="Card" id="" />-->
+    @Html.ActionLink("Cash", "GenerateCashReceipt", new { id = Model.Id })
+    @Html.ActionLink("Card", "GenerateCardReceipt", new { id = Model.Id })
 </div>
 
 <!--
@@ -42,25 +44,26 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 -->
-    
+
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        //$("#buttonClick").click(function () {
-        $('#buttonAdd').on('click', function() { 
-            var barcode = $('#barCode').val();
-            var url = "@Url.Action("AddOrderDetail", "Order")?barcode=" + barcode + '&orderId=' + @Model.Id;
-            $("#orderDetails").load(url);
-            //$("#orderDetails").load("Index");
-            $.ajaxSetup({ cache: false });
-        });
-            
-        $('#buttonReset').on('click', function() { 
-            var url = "@Url.Action("Reset", "Order")?orderId=" + @Model.Id;
-            $("#orderDetails").load(url);
-            //$("#orderDetails").load("Index");
-            $.ajaxSetup({ cache: false });
-        });
+$(document).ready(function () {
+    //$("#buttonClick").click(function () {
+    $('#buttonAdd').on('click', function() {
+        var barcode = $('#barCode').val();
+        var url = "@Url.Action("AddOrderDetail", "Order")?barcode=" + barcode + '&orderId=' + @Model.Id;
+        $("#orderDetails").load(url);
+        //$("#orderDetails").load("Index");
+        $.ajaxSetup({ cache: false });
     });
+
+    $('#buttonReset').on('click', function() {
+        var url = "@Url.Action("Reset", "Order")?orderId=" + @Model.Id;
+        $("#orderDetails").load(url);
+        //$("#orderDetails").load("Index");
+        $.ajaxSetup({ cache: false });
+    });
+
+});
 </script>
 
