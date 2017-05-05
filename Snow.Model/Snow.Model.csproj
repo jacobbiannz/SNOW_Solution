@@ -89,6 +89,7 @@
     <Compile Include="Models\Size.cs" />
     <Compile Include="Models\Store.cs" />
     <Compile Include="Models\Subscriber.cs" />
+    <Compile Include="Models\UniqueID.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -28,6 +28,7 @@ namespace Snow.Web.Controllers
         private readonly ISizeService _SizeService;
         private readonly IPaymentTypeService _PaymentTypeService;
         private readonly IReceiptService _ReceiptService;
+        private readonly IInventoryService _InventoryService;
         //private readonly ICompanyService _CompanyService;
 
         public OrderController(IOrderService OrderService,
@@ -35,7 +36,8 @@ namespace Snow.Web.Controllers
                                      IProductService ProductService,
                                      IPaymentTypeService PaymentService,
                                      IReceiptService ReceiptService,
-                                     ISizeService SizeService)
+                                     ISizeService SizeService,
+                                     IInventoryService InventoryService)
         {
             _OrderService = OrderService;
             _OrderDetailService = OrderDetailService;
@@ -43,6 +45,7 @@ namespace Snow.Web.Controllers
             _SizeService = SizeService;
             _PaymentTypeService = PaymentService;
             _ReceiptService = ReceiptService;
+            _InventoryService = InventoryService;
         }
 
         public ActionResult Index(OrderVM Order = null)
@@ -100,24 +103,27 @@ namespace Snow.Web.Controllers
         */
 
         [HttpGet]
-        public ActionResult AddOrderDetail(string barcode, int orderId)
+        public ActionResult AddOrderDetail(int barcode, int orderId)
         {
-            var orderDetail = new OrderDetail();
-            orderDetail.OrderId = orderId;
-            orderDetail.Quantity = 1;
-            orderDetail.ProductId = 1;
-            orderDetail.MyProduct = _ProductService.GetProduct(1);
-            orderDetail.SizeId = 1;
-            orderDetail.MySize = _SizeService.GetSize(1);
-            _OrderDetailService.CreateOrderDetail(orderDetail);
-            _OrderDetailService.SaveOrderDetail();
+            var inventory = _InventoryService.GetInventoryByBarcode(barcode);
+            if (inventory != null)
+            {
+                var orderDetail = new OrderDetail();
+                orderDetail.OrderId = orderId;
+                orderDetail.Quantity = 1;
+                orderDetail.ProductId = inventory.ProductId;
+                orderDetail.MyProduct = inventory.MyProduct;
+                orderDetail.SizeId = inventory.SizeId;
+                orderDetail.MySize = inventory.MySize;
+                _OrderDetailService.CreateOrderDetail(orderDetail);
+                _OrderDetailService.SaveOrderDetail();
+                var orderDetailVM = Mapper.Map<OrderDetail, OrderDetailVM>(orderDetail);
+            }
 
-            var orderDetailVM = Mapper.Map<OrderDetail, OrderDetailVM>(orderDetail);
             var order = _OrderService.GetOrder(orderId);
-
             var OrderVM = Mapper.Map<Order, OrderVM>(order);
-
             return PartialView("_OrderDetails", OrderVM.AllOrderDetailsVM);
+            
         }
 
         

@@ -128,6 +128,7 @@ namespace Snow.Web.Mapping
             cfg.CreateMap<Inventory, InventoryVM>()
               .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
               .ForMember(d => d.Quantity, opt => opt.MapFrom(s => s.Quantity))
+              .ForMember(d => d.Barcode, opt => opt.MapFrom(s => s.Barcode))
               .ForMember(d => d.StoreId, opt => opt.MapFrom(s => s.StoreId))
               .ForMember(d => d.StoreName, opt => opt.MapFrom(s => s.MyStore.Name))
               .ForMember(d => d.ProductId, opt => opt.MapFrom(s => s.ProductId))

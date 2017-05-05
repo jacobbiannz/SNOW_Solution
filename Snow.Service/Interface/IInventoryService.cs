@@ -11,6 +11,8 @@ namespace Snow.Service
     {
         IEnumerable<Inventory> GetInventorys(string name = null);
         Inventory GetInventory(int id);
+
+        Inventory GetInventoryByBarcode(int barcode);
         Inventory GetInventory(Store store, Product product, Size size);
         //Inventory GetInventory(string name);
         void CreateInventory(Inventory inventory);

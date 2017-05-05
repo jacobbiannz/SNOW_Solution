@@ -11,6 +11,7 @@ namespace Snow.Model
     {
        
         public int Quantity { get; set; }
+        public int Barcode { get; set; }
 
         [Required]
         [ForeignKey("MyStore")]

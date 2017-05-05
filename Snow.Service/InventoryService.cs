@@ -14,11 +14,16 @@ namespace Snow.Service
         private readonly IInventoryRepository _inventoryRepository;
         private readonly IStoreRepository _storeRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUniqueIDRepository _uniqueIDRepository;
 
-        public InventoryService(IInventoryRepository InventoryRepository, IStoreRepository StoreRepository, IUnitOfWork unitOfWork)
+        public InventoryService(IInventoryRepository InventoryRepository, 
+                                IStoreRepository StoreRepository,
+                                IUniqueIDRepository UniqueIDRepository,
+                                IUnitOfWork unitOfWork)
         {
             _inventoryRepository = InventoryRepository;
             _storeRepository = StoreRepository;
+            _uniqueIDRepository = UniqueIDRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -52,6 +57,12 @@ namespace Snow.Service
             return Inventory;
         }
 
+        public Inventory GetInventoryByBarcode(int barcode)
+        {
+            var Inventory = _inventoryRepository.GetInventoryByBarcode(barcode);
+            return Inventory;
+        }
+
         public Inventory GetInventory(Store store, Product product, Size size)
         {
             var Inventory = _inventoryRepository.GetInventoryBySPS(store, product, size);
@@ -67,6 +78,8 @@ namespace Snow.Service
 
         public void GenerateInventory()
         {
+            var uniqueID = _uniqueIDRepository.GetById(1);
+
             foreach (var store in _storeRepository.GetAll())
             {
                 foreach (var product in store.MyCompany.AllProducts)
@@ -80,9 +93,14 @@ namespace Snow.Service
                                 inventory.StoreId = store.Id;
                                 inventory.ProductId = product.Id;
                                 inventory.SizeId = size.Id;
+                                inventory.Barcode = uniqueID.ProductBarcode;
+
+                                uniqueID.ProductBarcode += 1;
+                                _uniqueIDRepository.Update(uniqueID);
 
                                 CreateInventory(inventory);
                                 SaveInventory();
+   
                             }
                         }
                 }

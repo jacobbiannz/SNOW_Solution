@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace Snow.Data.Repository
 {
-   public interface IInventoryRepository : IRepository<Inventory>
+   public interface IBrandRepository : IRepository<Brand>
     {
-        Inventory GetInventoryByBarcode(int barcode);
-        Inventory GetInventoryBySPS(Store store, Product product, Size size);
+        Brand GetBrandByName(string brandName);
     }
 }

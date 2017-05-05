@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace Snow.Data.Repository
 {
-   public interface IInventoryRepository : IRepository<Inventory>
+   public interface IUniqueIDRepository : IRepository<UniqueID>
     {
-        Inventory GetInventoryByBarcode(int barcode);
-        Inventory GetInventoryBySPS(Store store, Product product, Size size);
     }
 }

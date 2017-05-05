@@ -69,6 +69,7 @@ namespace Snow.Data
         public DbSet<Size> Sizes { get; set; }
         //public DbSet<SizeType> SizeTypes { get; set; }
         public DbSet<Store> Stores { get; set; }
+        public DbSet<UniqueID> UniqueIDs { get; set; }
 
         #endregion
         public override int SaveChanges()
@@ -158,6 +159,15 @@ namespace Snow.Data
                 modelBuilder.Entity<Country>()
                  .HasMany(c => c.AllRegionSatates)
                  .WithRequired(r => r.MyCountry).WillCascadeOnDelete(false);
+
+                modelBuilder.Entity<UniqueID>()
+                    .HasKey(e => e.CompanyId);
+
+                modelBuilder.Entity<Company>()
+                    .HasOptional(e => e.MyUniqueID)
+                    .WithRequired(a => a.MyCompany);
+
+
 
                 modelBuilder.Entity<Store>()
                  .HasMany(c => c.AllInventories)

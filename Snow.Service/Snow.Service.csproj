@@ -62,6 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UniqueIDService.cs" />
+    <Compile Include="Interface\IUniqueIDService.cs" />
     <Compile Include="Interface\IOrderDetailService.cs" />
     <Compile Include="Interface\IOrderService.cs" />
     <Compile Include="Interface\IReceiptService.cs" />

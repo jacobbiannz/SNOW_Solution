@@ -226,6 +226,12 @@ namespace SNOW_Solution.Migrations
                // Id = 3
             };
 
+            var uniqueID = new UniqueID
+            {
+                ProductBarcode = 1000,
+                MyCompany = company
+            };
+
             context.Countries.Add(country);
             context.RegionalStates.Add(regionalState);
             context.Cities.Add(city);
@@ -250,7 +256,7 @@ namespace SNOW_Solution.Migrations
             context.Orderstatuses.Add(OrderStatus3);
             context.PaymentTypes.Add(PaymentType1);
             context.PaymentTypes.Add(PaymentType2);
-
+            context.UniqueIDs.Add(uniqueID);
 
             //  This method will be called after migrating to the latest version.
 

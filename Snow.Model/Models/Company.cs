@@ -18,7 +18,7 @@ namespace Snow.Model
         public string AddressLine2 { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        
+
         /*
         [ForeignKey("MyAddress")]
         public int AddressId { get; set; }
@@ -30,6 +30,11 @@ namespace Snow.Model
         //allrole(bo)
         //allCustomer(bo)
         //allPermission(bo)
+        [ForeignKey("MyUniqueID")]
+        public int UniqueID { get; set; }
+        public virtual UniqueID MyUniqueID { get; set; }
+
+
         public virtual ICollection<Store> AllStores { get; set; }
         public virtual ICollection<Product> AllProducts { get; set; }
         public virtual ICollection<Promotion> AllPromotions { get; set; }

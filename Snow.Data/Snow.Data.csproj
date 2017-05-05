@@ -141,6 +141,8 @@
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Data\SeedData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\UniqueIDRepository.cs" />
+    <Compile Include="Repository\Interface\IUniqueIDRepository.cs" />
     <Compile Include="Repository\Interface\IOrderDetailRepository.cs" />
     <Compile Include="Repository\Interface\IOrderRepository.cs" />
     <Compile Include="Repository\Interface\IOrderStatusRepository.cs" />
