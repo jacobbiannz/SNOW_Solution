@@ -82,7 +82,6 @@ namespace Snow.Web.ViewModel
 
        
         public int StoreId { get; set; }
-        public string StoreName { get; set; }
         public ICollection<StoreVM> Stores;
 
         public SubscriberVM Subscriber { get; set; }

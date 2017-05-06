@@ -107,6 +107,15 @@ namespace SNOW_Solution
             // Call update once when all roles are added
             return await UpdateAsync(user).ConfigureAwait(false);
         }
+        public virtual async Task<IdentityResult> AddStoreToUserAsync(string userId, string StoreName)
+        {
+
+            // Call update once when all roles are added 
+
+            var user = await FindByIdAsync(userId).ConfigureAwait(false);
+            user.StoreName = StoreName;
+            return await UpdateAsync(user).ConfigureAwait(false);
+        }
         public virtual async Task<IdentityResult> RemoveUserFromRolesAsync(string userId, IList<string> roles)
         {
             var userRoleStore = (IUserRoleStore<ApplicationUser, string>)Store;

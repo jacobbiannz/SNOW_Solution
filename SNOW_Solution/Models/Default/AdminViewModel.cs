@@ -27,5 +27,6 @@ namespace Snow.Web.ViewModel
         public IEnumerable<SelectListItem> RolesList { get; set; }
         public IEnumerable<SelectListItem> StoreList { get; set; }
         public int StoreId { get; set; }
+        public string StoreName { get; set; }
     }
 }

@@ -106,7 +106,7 @@ namespace Snow.Web.Controllers
             if (ModelState.IsValid)
             {
                 var store = _storeService.GetStore(userViewModel.StoreId);
-                var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email, StoreName = store.Name, Store = userViewModel.StoreId.ToString() };
+                var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email, StoreName = store.Name};
                 var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
 
                 //Add User to the selected Roles 
@@ -115,10 +115,22 @@ namespace Snow.Web.Controllers
                     if (selectedRoles != null)
                     {
                         var result = await UserManager.AddUserToRolesAsync(user.Id, selectedRoles);
+
+
                         if (!result.Succeeded)
                         {
                             ModelState.AddModelError("", result.Errors.First());
                             ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
+                            return View();
+                        }
+                    }
+                    if (store != null)
+                    {
+
+                        var result = await UserManager.AddStoreToUserAsync(user.Id, store.Name);
+                        if (!result.Succeeded)
+                        {
+                            ModelState.AddModelError("", result.Errors.First());
                             return View();
                         }
                     }
@@ -172,7 +184,7 @@ namespace Snow.Web.Controllers
                 }),
                 StoreList = subscriberVM.StoresVM.ToList().Select(x => new SelectListItem()
                 {
-                    Selected = user.Store.Contains(x.Name),
+                    Selected = user.StoreName.Contains(x.Name),
                     Text = x.Name,
                     Value = x.Name
                 })
@@ -183,7 +195,7 @@ namespace Snow.Web.Controllers
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Email,Id")] EditUserViewModel editUser, params string[] selectedRole)
+        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,StoreId")] EditUserViewModel editUser, params string[] selectedRole)
         {
             if (ModelState.IsValid)
             {
@@ -195,7 +207,8 @@ namespace Snow.Web.Controllers
 
                 user.UserName = editUser.Email;
                 user.Email = editUser.Email;
-
+                
+                user.StoreName = _storeService.GetStore(editUser.StoreId).Name;
                 var userRoles = await UserManager.GetRolesAsync(user.Id);
 
                 selectedRole = selectedRole ?? new string[] { };
