@@ -18,6 +18,7 @@ namespace Snow.Web.Mapping
               .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
              .ForMember(d => d.ContentType, opt => opt.MapFrom(s => s.ContentType))
              .ForMember(d => d.ProductId, opt => opt.MapFrom(s => s.ProductId))
+             .ForMember(d=>d.ImageId, opt=>opt.MapFrom(s=>s.ImageIdentity))
              .ReverseMap();
 
             cfg.CreateMap<Product, ProductVM>()
@@ -139,6 +140,7 @@ namespace Snow.Web.Mapping
             cfg.CreateMap<Image, ImageVM>()
              .ForMember(d => d.ImageInfoId, opt => opt.MapFrom(s => s.ImageInfoIdentity))
              .ReverseMap();
+
 
             cfg.CreateMap<Receipt, ReceiptVM>()
             .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
