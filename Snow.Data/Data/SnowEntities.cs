@@ -29,7 +29,6 @@ namespace Snow.Data
         // public int CompanyId { get; set; }
         public string Company { get; set; }
 
-        public string Store { get; set; }
         public string StoreName { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
